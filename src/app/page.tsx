@@ -155,6 +155,154 @@ const strategicProfile = [
   { dim: 'Emisi GRK', current: 'Baseline 2024', target2029: '−30%', target2030: '−45%' }
 ]
 
+// ===== INTERNATIONAL SMART CITY BENCHMARKS =====
+const worldSmartCities = [
+  {
+    city: 'Virtual Singapore',
+    country: 'Singapura',
+    flag: '🇸🇬',
+    specialty: 'Digital Twin Nasional',
+    desc: 'Singapura membangun Virtual Singapore — replika 3D seluruh kota yang digunakan untuk simulasi kebijakan, perencanaan kota, dan analisis dampak lingkungan. Pesisir Selatan mengadaptasi konsep ini menjadi Pesisir Digital Twin dengan karakteristik maritim-kepulauan.',
+    keyTech: ['3D City Model', 'Urban Simulation', 'Solar Analysis', 'Emergency Planning'],
+    color: '#0ea5e9',
+    learned: 'Digital Twin untuk simulasi kebijakan APBD dan mitigasi bencana'
+  },
+  {
+    city: 'Helsinki',
+    country: 'Finlandia',
+    flag: '🇫🇮',
+    specialty: 'Open Data & Citizen Engagement',
+    desc: 'Helsinki membuka 1.200+ dataset publik secara real-time dan membangun platform MyCity yang memungkinkan warga berpartisipasi langsung dalam perencanaan kota. Model ini menjadi inspirasi Open Data Real-Time Dashboard Pesisir Selatan.',
+    keyTech: ['Open Data Portal', 'Citizen Participation', 'Real-time APIs', 'AI Assistant'],
+    color: '#10b981',
+    learned: 'Open Data Dashboard dengan delay ≤24 jam dan API publik untuk akademisi'
+  },
+  {
+    city: 'Barcelona CityOS',
+    country: 'Spanyol',
+    flag: '🇪🇸',
+    specialty: 'IoT Terintegrasi',
+    desc: 'Barcelona membangun CityOS — sistem operasi kota yang mengintegrasikan 19.500 sensor IoT untuk manajemen lalu lintas, pencahayaan jalan, pengelolaan sampah, dan irigasi taman. Pesisir Selatan mengadaptasi dengan jaringan 1.200 sensor IoT maritim.',
+    keyTech: ['CityOS Platform', 'Smart Lighting', 'Waste Management', 'Traffic AI'],
+    color: '#f59e0b',
+    learned: 'IoT Sensor Network terintegrasi untuk 1.200 titik pemantauan maritim'
+  },
+  {
+    city: 'Copenhagen',
+    country: 'Denmark',
+    flag: '🇩🇰',
+    specialty: 'Carbon Neutral 2025',
+    desc: 'Copenhagen menargetkan kota bebas karbon pertama di dunia. Dengan smart energy grid, jalur sepeda elektrik, dan district heating system, kota ini mengurangi emisi 42% sejak 2005. Pesisir Selatan mengadaptasi dengan target emisi −45% pada 2030.',
+    keyTech: ['Carbon Neutral', 'Smart Grid', 'Green Mobility', 'District Heating'],
+    color: '#22c55e',
+    learned: 'Smart Energy Grid berbasis surya & angin untuk target emisi −45%'
+  },
+  {
+    city: 'Dubai',
+    country: 'UAE',
+    flag: '🇦🇪',
+    specialty: 'AI-First Government',
+    desc: 'Dubai meluncurkan strategi AI-First Government yang menjadikan kecerdasan buatan sebagai fondasi setiap layanan publik. Virtual assistant, autonomous transport, dan AI-powered policing. Pesisir Selatan mengadaptasi dengan AI Mayor & Virtual Sekda.',
+    keyTech: ['AI Strategy', 'Autonomous Transport', 'Virtual Assistant', 'Smart Police'],
+    color: '#8b5cf6',
+    learned: 'AI Mayor & Virtual Sekda sebagai pengganda kapasitas pimpinan daerah'
+  },
+  {
+    city: 'Seoul',
+    country: 'Korea Selatan',
+    flag: '🇰🇷',
+    specialty: 'Digital Democracy & Metaverse',
+    desc: 'Seoul membangun Metaverse Seoul — platform virtual di mana warga dapat mengakses layanan publik, menghadiri rapat, dan berpartisipasi dalam demokrasi digital. Pesisir Selatan mengadaptasi dengan Citizenship Digital ID dan e-voting pilot.',
+    keyTech: ['Metaverse Seoul', 'Digital Democracy', 'E-Voting', 'Smart Transport'],
+    color: '#f43f5e',
+    learned: 'Citizenship Digital ID dan e-voting untuk demokrasi digital maritim'
+  }
+]
+
+// ===== BRILLIANT FUTURE SUPER IDEAS =====
+const brilliantFutureIdeas = [
+  {
+    id: 1,
+    title: 'Pesisir Metaverse — Virtual Civilization',
+    desc: 'Platform metaverse maritim di mana warga dapat mengakses layanan publik, menghadiri musyawarah nagari virtual, mengunjungi destinasi wisata digital, dan berdagang UMKM di marketplace 3D. Integrasi dengan Digital Twin untuk simulasi kebijakan bersama warga.',
+    icon: Globe,
+    color: '#8b5cf6',
+    tag: 'WEB3 + DIGITAL TWIN'
+  },
+  {
+    id: 2,
+    title: 'Ocean Thermal Energy Conversion (OTEC)',
+    desc: 'Pembangkit listrik tenaga osean termal yang memanfaatkan perbedaan suhu permukaan laut hangat dan laut dalam dingin. Pilot 100 kW di perairan Pesisir Selatan — energi terbarukan 24/7 yang tidak bergantung pada cuaca, cocok untuk kepulauan.',
+    icon: Waves,
+    color: '#0ea5e9',
+    tag: 'ENERGI LAUT'
+  },
+  {
+    id: 3,
+    title: 'Pesisir Quantum-Safe Blockchain',
+    desc: 'Blockchain APBD generasi berikutnya yang tahan terhadap serangan komputer kuantum. Menggunakan algoritma lattice-based cryptography (NIST PQC standar) untuk memastikan keamanan data anggaran hingga 50 tahun ke depan.',
+    icon: Lock,
+    color: '#f43f5e',
+    tag: 'QUANTUM SECURITY'
+  },
+  {
+    id: 4,
+    title: 'Autonomous Maritime Drone Swarm',
+    desc: 'Armada drone otonom untuk patroli laut anti-IUU fishing, monitoring mangrove, search & rescue, dan pengiriman logistik ke pulau terpencil. Swarm intelligence memungkinkan 50+ drone berkoordinasi tanpa manusia.',
+    icon: Radar,
+    color: '#10b981',
+    tag: 'DRONE AI'
+  },
+  {
+    id: 5,
+    title: 'Carbon Negative Mangrove Economy',
+    desc: 'Pesisir Selatan sebagai kabupaten karbon-negatif pertama di Indonesia. Restorasi 1.000 ha mangrove menghasilkan 500.000+ karbon kredit/tahun yang diperdagangkan di pasar karbon internasional. Pendapatan karbon mengalir langsung ke warga via Sovereign Data Trust.',
+    icon: Leaf,
+    color: '#22c55e',
+    tag: 'CARBON ECONOMY'
+  },
+  {
+    id: 6,
+    title: 'Neural Interface Fishing Intelligence',
+    desc: 'Sistem AI yang memprediksi migrasi ikan dengan akurasi 90%+ menggunakan data satelit, suhu permukaan laut, arus oseanografik, dan data historis tangkapan. Informasi dikirim langsung ke smartphone nelayan — mengurangi bahan bakar 40% dan meningkatkan tangkapan 60%.',
+    icon: Brain,
+    color: '#f59e0b',
+    tag: 'AI MARITIME'
+  },
+  {
+    id: 7,
+    title: 'Holographic Nagari — Digital Adat Council',
+    desc: 'Musyawarah nagari digital di mana ninik mamak, alim ulama, dan cerdik pandai dapat berpartisipasi dari mana saja melalui hologram real-time. Keputusan adat terekam di blockchain dan terintegrasi dengan SPBE — menyatukan tradisi Minangkabau dengan teknologi terkini.',
+    icon: Users,
+    color: '#6366f1',
+    tag: 'ADAT + DIGITAL'
+  },
+  {
+    id: 8,
+    title: 'Bioluminescent Smart Coastline',
+    desc: 'Integrasi ecologi alami dengan smart monitoring. Fitoplankton bioluminescent sebagai indikator kualitas air alami — saat air bersih, pantai bercahaya biru; saat tercemar, cahaya meredup. Sensor IoT memvalidasi data bioluminescent secara real-time.',
+    icon: Sparkles,
+    color: '#06b6d4',
+    tag: 'BIO-TECH'
+  },
+  {
+    id: 9,
+    title: 'Pesisir Sovereign AI — LLM Daerah',
+    desc: 'Large Language Model yang dilatih khusus dengan 100.000+ dokumen Pesisir Selatan — peraturan daerah, data APBD, sejarah adat, kearifan lokal. Berjalan di on-premise GPU server, bukan cloud publik. Kedaulatan AI sejati: model yang memahami budaya dan kebutuhan daerahnya sendiri.',
+    icon: Cpu,
+    color: '#0ea5e9',
+    tag: 'SOVEREIGN AI'
+  },
+  {
+    id: 10,
+    title: 'Tidal Highway — Smart Sea Corridor',
+    desc: 'Koridor laut pintar yang menghubungkan seluruh kecamatan dengan autonomous electric ferry, real-time tide prediction, dan AI traffic management. Setiap dermaga dilengkapi wireless charging untuk ferry listrik. Koridor ini menjadi "jalan tol laut" pertama di Indonesia yang 100% elektrik dan otonom.',
+    icon: Anchor,
+    color: '#10b981',
+    tag: 'AUTONOMOUS MARITIME'
+  }
+]
+
 // ===== COMPONENTS =====
 
 function AnimatedCounter({ target, duration = 2, suffix = '' }: { target: number, duration?: number, suffix?: string }) {
@@ -1156,6 +1304,393 @@ function VisionImageSection() {
   )
 }
 
+// ---- ENHANCED VISION 2028 SECTION ----
+function EnhancedVisionSection() {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-80px' })
+
+  return (
+    <section ref={ref} className="relative py-20 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #0c1445 0%, #0a1628 50%, #0c2d48 100%)' }}>
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'80\' height=\'80\' viewBox=\'0 0 80 80\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%2306b6d4\' fill-opacity=\'0.15\'%3E%3Cpath d=\'M40 0l10 20H30zM0 40l20-10v20zM80 40L60 30v20zM40 80L30 60h20z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
+      </div>
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+        <SectionTitle light title="Visi Smart City Pesisir Selatan 2028" subtitle="Proyek Strategis Visi MESITA 2030 — True Paradise in the World" />
+
+        {/* Hero Image with Enhanced Overlay */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1 }}
+          className="relative rounded-2xl overflow-hidden shadow-2xl mb-12"
+        >
+          <img
+            src="/smart-city-hero-v2.png"
+            alt="Visi Smart City Pesisir Selatan 2028 - Futuristic Maritime City"
+            className="w-full h-auto object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
+            <div className="flex flex-wrap gap-2 mb-4">
+              {['Smart Marina', 'Digital Twin', 'IoT Network', 'Green Energy', 'Smart Port', 'Telemedisin'].map((tag, i) => (
+                <span key={i} className="px-3 py-1 rounded-full text-xs font-medium bg-white/15 backdrop-blur-sm text-white border border-white/20">
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <p className="text-white font-bold text-2xl md:text-3xl mb-2">PESISIR SELATAN 2028</p>
+            <p className="text-white/70 text-sm md:text-base max-w-3xl">
+              Transformasi kabupaten pesisir menjadi smart city terintegrasi, destinasi wisata bahari kelas dunia,
+              berdaya saing global, masyarakat sejahtera, dan berkelanjutan.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Detailed Vision Description Cards */}
+        <motion.div
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          variants={staggerContainer}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
+        >
+          {[
+            { title: 'Smart Marina & Waterfront', desc: 'Marina internasional dengan yacht club, promenade, dan waterfront lifestyle. Pelabuhan pintu gerbang maritim ASEAN dengan smart port, logistik efisien, dan pengangkutan ekspor terintegrasi.', icon: Anchor, color: '#0ea5e9' },
+            { title: 'Smart Tourism Paradise', desc: 'Destinasi wisata bahari kelas dunia — Boros Batu, Pantai Carocok, Mandeh Tourism Region. Peningkatan destinasi, promosi digital, dan smart tourism apps untuk 2,5 juta wisatawan/tahun.', icon: Globe, color: '#10b981' },
+            { title: 'Digital Government Excellence', desc: 'Tata kelola digital, SPBE, dan layanan publik terintegrasi 100%. Command center smart city untuk real-time city monitoring, keamanan, transportasi, kesehatan, dan pendidikan.', icon: Landmark, color: '#f59e0b' },
+            { title: 'Blue Economy Powerhouse', desc: 'Perikanan modern dengan cold storage, traceability, dan ekspor. Pertanian presisi berbasis IoT dan supply chain modern. Ekonomi biru berkontribusi 50% PDRB pada 2030.', icon: TrendingUp, color: '#22c55e' },
+            { title: 'Resilient & Green Environment', desc: 'Smart disaster management dengan early warning system dan command center. Energi terbarukan 80% dari kapasitas. Restorasi 1.000 ha mangrove. Sampah laut berkurang 60%.', icon: Leaf, color: '#06b6d4' },
+            { title: 'Inclusive Smart Living', desc: 'Telemedicine 100% pulau, smart school dan rumah belajar di setiap kecamatan. Smart housing tangguh bencana. Layanan dasar inklusif — air, sanitasi, energi untuk seluruh warga.', icon: Heart, color: '#f43f5e' }
+          ].map((item, i) => (
+            <motion.div key={i} variants={fadeInUp} whileHover={{ y: -5, scale: 1.02 }}
+              className="group relative p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:border-white/20">
+              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{ background: `radial-gradient(circle at 50% 0%, ${item.color}20, transparent 60%)` }} />
+              <div className="relative">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{ background: `${item.color}20` }}>
+                  <item.icon className="w-6 h-6" style={{ color: item.color }} />
+                </div>
+                <h4 className="text-lg font-bold text-white mb-2">{item.title}</h4>
+                <p className="text-sm text-white/60 leading-relaxed">{item.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Transformation Image */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.5, duration: 1 }}
+          className="relative rounded-2xl overflow-hidden shadow-2xl"
+        >
+          <img
+            src="/transformation-vision.png"
+            alt="Transformasi Desa Nelayan menuju Smart City"
+            className="w-full h-auto object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
+          <div className="absolute top-4 left-4 px-4 py-2 rounded-lg bg-red-500/80 backdrop-blur-sm text-white text-sm font-bold">
+            BEFORE — Desa Nelayan Tradisional
+          </div>
+          <div className="absolute top-4 right-4 px-4 py-2 rounded-lg bg-emerald-500/80 backdrop-blur-sm text-white text-sm font-bold">
+            AFTER — Smart Maritime City
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
+// ---- INTERNATIONAL SMART CITY BENCHMARK SECTION ----
+function WorldBenchmarkSection() {
+  const [activeCity, setActiveCity] = useState<number | null>(null)
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-80px' })
+
+  return (
+    <section ref={ref} className="relative py-20 md:py-32 bg-background">
+      <div className="max-w-7xl mx-auto px-4">
+        <SectionTitle
+          title="Studi Banding Smart City Terbaik Dunia"
+          subtitle="Inspirasi dari 6 kota pintar terdepan yang diadaptasi untuk konteks maritim-kepulauan Pesisir Selatan"
+        />
+        <motion.div
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          variants={staggerContainer}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          {worldSmartCities.map((city, i) => (
+            <motion.div
+              key={i}
+              variants={fadeInUp}
+              whileHover={{ y: -8, scale: 1.02 }}
+              onClick={() => setActiveCity(activeCity === i ? null : i)}
+              className="cursor-pointer group"
+            >
+              <div className="relative p-6 rounded-2xl border border-border bg-card hover:shadow-2xl transition-all duration-500 h-full"
+                style={{ borderColor: activeCity === i ? city.color : undefined }}>
+                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{ background: `radial-gradient(circle at 50% 0%, ${city.color}15, transparent 60%)` }} />
+                <div className="relative">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="text-3xl">{city.flag}</span>
+                    <div>
+                      <h3 className="font-bold text-lg text-foreground">{city.city}</h3>
+                      <p className="text-xs text-muted-foreground">{city.country}</p>
+                    </div>
+                  </div>
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full mb-3" style={{ background: `${city.color}15` }}>
+                    <Star className="w-3 h-3" style={{ color: city.color }} />
+                    <span className="text-xs font-semibold" style={{ color: city.color }}>{city.specialty}</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-3">{city.desc}</p>
+
+                  <div className="flex flex-wrap gap-1.5 mb-3">
+                    {city.keyTech.map((tech, j) => (
+                      <span key={j} className="px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="pt-3 border-t border-border">
+                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Adaptasi Pesisir Selatan</p>
+                    <p className="text-sm font-medium" style={{ color: city.color }}>{city.learned}</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
+// ---- COMMAND CENTER SIMULATION SECTION ----
+function CommandCenterSection() {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const [activeScreen, setActiveScreen] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveScreen(prev => (prev + 1) % 6)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
+
+  const screens = [
+    { label: 'Layanan Publik', icon: FileCheck, status: 'Online', metric: '47 modul aktif', color: '#0ea5e9' },
+    { label: 'Real-time Monitoring', icon: Activity, status: 'Live', metric: '1.200 sensor IoT', color: '#10b981' },
+    { label: 'Keamanan & Ketertiban', icon: Shield, status: 'Secure', metric: '0 insiden 24 jam', color: '#f59e0b' },
+    { label: 'Transportasi Pintar', icon: Car, status: 'Active', metric: '5 rute ferry smart', color: '#8b5cf6' },
+    { label: 'Kesehatan & Pendidikan', icon: Heart, status: 'Connected', metric: '100% telemedisin', color: '#f43f5e' },
+    { label: 'Pariwisata & Ekonomi', icon: TrendingUp, status: 'Growing', metric: 'Rp 850M+ PAD', color: '#22c55e' }
+  ]
+
+  return (
+    <section ref={ref} className="relative py-20 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #050d18 0%, #0a1628 50%, #0c1445 100%)' }}>
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+        <SectionTitle light title="Command Center Smart City" subtitle="Pusat kendali digital terintegrasi untuk monitoring real-time seluruh operasi kota" />
+
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+          {/* Main Screen */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 1 }}
+            className="lg:col-span-3 relative rounded-2xl overflow-hidden shadow-2xl"
+          >
+            <img
+              src="/command-center.png"
+              alt="Smart City Command Center Pesisir Selatan"
+              className="w-full h-auto object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6">
+              <div className="flex items-center gap-3 mb-3">
+                <motion.div
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 1, repeat: Infinity }}
+                  className="w-3 h-3 rounded-full bg-red-500"
+                />
+                <span className="text-white font-bold text-sm uppercase tracking-wider">LIVE — Command Center Pesisir Selatan</span>
+              </div>
+              <div className="flex items-center gap-4">
+                <span className="text-xs text-white/60">Screen: <span className="text-white font-semibold">{screens[activeScreen].label}</span></span>
+                <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: `${screens[activeScreen].color}20`, color: screens[activeScreen].color }}>
+                  {screens[activeScreen].status}
+                </span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Status Panels */}
+          <div className="lg:col-span-2 space-y-3">
+            {screens.map((screen, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: 30 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
+                whileHover={{ x: -3 }}
+                onClick={() => setActiveScreen(i)}
+                className={`cursor-pointer p-4 rounded-xl border transition-all duration-300 ${
+                  activeScreen === i ? 'border-white/30 bg-white/10' : 'border-white/10 bg-white/5 hover:bg-white/8'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: `${screen.color}20` }}>
+                    <screen.icon className="w-5 h-5" style={{ color: screen.color }} />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-semibold text-white">{screen.label}</span>
+                      {activeScreen === i && (
+                        <motion.div
+                          animate={{ opacity: [1, 0.5, 1] }}
+                          transition={{ duration: 1.5, repeat: Infinity }}
+                          className="w-2 h-2 rounded-full" style={{ backgroundColor: screen.color }}
+                        />
+                      )}
+                    </div>
+                    <span className="text-xs text-white/40">{screen.metric}</span>
+                  </div>
+                  <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: `${screen.color}20`, color: screen.color }}>
+                    {screen.status}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+
+            {/* Aggregate Stats */}
+            <div className="grid grid-cols-2 gap-3 pt-3">
+              {[
+                { label: 'Kamera CCTV', value: '240+', color: '#0ea5e9' },
+                { label: 'IoT Sensors', value: '1.200+', color: '#10b981' },
+                { label: 'Uptime', value: '99.9%', color: '#f59e0b' },
+                { label: 'Response Time', value: '<3 detik', color: '#8b5cf6' }
+              ].map((stat, i) => (
+                <div key={i} className="p-3 rounded-lg border border-white/10 bg-white/5 text-center">
+                  <p className="text-lg font-bold" style={{ color: stat.color }}>{stat.value}</p>
+                  <p className="text-xs text-white/40">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ---- BRILLIANT FUTURE SUPER IDEAS SECTION ----
+function BrilliantFutureSection() {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-80px' })
+
+  return (
+    <section ref={ref} className="relative py-20 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #0a1628 0%, #1a0a2e 50%, #0a1628 100%)' }}>
+      <div className="absolute inset-0">
+        {/* Neural network pattern - static SVG, no Math.random to avoid hydration mismatch */}
+        <svg className="absolute inset-0 w-full h-full opacity-5" viewBox="0 0 800 400">
+          {[
+            {cx:120,cy:80},{cx:350,cy:200},{cx:600,cy:50},{cx:200,cy:350},{cx:500,cy:300},
+            {cx:700,cy:150},{cx:50,cy:250},{cx:450,cy:100},{cx:650,cy:380},{cx:300,cy:50},
+            {cx:150,cy:200},{cx:550,cy:250},{cx:750,cy:80},{cx:80,cy:380},{cx:400,cy:350},
+            {cx:250,cy:150},{cx:680,cy:280},{cx:100,cy:30},{cx:500,cy:50},{cx:350,cy:380}
+          ].map((p, i) => (
+            <motion.circle
+              key={i}
+              cx={p.cx}
+              cy={p.cy}
+              r={2}
+              fill="#8b5cf6"
+              animate={{ opacity: [0.2, 0.8, 0.2] }}
+              transition={{ duration: 3 + (i % 4), repeat: Infinity, delay: (i % 5) * 0.5 }}
+            />
+          ))}
+          {[
+            {x1:120,y1:80,x2:350,y2:200},{x1:350,y1:200,x2:600,y2:50},{x1:200,y1:350,x2:500,y2:300},
+            {x1:500,y1:300,x2:700,y2:150},{x1:50,y1:250,x2:450,y2:100},{x1:450,y1:100,x2:650,y2:380},
+            {x1:300,y1:50,x2:150,y2:200},{x1:550,y1:250,x2:750,y2:80},{x1:80,y1:380,x2:400,y2:350},
+            {x1:250,y1:150,x2:680,y2:280},{x1:100,y1:30,x2:500,y2:50},{x1:350,y1:380,x2:700,y2:150},
+            {x1:600,y1:50,x2:200,y2:350},{x1:650,y1:380,x2:300,y2:50},{x1:120,y1:80,x2:550,y2:250}
+          ].map((l, i) => (
+            <motion.line
+              key={`l${i}`}
+              x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2}
+              stroke="#8b5cf6"
+              strokeWidth={0.5}
+              animate={{ opacity: [0.1, 0.3, 0.1] }}
+              transition={{ duration: 4 + (i % 5), repeat: Infinity, delay: (i % 4) * 0.7 }}
+            />
+          ))}
+        </svg>
+      </div>
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+        <motion.div
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          variants={staggerContainer}
+          className="text-center mb-12"
+        >
+          <motion.div variants={scaleIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 mb-6">
+            <Sparkles className="w-4 h-4 text-purple-400" />
+            <span className="text-sm font-semibold text-purple-300">BRILLIANT THE FUTURE</span>
+          </motion.div>
+          <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-bold text-white mb-4">
+            10 Super Idea <span style={{ background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Masa Depan</span>
+          </motion.h2>
+          <motion.p variants={fadeInUp} className="text-lg text-white/60 max-w-3xl mx-auto">
+            Konsep revolusioner yang melampaui smart city konvensional — menuju peradaban maritim digital yang belum pernah ada di dunia
+          </motion.p>
+        </motion.div>
+
+        <motion.div
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          variants={staggerContainer}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
+          {brilliantFutureIdeas.map((idea, i) => (
+            <motion.div
+              key={idea.id}
+              variants={i % 2 === 0 ? fadeInLeft : fadeInRight}
+              whileHover={{ scale: 1.02, y: -3 }}
+              className="group relative"
+            >
+              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{ background: `radial-gradient(circle at 30% 30%, ${idea.color}20, transparent 60%)` }} />
+              <div className="relative p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/8 transition-all duration-300 hover:border-white/20">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${idea.color}20` }}>
+                    <idea.icon className="w-6 h-6" style={{ color: idea.color }} />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2 flex-wrap">
+                      <span className="text-xs font-bold px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: idea.color }}>
+                        #{idea.id}
+                      </span>
+                      <span className="text-xs font-medium px-2 py-0.5 rounded-full border" style={{ borderColor: `${idea.color}40`, color: idea.color }}>
+                        {idea.tag}
+                      </span>
+                    </div>
+                    <h4 className="font-bold text-lg text-white mb-2">{idea.title}</h4>
+                    <p className="text-sm text-white/55 leading-relaxed">{idea.desc}</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
 // ---- FOOTER ----
 function Footer() {
   return (
@@ -1232,10 +1767,14 @@ export default function Home() {
       <main className="flex-1">
         <HeroSection />
         <VisionSection />
+        <EnhancedVisionSection />
         <NineValuesSection />
         <PillarsSection />
         <SuperIdeasSection />
+        <CommandCenterSection />
         <DigitalTwinSection />
+        <WorldBenchmarkSection />
+        <BrilliantFutureSection />
         <GapAnalysisSection />
         <RoadmapSection />
         <InvestmentSection />

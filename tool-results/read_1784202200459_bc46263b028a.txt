@@ -1,0 +1,847 @@
+     1→- navigation
+     2→  - link "7 Pilar" [ref=e2]
+     3→  - link "Dashboard" [ref=e3]
+     4→  - link "PGA-166" [ref=e4]
+     5→- main
+     6→  - generic
+     7→    - generic
+     8→      - image
+     9→    - generic
+    10→      - StaticText "PGA-166 · Edisi Berdaulat 2026 · KMN Berdikari Governance Layer"
+    11→      - heading "PESISIR SELATAN SMART CIVILIZATION" [level=1, ref=e49]
+    12→        - StaticText "PESISIR SELATAN"
+    13→        - StaticText "SMART CIVILIZATION"
+    14→      - paragraph
+    15→        - StaticText "Atlas 7 Pilar Peradaban Maritim Digital"
+    16→      - paragraph
+    17→        - StaticText "“Sebuah peradaban tidak diukur dari tinggi puncak menaranya, melainkan dari sejauh mana teknologi terdalamnya menyentuh nelayan terpencil dan petani paling tepi.”"
+    18→      - StaticText "GOVERNANCE"
+    19→      - StaticText "ECONOMY"
+    20→      - StaticText "MARITIME"
+    21→      - StaticText "LIVING"
+    22→      - StaticText "ENVIRONMENT"
+    23→      - StaticText "MOBILITY"
+    24→      - StaticText "DEFENSE"
+    25→      - link "Jelajahi 7 Pilar" [ref=e50]
+    26→      - link "Dashboard KPI" [ref=e51]
+    27→  - generic
+    28→    - heading "Visi 2030" [level=2, ref=e9]
+    29→    - paragraph
+    30→      - StaticText "Peradaban Maritim Digital yang Berdaulat, Berkeadilan, dan Berkelanjutan"
+    31→    - generic
+    32→      - generic
+    33→        - heading "Berdaulat" [level=3, ref=e74]
+    34→        - paragraph
+    35→    - generic
+    36→      - generic
+    37→        - heading "Berkeadilan" [level=3, ref=e75]
+    38→        - paragraph
+    39→    - generic
+    40→      - generic
+    41→        - heading "Berkelanjutan" [level=3, ref=e76]
+    42→        - paragraph
+    43→    - paragraph
+    44→      - StaticText "“Pesisir Selatan 2030 — Peradaban Maritim Digital yang Berdaulat, Berkeadilan, dan Berkelanjutan, sebagai Role Model ASEAN Smart Maritime Civilization.”"
+    45→  - generic
+    46→    - generic
+    47→      - heading "Visi Smart City Pesisir Selatan 2028" [level=2, ref=e52]
+    48→      - paragraph
+    49→        - StaticText "Proyek Strategis Visi MESITA 2030 — True Paradise in the World"
+    50→      - generic
+    51→        - image "Visi Smart City Pesisir Selatan 2028 - Futuristic Maritime City"
+    52→        - generic
+    53→      - generic
+    54→        - generic
+    55→          - heading "Smart Marina & Waterfront" [level=4, ref=e96]
+    56→      - generic
+    57→        - generic
+    58→          - heading "Smart Tourism Paradise" [level=4, ref=e97]
+    59→      - generic
+    60→        - generic
+    61→          - heading "Digital Government Excellence" [level=4, ref=e98]
+    62→      - generic
+    63→        - generic
+    64→          - heading "Blue Economy Powerhouse" [level=4, ref=e99]
+    65→      - generic
+    66→        - generic
+    67→          - heading "Resilient & Green Environment" [level=4, ref=e100]
+    68→      - generic
+    69→        - generic
+    70→          - heading "Inclusive Smart Living" [level=4, ref=e101]
+    71→      - generic
+    72→        - image "Transformasi Desa Nelayan menuju Smart City"
+    73→        - StaticText "BEFORE — Desa Nelayan Tradisional"
+    74→        - StaticText "AFTER — Smart Maritime City"
+    75→  - heading "9 Pilar Nilai Peradaban" [level=2, ref=e10]
+    76→  - paragraph
+    77→    - StaticText "Fondasi etis yang membedakan peradaban Pesisir Selatan dari sekadar proyek smart city konvensional"
+    78→  - heading "Amanah" [level=4, ref=e53]
+    79→  - paragraph
+    80→    - StaticText "Kepercayaan & integritas total"
+    81→  - StaticText "0% fraud audited"
+    82→  - heading "Keadilan" [level=4, ref=e54]
+    83→  - paragraph
+    84→    - StaticText "Distribusi merata ke 11 kecamatan"
+    85→  - StaticText "Gini ratio ≤ 0.32"
+    86→  - heading "Transparansi" [level=4, ref=e55]
+    87→  - paragraph
+    88→    - StaticText "APBD real-time open data & blockchain"
+    89→  - StaticText "Open Data Index ≥ 85%"
+    90→  - heading "Kemaslahatan" [level=4, ref=e56]
+    91→  - paragraph
+    92→    - StaticText "Manfaat nyata bagi warga paling tepi"
+    93→  - StaticText "SPM Kinerja ≥ 90%"
+    94→  - heading "Kesederhanaan" [level=4, ref=e57]
+    95→  - paragraph
+    96→    - StaticText "Birokrasi digital-first, no-paper"
+    97→  - StaticText "Paperless ratio ≥ 95%"
+    98→  - heading "Kebersamaan" [level=4, ref=e58]
+    99→  - paragraph
+   100→    - StaticText "KMN Berdikari koperasi multipihak"
+   101→  - StaticText "100K+ members aktif"
+   102→  - heading "Kelestarian" [level=4, ref=e59]
+   103→  - paragraph
+   104→    - StaticText "Mangrove, energi terbarukan, sirkular"
+   105→  - StaticText "Emisi −30%"
+   106→  - heading "Kedaulatan" [level=4, ref=e60]
+   107→  - paragraph
+   108→    - StaticText "Sovereign Data Trust, cloud daerah"
+   109→  - StaticText "On-prem DC 100%"
+   110→  - heading "Keilmuan" [level=4, ref=e61]
+   111→  - paragraph
+   112→    - StaticText "Riset BRIN/PT, akademi polymath"
+   113→  - StaticText "R&D ratio ≥ 3% APBD"
+   114→  - heading "Arsitektur 7 Pilar" [level=2, ref=e11]
+   115→  - paragraph
+   116→    - StaticText "Tujuh pilar Smart City Pesisir Selatan yang lebih sesuai dengan karakter maritim dan kepulauan"
+   117→  - generic [ref=e12] clickable [cursor:pointer, onclick]
+   118→    - generic
+   119→      - StaticText "1"
+   120→      - heading "Smart Governance" [level=3, ref=e77]
+   121→      - paragraph
+   122→        - StaticText "Tata Kelola APBD Berdaulat"
+   123→      - paragraph
+   124→        - StaticText "Reformasi APBD berbasis Zero Based Budgeting + Kinerja (PBK), Blockchain APBD & Anti-Korupsi AI, SPBE & Open Data Real-Time Dashboard."
+   125→      - StaticText "Klik untuk detail"
+   126→  - generic [ref=e13] clickable [cursor:pointer, onclick]
+   127→    - generic
+   128→      - StaticText "2"
+   129→      - heading "Smart Economy" [level=3, ref=e78]
+   130→      - paragraph
+   131→        - StaticText "Ekonomi Biru Berkeadilan"
+   132→      - paragraph
+   133→        - StaticText "Ekonomi biru berbasis maritim, BUMD Digital, Koperasi Nelayan KMN Berdikari, PAD Digital, Smart Wakaf & Green Sukuk."
+   134→      - StaticText "Klik untuk detail"
+   135→  - generic [ref=e14] clickable [cursor:pointer, onclick]
+   136→    - generic
+   137→      - StaticText "3"
+   138→      - heading "Smart Maritime" [level=3, ref=e79]
+   139→      - paragraph
+   140→        - StaticText "Pelabuhan Pintar & Logistik Kepulauan"
+   141→      - paragraph
+   142→        - StaticText "Smart Port Pesisir Selatan, Jalan Tol Laut, Drone Logistik, Armada Nelayan Digital, BTS Solar-Powered, Data Center Edge Maritim."
+   143→      - StaticText "Klik untuk detail"
+   144→  - generic [ref=e15] clickable [cursor:pointer, onclick]
+   145→    - generic
+   146→      - StaticText "4"
+   147→      - heading "Smart Living" [level=3, ref=e80]
+   148→      - paragraph
+   149→        - StaticText "Kesejahteraan Inklusif"
+   150→      - paragraph
+   151→        - StaticText "Telemedisin Kepulauan, Smart Clinic, Pendidikan Digital, Sekolah Polymath Pesisir, Smart Housing, Layanan Dasar Inklusif."
+   152→      - StaticText "Klik untuk detail"
+   153→  - generic [ref=e16] clickable [cursor:pointer, onclick]
+   154→    - generic
+   155→      - StaticText "5"
+   156→      - heading "Smart Environment" [level=3, ref=e81]
+   157→      - paragraph
+   158→        - StaticText "Ekologi Hijau Berkelanjutan"
+   159→      - paragraph
+   160→        - StaticText "Smart Energy Grid surya & angin, IoT Banjir & Tsunami Early Warning, Pengelolaan Sampah Laut, Mangrove Digital, Blue Carbon Farming."
+   161→      - StaticText "Klik untuk detail"
+   162→  - generic [ref=e17] clickable [cursor:pointer, onclick]
+   163→    - generic
+   164→      - StaticText "6"
+   165→      - heading "Smart Mobility" [level=3, ref=e82]
+   166→      - paragraph
+   167→        - StaticText "Mobilitas Berlayar Cerdas"
+   168→      - paragraph
+   169→        - StaticText "Transportasi Laut Terintegrasi, EV Chain Pesisir, Drone Logistik & Air Taxi Maritim, Smart Road & Traffic AI."
+   170→      - StaticText "Klik untuk detail"
+   171→  - generic [ref=e18] clickable [cursor:pointer, onclick]
+   172→    - generic
+   173→      - StaticText "7"
+   174→      - heading "Smart Defense" [level=3, ref=e83]
+   175→      - paragraph
+   176→        - StaticText "Pertahanan Sipil Digital"
+   177→      - paragraph
+   178→        - StaticText "Keamanan Siber Daerah & SOC, Citra Satelit & Geospasial Intelligence, Sistem Darurat Bencana, KMN Pertahanan Ekonomi."
+   179→      - StaticText "Klik untuk detail"
+   180→  - generic
+   181→    - generic
+   182→      - heading "Three-Layer Sovereign Architecture" [level=3, ref=e84]
+   183→      - StaticText "Infrastruktur"
+   184→      - StaticText "— "
+   185→      - StaticText "Fisik & Jaringan"
+   186→      - StaticText "Platform"
+   187→      - StaticText "— "
+   188→      - StaticText "Aplikasi & Data"
+   189→      - StaticText "Tata Kelola"
+   190→      - StaticText "— "
+   191→      - StaticText "Kelembagaan & Nilai"
+   192→  - heading "8 Super Idea Terobosan" [level=2, ref=e19]
+   193→  - paragraph
+   194→    - StaticText "Inovasi revolusioner yang membedakan Atlas PGA-166 dari konvensi smart city biasa"
+   195→  - generic
+   196→    - StaticText "SUPER IDEA #"
+   197→    - StaticText "1"
+   198→    - heading "Dana Kluster Inovasi Digital 3% APBD" [level=4, ref=e85]
+   199→    - paragraph
+   200→      - StaticText "Minimal 3% belanja non-gaji APBD dialokasikan untuk Kluster Inovasi Digital — dikelola KMN Berdikari, diawasi Inspektorat Digital, terekam blockchain APBD."
+   201→  - generic
+   202→    - StaticText "SUPER IDEA #"
+   203→    - StaticText "2"
+   204→    - heading "Three-Layer Sovereign Architecture" [level=4, ref=e86]
+   205→    - paragraph
+   206→      - StaticText "Setiap inisiatif smart city harus memiliki jejak di 3 lapisan: Infrastruktur (fisik & jaringan), Platform (aplikasi & data), dan Tata Kelola (kelembagaan & nilai)."
+   207→  - generic
+   208→    - StaticText "SUPER IDEA #"
+   209→    - StaticText "3"
+   210→    - heading "KMN Berdikari sebagai Governance Layer" [level=4, ref=e87]
+   211→    - paragraph
+   212→      - StaticText "Koperasi Korporasi Multipihak Nusa Berdikari sebagai lapisan tata kelola ekonomi yang beroperasi di atas APBD dan di bawah kerangka regulasi nasional."
+   213→  - generic
+   214→    - StaticText "SUPER IDEA #"
+   215→    - StaticText "4"
+   216→    - heading "AI Cross-Check Auto-Block" [level=4, ref=e88]
+   217→    - paragraph
+   218→      - StaticText "Sistem AI yang mendeteksi duplikasi anggaran, anomali harga, dan pola kroni secara real-time dalam 60 detik — otomatis memblokir transaksi mencurigakan."
+   219→  - generic
+   220→    - StaticText "SUPER IDEA #"
+   221→    - StaticText "5"
+   222→    - heading "Blockchain APBD 5-Node Validator" [level=4, ref=e89]
+   223→    - paragraph
+   224→      - StaticText "Hyperledger Fabric dengan 5 node validator independen: Inspektorat, BPK, KPK, KMN Berdikari, dan node publik akademisi. Konsensus PBFT."
+   225→  - generic
+   226→    - StaticText "SUPER IDEA #"
+   227→    - StaticText "6"
+   228→    - heading "Pesisir Digital Twin" [level=4, ref=e90]
+   229→    - paragraph
+   230→      - StaticText "Replika digital 3D seluruh kabupaten dengan topografi, batimetri, sensor IoT real-time, dan model ML untuk simulasi kebijakan dan mitigasi bencana."
+   231→  - generic
+   232→    - StaticText "SUPER IDEA #"
+   233→    - StaticText "7"
+   234→    - heading "Sovereign Data Trust" [level=4, ref=e91]
+   235→    - paragraph
+   236→      - StaticText "Warga pemilik data. Cloud daerah berdaulat. Data strategis disimpan on-premise. Kepemilikan data dikembalikan ke tangan rakyat."
+   237→  - generic
+   238→    - StaticText "SUPER IDEA #"
+   239→    - StaticText "8"
+   240→    - heading "AI Mayor & Virtual Sekda" [level=4, ref=e92]
+   241→    - paragraph
+   242→      - StaticText "Asisten LLM untuk pimpinan daerah yang mampu menganalisis data APBD, memprediksi dampak kebijakan, dan memberikan rekomendasi berbasis bukti 24/7."
+   243→  - generic
+   244→    - heading "Command Center Smart City" [level=2, ref=e62]
+   245→    - paragraph
+   246→      - StaticText "Pusat kendali digital terintegrasi untuk monitoring real-time seluruh operasi kota"
+   247→    - generic
+   248→      - image "Smart City Command Center Pesisir Selatan"
+   249→      - generic
+   250→        - StaticText "LIVE — COMMAND CENTER PESISIR SELATAN"
+   251→        - StaticText "Screen: "
+   252→        - StaticText "Kesehatan & Pendidikan"
+   253→        - StaticText "Connected"
+   254→    - generic [ref=e63] clickable [cursor:pointer, onclick]
+   255→      - StaticText "Layanan Publik"
+   256→      - StaticText "47 modul aktif"
+   257→      - StaticText "Online"
+   258→    - generic [ref=e64] clickable [cursor:pointer, onclick]
+   259→      - StaticText "Real-time Monitoring"
+   260→      - StaticText "1.200 sensor IoT"
+   261→      - StaticText "Live"
+   262→    - generic [ref=e65] clickable [cursor:pointer, onclick]
+   263→      - StaticText "Keamanan & Ketertiban"
+   264→      - StaticText "0 insiden 24 jam"
+   265→      - StaticText "Secure"
+   266→    - generic [ref=e66] clickable [cursor:pointer, onclick]
+   267→      - StaticText "Transportasi Pintar"
+   268→      - StaticText "5 rute ferry smart"
+   269→      - StaticText "Active"
+   270→    - generic [ref=e67] clickable [cursor:pointer, onclick]
+   271→      - StaticText "Kesehatan & Pendidikan"
+   272→      - StaticText "100% telemedisin"
+   273→      - StaticText "Connected"
+   274→    - generic [ref=e68] clickable [cursor:pointer, onclick]
+   275→      - StaticText "Pariwisata & Ekonomi"
+   276→      - StaticText "Rp 850M+ PAD"
+   277→      - StaticText "Growing"
+   278→    - paragraph
+   279→      - StaticText "240+"
+   280→    - paragraph
+   281→      - StaticText "Kamera CCTV"
+   282→    - paragraph
+   283→      - StaticText "1.200+"
+   284→    - paragraph
+   285→      - StaticText "IoT Sensors"
+   286→    - paragraph
+   287→      - StaticText "99.9%"
+   288→    - paragraph
+   289→      - StaticText "Uptime"
+   290→    - paragraph
+   291→      - StaticText "<3 detik"
+   292→    - paragraph
+   293→      - StaticText "Response Time"
+   294→  - generic
+   295→    - generic
+   296→      - heading "Pesisir Digital Twin" [level=2, ref=e69]
+   297→      - paragraph
+   298→        - StaticText "Replika digital 3D seluruh kabupaten untuk simulasi kebijakan dan mitigasi bencana"
+   299→      - generic
+   300→        - generic
+   301→          - heading "Base Layer" [level=3, ref=e102]
+   302→      - generic
+   303→        - generic
+   304→          - heading "Live Layer" [level=3, ref=e103]
+   305→      - generic
+   306→        - generic
+   307→          - heading "Simulation Layer" [level=3, ref=e104]
+   308→      - paragraph
+   309→        - StaticText "Rp 42 M"
+   310→      - paragraph
+   311→        - StaticText "Total Investasi 5 Tahun"
+   312→      - paragraph
+   313→        - StaticText "1.200+"
+   314→      - paragraph
+   315→        - StaticText "Sensor IoT"
+   316→      - paragraph
+   317→        - StaticText "5"
+   318→      - paragraph
+   319→        - StaticText "Model ML Prioritas"
+   320→      - paragraph
+   321→        - StaticText "DAK + Green Sukuk + BRIN"
+   322→      - paragraph
+   323→        - StaticText "Sumber Dana"
+   324→  - heading "Studi Banding Smart City Terbaik Dunia" [level=2, ref=e20]
+   325→  - paragraph
+   326→    - StaticText "Inspirasi dari 6 kota pintar terdepan yang diadaptasi untuk konteks maritim-kepulauan Pesisir Selatan"
+   327→  - generic [ref=e21] clickable [cursor:pointer, onclick]
+   328→    - generic
+   329→      - generic
+   330→        - StaticText "🇸🇬"
+   331→        - heading "Virtual Singapore" [level=3, ref=e105]
+   332→        - paragraph
+   333→        - StaticText "Digital Twin Nasional"
+   334→        - paragraph
+   335→        - StaticText "3D City Model"
+   336→        - StaticText "Urban Simulation"
+   337→        - StaticText "Solar Analysis"
+   338→        - StaticText "Emergency Planning"
+   339→        - paragraph
+   340→        - paragraph
+   341→  - generic [ref=e22] clickable [cursor:pointer, onclick]
+   342→    - generic
+   343→      - generic
+   344→        - StaticText "🇫🇮"
+   345→        - heading "Helsinki" [level=3, ref=e106]
+   346→        - paragraph
+   347→        - StaticText "Open Data & Citizen Engagement"
+   348→        - paragraph
+   349→        - StaticText "Open Data Portal"
+   350→        - StaticText "Citizen Participation"
+   351→        - StaticText "Real-time APIs"
+   352→        - StaticText "AI Assistant"
+   353→        - paragraph
+   354→        - paragraph
+   355→  - generic [ref=e23] clickable [cursor:pointer, onclick]
+   356→    - generic
+   357→      - generic
+   358→        - StaticText "🇪🇸"
+   359→        - heading "Barcelona CityOS" [level=3, ref=e107]
+   360→        - paragraph
+   361→        - StaticText "IoT Terintegrasi"
+   362→        - paragraph
+   363→        - StaticText "CityOS Platform"
+   364→        - StaticText "Smart Lighting"
+   365→        - StaticText "Waste Management"
+   366→        - StaticText "Traffic AI"
+   367→        - paragraph
+   368→        - paragraph
+   369→  - generic [ref=e24] clickable [cursor:pointer, onclick]
+   370→    - generic
+   371→      - generic
+   372→        - StaticText "🇩🇰"
+   373→        - heading "Copenhagen" [level=3, ref=e108]
+   374→        - paragraph
+   375→        - StaticText "Carbon Neutral 2025"
+   376→        - paragraph
+   377→        - StaticText "Carbon Neutral"
+   378→        - StaticText "Smart Grid"
+   379→        - StaticText "Green Mobility"
+   380→        - StaticText "District Heating"
+   381→        - paragraph
+   382→        - paragraph
+   383→  - generic [ref=e25] clickable [cursor:pointer, onclick]
+   384→    - generic
+   385→      - generic
+   386→        - StaticText "🇦🇪"
+   387→        - heading "Dubai" [level=3, ref=e109]
+   388→        - paragraph
+   389→        - StaticText "AI-First Government"
+   390→        - paragraph
+   391→        - StaticText "AI Strategy"
+   392→        - StaticText "Autonomous Transport"
+   393→        - StaticText "Virtual Assistant"
+   394→        - StaticText "Smart Police"
+   395→        - paragraph
+   396→        - paragraph
+   397→  - generic [ref=e26] clickable [cursor:pointer, onclick]
+   398→    - generic
+   399→      - generic
+   400→        - StaticText "🇰🇷"
+   401→        - heading "Seoul" [level=3, ref=e110]
+   402→        - paragraph
+   403→        - StaticText "Digital Democracy & Metaverse"
+   404→        - paragraph
+   405→        - StaticText "Metaverse Seoul"
+   406→        - StaticText "Digital Democracy"
+   407→        - StaticText "E-Voting"
+   408→        - StaticText "Smart Transport"
+   409→        - paragraph
+   410→        - paragraph
+   411→  - generic
+   412→    - image
+   413→    - generic
+   414→      - StaticText "BRILLIANT THE FUTURE"
+   415→      - heading "10 Super Idea Masa Depan" [level=2, ref=e70]
+   416→        - StaticText "10 Super Idea Masa Depan"
+   417→      - paragraph
+   418→        - StaticText "Konsep revolusioner yang melampaui smart city konvensional — menuju peradaban maritim digital yang belum pernah ada di dunia"
+   419→      - generic
+   420→        - StaticText "#"
+   421→        - StaticText "1"
+   422→        - StaticText "WEB3 + DIGITAL TWIN"
+   423→        - heading "Pesisir Metaverse — Virtual Civilization" [level=4, ref=e111]
+   424→        - paragraph
+   425→      - generic
+   426→        - StaticText "#"
+   427→        - StaticText "2"
+   428→        - StaticText "ENERGI LAUT"
+   429→        - heading "Ocean Thermal Energy Conversion (OTEC)" [level=4, ref=e112]
+   430→        - paragraph
+   431→      - generic
+   432→        - StaticText "#"
+   433→        - StaticText "3"
+   434→        - StaticText "QUANTUM SECURITY"
+   435→        - heading "Pesisir Quantum-Safe Blockchain" [level=4, ref=e113]
+   436→        - paragraph
+   437→      - generic
+   438→        - StaticText "#"
+   439→        - StaticText "4"
+   440→        - StaticText "DRONE AI"
+   441→        - heading "Autonomous Maritime Drone Swarm" [level=4, ref=e114]
+   442→        - paragraph
+   443→      - generic
+   444→        - StaticText "#"
+   445→        - StaticText "5"
+   446→        - StaticText "CARBON ECONOMY"
+   447→        - heading "Carbon Negative Mangrove Economy" [level=4, ref=e115]
+   448→        - paragraph
+   449→      - generic
+   450→        - StaticText "#"
+   451→        - StaticText "6"
+   452→        - StaticText "AI MARITIME"
+   453→        - heading "Neural Interface Fishing Intelligence" [level=4, ref=e116]
+   454→        - paragraph
+   455→      - generic
+   456→        - StaticText "#"
+   457→        - StaticText "7"
+   458→        - StaticText "ADAT + DIGITAL"
+   459→        - heading "Holographic Nagari — Digital Adat Council" [level=4, ref=e117]
+   460→        - paragraph
+   461→      - generic
+   462→        - StaticText "#"
+   463→        - StaticText "8"
+   464→        - StaticText "BIO-TECH"
+   465→        - heading "Bioluminescent Smart Coastline" [level=4, ref=e118]
+   466→        - paragraph
+   467→      - generic
+   468→        - StaticText "#"
+   469→        - StaticText "9"
+   470→        - StaticText "SOVEREIGN AI"
+   471→        - heading "Pesisir Sovereign AI — LLM Daerah" [level=4, ref=e119]
+   472→        - paragraph
+   473→          - StaticText "Large Language Model yang dilatih khusus dengan 100.000+ dokumen Pesisir Selatan — peraturan daerah, data APBD, sejarah adat, kearifan lokal. Berjalan di on-premise GPU server, bukan cloud publik. Kedaulatan AI sejati: model yang memahami budaya dan kebutuhan daerahnya sendiri."
+   474→      - generic
+   475→        - heading "Tidal Highway — Smart Sea Corridor" [level=4, ref=e120]
+   476→  - heading "GAP Analysis" [level=2, ref=e27]
+   477→  - paragraph
+   478→    - StaticText "Enam kesenjangan struktural yang harus dijembatani oleh Atlas PGA-166"
+   479→  - StaticText "Kesenjangan Digital"
+   480→  - paragraph
+   481→    - StaticText "Baseline 2024"
+   482→  - paragraph
+   483→    - StaticText "4G 62% wilayah"
+   484→  - paragraph
+   485→    - StaticText "Target 2029"
+   486→  - paragraph
+   487→    - StaticText "4G 100% + 5G pilot"
+   488→  - paragraph
+   489→    - StaticText "Instrumen"
+   490→  - paragraph
+   491→    - StaticText "Solar BTS 47 titik, DC Edge 3 lokasi, kepulauan Wi-Fi mesh"
+   492→  - StaticText "Refocusing APBD"
+   493→  - paragraph
+   494→    - StaticText "Baseline 2024"
+   495→  - paragraph
+   496→    - StaticText "IT CAPEX < 1,5%"
+   497→  - paragraph
+   498→    - StaticText "Target 2029"
+   499→  - paragraph
+   500→    - StaticText "IT CAPEX ≥ 3%"
+   501→  - paragraph
+   502→    - StaticText "Instrumen"
+   503→  - paragraph
+   504→    - StaticText "PBK + Dana Kluster Inovasi Digital 3%"
+   505→  - StaticText "Integrasi Data Vertikal"
+   506→  - paragraph
+   507→    - StaticText "Baseline 2024"
+   508→  - paragraph
+   509→    - StaticText "Silo data 12 OPD"
+   510→  - paragraph
+   511→    - StaticText "Target 2029"
+   512→  - paragraph
+   513→    - StaticText "SatuData Pesisir terpadu"
+   514→  - paragraph
+   515→    - StaticText "Instrumen"
+   516→  - paragraph
+   517→    - StaticText "SIPD, OneData Indonesia, Sovereign Data Trust"
+   518→  - StaticText "SDM Digital"
+   519→  - paragraph
+   520→    - StaticText "Baseline 2024"
+   521→  - paragraph
+   522→    - StaticText "IKD 38/100"
+   523→  - paragraph
+   524→    - StaticText "Target 2029"
+   525→  - paragraph
+   526→    - StaticText "IKD 70/100"
+   527→  - paragraph
+   528→    - StaticText "Instrumen"
+   529→  - paragraph
+   530→    - StaticText "Akademi Polymath Pesisir, sandi kompetensi 5K warga"
+   531→  - StaticText "Tata Kelola & Anti-Korupsi"
+   532→  - paragraph
+   533→    - StaticText "Baseline 2024"
+   534→  - paragraph
+   535→    - StaticText "Audit manual, Opini WDP"
+   536→  - paragraph
+   537→    - StaticText "Target 2029"
+   538→  - paragraph
+   539→    - StaticText "Audit blockchain, Opini WTP"
+   540→  - paragraph
+   541→    - StaticText "Instrumen"
+   542→  - paragraph
+   543→    - StaticText "Blockchain APBD, AI Cross-Check, APIP Digital"
+   544→  - StaticText "Akses Pembiayaan Nelayan"
+   545→  - paragraph
+   546→    - StaticText "Baseline 2024"
+   547→  - paragraph
+   548→    - StaticText "Bankable ratio 18%"
+   549→  - paragraph
+   550→    - StaticText "Target 2029"
+   551→  - paragraph
+   552→    - StaticText "Bankable ratio 65%"
+   553→  - paragraph
+   554→    - StaticText "Instrumen"
+   555→  - paragraph
+   556→    - StaticText "KMN Berdikari, Green Sukuk Daerah, Smart Wakaf"
+   557→  - heading "Roadmap 2026-2030" [level=2, ref=e28]
+   558→  - paragraph
+   559→    - StaticText "Implementasi bertahap menuju Role Model ASEAN Smart Maritime Civilization"
+   560→  - StaticText "Fase 1"
+   561→  - StaticText "2026-2027"
+   562→  - heading "Fondasi Regulasi & Pilot" [level=3, ref=e71]
+   563→  - StaticText "Pembentukan Tim SatuData Pesisir"
+   564→  - StaticText "Pilot PBK di 3 OPD prioritas"
+   565→  - StaticText "Pembangunan Data Center Edge"
+   566→  - StaticText "47 BTS Solar-Powered"
+   567→  - StaticText "Perda Smart City & KMN Berdikari"
+   568→  - StaticText "Akademi Polymath Pesisir launch"
+   569→  - StaticText "Fase 2"
+   570→  - StaticText "2028-2029"
+   571→  - heading "Akselerasi & Integrasi" [level=3, ref=e72]
+   572→  - StaticText "PBK ke seluruh OPD"
+   573→  - StaticText "Blockchain APBD live"
+   574→  - StaticText "Smart Port 3 lokasi operasional"
+   575→  - StaticText "Digital Twin Live Layer"
+   576→  - StaticText "5G pilot Painan"
+   577→  - StaticText "Telemedisin 100% pulau"
+   578→  - StaticText "Fase 3"
+   579→  - StaticText "2030"
+   580→  - heading "Kematangan & Ekspor Model" [level=3, ref=e73]
+   581→  - StaticText "Role Model ASEAN Smart Maritime"
+   582→  - StaticText "Simulation Layer Digital Twin"
+   583→  - StaticText "ASCN membership"
+   584→  - StaticText "5G full coverage"
+   585→  - StaticText "Emisi −45% achieved"
+   586→  - StaticText "Ekspor model ke kabupaten lain"
+   587→  - heading "Estimasi Investasi" [level=2, ref=e29]
+   588→  - paragraph
+   589→    - StaticText "Total investasi Rp 8.000 Miliar untuk transformasi Smart City Pesisir Selatan 2026-2028"
+   590→  - StaticText "Marina & Yacht Club"
+   591→  - StaticText "Rp "
+   592→  - StaticText "1200"
+   593→  - StaticText " M"
+   594→  - generic
+   595→    - StaticText "15"
+   596→    - StaticText "%"
+   597→  - StaticText "Waterfront & Commercial"
+   598→  - StaticText "Rp "
+   599→  - StaticText "1000"
+   600→  - StaticText " M"
+   601→  - generic
+   602→    - StaticText "12.5"
+   603→    - StaticText "%"
+   604→  - StaticText "Smart Port & Logistik"
+   605→  - StaticText "Rp "
+   606→  - StaticText "900"
+   607→  - StaticText " M"
+   608→  - generic
+   609→    - StaticText "11.3"
+   610→    - StaticText "%"
+   611→  - StaticText "Jalan & Infrastruktur"
+   612→  - StaticText "Rp "
+   613→  - StaticText "850"
+   614→  - StaticText " M"
+   615→  - generic
+   616→    - StaticText "10.6"
+   617→    - StaticText "%"
+   618→  - StaticText "Smart Government & DC"
+   619→  - StaticText "Rp "
+   620→  - StaticText "700"
+   621→  - StaticText " M"
+   622→  - generic
+   623→    - StaticText "8.8"
+   624→    - StaticText "%"
+   625→  - StaticText "Pendidikan"
+   626→  - StaticText "Rp "
+   627→  - StaticText "800"
+   628→  - StaticText " M"
+   629→  - generic
+   630→    - StaticText "10"
+   631→    - StaticText "%"
+   632→  - StaticText "Perumahan & Resort"
+   633→  - StaticText "Rp "
+   634→  - StaticText "1100"
+   635→  - StaticText " M"
+   636→  - generic
+   637→    - StaticText "13.8"
+   638→    - StaticText "%"
+   639→  - StaticText "Pertanian & Cold Storage"
+   640→  - StaticText "Rp "
+   641→  - StaticText "450"
+   642→  - StaticText " M"
+   643→  - generic
+   644→    - StaticText "5.6"
+   645→    - StaticText "%"
+   646→  - StaticText "Perikanan & Agroindustri"
+   647→  - StaticText "Rp "
+   648→  - StaticText "300"
+   649→  - StaticText " M"
+   650→  - generic
+   651→    - StaticText "3.8"
+   652→    - StaticText "%"
+   653→  - StaticText "Kesehatan"
+   654→  - StaticText "Rp "
+   655→  - StaticText "200"
+   656→  - StaticText " M"
+   657→  - generic
+   658→    - StaticText "2.5"
+   659→    - StaticText "%"
+   660→  - StaticText "Lingkungan & Energi Hijau"
+   661→  - StaticText "Rp "
+   662→  - StaticText "200"
+   663→  - StaticText " M"
+   664→  - generic
+   665→    - StaticText "2.5"
+   666→    - StaticText "%"
+   667→  - paragraph
+   668→    - StaticText "0 Miliar"
+   669→  - paragraph
+   670→    - StaticText "Total Investasi"
+   671→  - paragraph
+   672→    - StaticText "0+"
+   673→  - paragraph
+   674→    - StaticText "Lapangan Kerja Baru"
+   675→  - paragraph
+   676→    - StaticText "2,5 Juta"
+   677→  - paragraph
+   678→    - StaticText "Wisatawan/Tahun"
+   679→  - paragraph
+   680→    - StaticText "0 M+"
+   681→  - paragraph
+   682→    - StaticText "PAD per Tahun"
+   683→  - paragraph
+   684→    - StaticText "0+"
+   685→  - paragraph
+   686→    - StaticText "UMKM Go Digital"
+   687→  - paragraph
+   688→    - StaticText "1,2 Triliun+"
+   689→  - paragraph
+   690→    - StaticText "Nilai Ekspor"
+   691→  - StaticText "Break Even Point"
+   692→  - paragraph
+   693→    - StaticText "6-7 Tahun"
+   694→  - paragraph
+   695→    - StaticText "Total Net Cashflow Tahunan: Rp 1.150 – 1.300 Miliar"
+   696→  - heading "Dashboard KPI Smart City" [level=2, ref=e30]
+   697→  - paragraph
+   698→    - StaticText "Monitoring real-time pencapaian Smart City Pesisir Selatan menuju 2030"
+   699→  - StaticText "45"
+   700→  - StaticText "% tercapai"
+   701→  - heading "Layanan Publik Digital" [level=4, ref=e31]
+   702→  - StaticText "0"
+   703→  - StaticText "/ "
+   704→  - StaticText "100"
+   705→  - StaticText "%"
+   706→  - StaticText "%"
+   707→  - StaticText "62"
+   708→  - StaticText "% tercapai"
+   709→  - heading "Cakupan Internet 4G" [level=4, ref=e32]
+   710→  - StaticText "0"
+   711→  - StaticText "/ "
+   712→  - StaticText "100"
+   713→  - StaticText "%"
+   714→  - StaticText "%"
+   715→  - StaticText "58"
+   716→  - StaticText "% tercapai"
+   717→  - heading "Skor SPBE" [level=4, ref=e33]
+   718→  - StaticText "0"
+   719→  - StaticText "/ "
+   720→  - StaticText "4.5"
+   721→  - StaticText "19"
+   722→  - StaticText "% tercapai"
+   723→  - heading "Energi Terbarukan" [level=4, ref=e34]
+   724→  - StaticText "0"
+   725→  - StaticText "/ "
+   726→  - StaticText "80"
+   727→  - StaticText "%"
+   728→  - StaticText "%"
+   729→  - StaticText "65"
+   730→  - StaticText "% tercapai"
+   731→  - heading "Indeks Kepuasan Warga" [level=4, ref=e35]
+   732→  - StaticText "0"
+   733→  - StaticText "/ "
+   734→  - StaticText "85"
+   735→  - StaticText "%"
+   736→  - StaticText "%"
+   737→  - StaticText "50"
+   738→  - StaticText "% tercapai"
+   739→  - heading "UMKM Go Digital" [level=4, ref=e36]
+   740→  - StaticText "0"
+   741→  - StaticText "/ "
+   742→  - StaticText "10000"
+   743→  - heading "Profil Strategis 2024-2030" [level=2, ref=e37]
+   744→  - paragraph
+   745→    - StaticText "Transformasi Pesisir Selatan dalam angka menuju Role Model ASEAN"
+   746→  - table
+   747→    - rowgroup
+   748→      - row
+   749→        - columnheader "Dimensi" [ref=e149]
+   750→        - columnheader "2024" [ref=e150]
+   751→        - columnheader "Target 2029" [ref=e151]
+   752→        - columnheader "Target 2030" [ref=e152]
+   753→    - row
+   754→      - cell "Penduduk" [ref=e121]
+   755→      - cell "~600.000" [ref=e122]
+   756→      - cell "620.000" [ref=e123]
+   757→      - cell "640.000" [ref=e124]
+   758→    - row
+   759→      - cell "IPM" [ref=e125]
+   760→      - cell "71,2" [ref=e126]
+   761→      - cell "76,5" [ref=e127]
+   762→      - cell "79,5" [ref=e128]
+   763→    - row
+   764→      - cell "PDRB (Miliar Rp)" [ref=e129]
+   765→      - cell "~12.500" [ref=e130]
+   766→      - cell "22.000" [ref=e131]
+   767→      - cell "32.000" [ref=e132]
+   768→    - row
+   769→      - cell "Cakupan 4G" [ref=e133]
+   770→      - cell "62%" [ref=e134]
+   771→      - cell "100%" [ref=e135]
+   772→      - cell "100% + 5G" [ref=e136]
+   773→    - row
+   774→      - cell "Skor SPBE" [ref=e137]
+   775→      - cell "2,6 (Cukup)" [ref=e138]
+   776→      - cell "4,2 (Sangat Baik)" [ref=e139]
+   777→      - cell "4,5 (Excellent)" [ref=e140]
+   778→    - row
+   779→      - cell "Opini BPK" [ref=e141]
+   780→      - cell "WDP" [ref=e142]
+   781→      - cell "WTP" [ref=e143]
+   782→      - cell "WTP Berkelanjutan" [ref=e144]
+   783→    - row
+   784→      - cell "Emisi GRK" [ref=e145]
+   785→      - cell "Baseline 2024" [ref=e146]
+   786→      - cell "−30%" [ref=e147]
+   787→      - cell "−45%" [ref=e148]
+   788→  - heading "Skema Pembiayaan" [level=2, ref=e38]
+   789→  - paragraph
+   790→    - StaticText "Empat pilar pembiayaan dengan prinsip transparan, akuntabel, berkelanjutan, dan berkeadilan"
+   791→  - heading "KPBUI" [level=3, ref=e39]
+   792→  - paragraph
+   793→    - StaticText "Kerjasama Pemerintah & Badan Usaha untuk infrastruktur strategis dan layanan publik."
+   794→  - heading "Sukuk Daerah / Green Sukuk" [level=3, ref=e40]
+   795→  - paragraph
+   796→    - StaticText "Pembiayaan berbasis syariah dan lingkungan untuk proyek berkelanjutan."
+   797→  - heading "Investor Swasta & Global" [level=3, ref=e41]
+   798→  - paragraph
+   799→    - StaticText "Investasi langsung pada sektor potensial maritim, pariwisata, dan teknologi."
+   800→  - heading "Multilateral / Development Bank" [level=3, ref=e42]
+   801→  - paragraph
+   802→    - StaticText "Pendanaan proyek berkelanjutan dari lembaga multilateral internasional."
+   803→  - heading "Rencana Aksi 100 Hari Pertama" [level=2, ref=e43]
+   804→  - paragraph
+   805→    - StaticText "Langkah cepat dan terukur untuk sinyal kepemimpinan transformasi digital"
+   806→  - StaticText "Hari 1-25"
+   807→  - heading "Sinyal Kepemimpinan" [level=3, ref=e44]
+   808→  - StaticText "Pelantikan Tim SatuData Pesisir"
+   809→  - StaticText "Penandatanganan Perda Smart City"
+   810→  - StaticText "Launching Akademi Polymath"
+   811→  - StaticText "Pengumuman Open Data Policy"
+   812→  - StaticText "Hari 26-50"
+   813→  - heading "Konsolidasi Kelembagaan" [level=3, ref=e45]
+   814→  - StaticText "Pembentukan Inspektorat Digital"
+   815→  - StaticText "Pengadaan Data Center Edge"
+   816→  - StaticText "MoU dengan BRIN untuk Digital Twin"
+   817→  - StaticText "Perda KMN Berdikari"
+   818→  - StaticText "Hari 51-75"
+   819→  - heading "Quick Wins" [level=3, ref=e46]
+   820→  - StaticText "Pilot PBK di 3 OPD"
+   821→  - StaticText "Smart Clinic di 3 pulau"
+   822→  - StaticText "Blockchain APBD testnet"
+   823→  - StaticText "47 BTS Solar groundbreaking"
+   824→  - StaticText "Hari 76-100"
+   825→  - heading "Skala & Legitimasi" [level=3, ref=e47]
+   826→  - StaticText "Pilot Digital Twin Base Layer"
+   827→  - StaticText "SPBE integration 20 modul"
+   828→  - StaticText "KPBUI framework launch"
+   829→  - StaticText "ASCN membership application"
+   830→  - heading "Visi Smart City Pesisir Selatan 2028" [level=2, ref=e48]
+   831→  - paragraph
+   832→    - StaticText "Proyek Strategis Visi MESITA 2030 — True Paradise in the World"
+   833→  - generic
+   834→    - image "Visi Smart City Pesisir Selatan 2028"
+   835→    - generic
+   836→      - paragraph
+   837→      - paragraph
+   838→        - StaticText "PT. Medina Kapital Investment · Dasar Hukum: PP No. 77 Tahun 2021"
+   839→- contentinfo
+   840→  - heading "PESISIR SELATAN SMART CIVILIZATION" [level=3, ref=e5]
+   841→  - heading "7 Pilar Smart City" [level=4, ref=e6]
+   842→  - heading "Dokumen" [level=4, ref=e7]
+   843→  - heading "Dipersembahkan untuk" [level=4, ref=e8]
+   844→- region "Notifications (F8)" [ref=e1]
+   845→- button "Open Next.js Dev Tools" [expanded=false, ref=e93]
+   846→- button "Open issues overlay" [ref=e94]
+   847→- button "Collapse issues badge" [ref=e95]
