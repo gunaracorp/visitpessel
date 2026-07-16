@@ -12,7 +12,7 @@ import {
   Truck, Plane, ShieldCheck, Server, ChevronDown, Sparkles,
   Waves, Star, Target, Clock, CheckCircle2, AlertTriangle,
   Handshake, Scale, Lightbulb, BookOpen, Rocket,
-  Menu, X
+  Menu, X, Receipt, LayoutDashboard, Gavel, PieChart, FolderSearch, CloudCog
 } from 'lucide-react'
 
 // ===== ANIMATION UTILITIES =====
@@ -301,6 +301,110 @@ const brilliantFutureIdeas = [
     icon: Anchor,
     color: '#10b981',
     tag: 'AUTONOMOUS MARITIME'
+  }
+]
+
+// ===== DIGITAL GOVERNANCE SYSTEMS =====
+const digitalGovernanceSystems = [
+  {
+    id: 'PGA-165',
+    code: 'PGA-165',
+    title: 'Dashboard APBD & Blockchain Audit',
+    tagline: 'Transparansi Anggaran Real-Time Berbasis Blockchain',
+    icon: LayoutDashboard,
+    color: '#0ea5e9',
+    status: 'PRIORITY 1',
+    desc: 'Dashboard interaktif yang menampilkan seluruh alokasi dan realisasi APBD secara real-time, dilengkapi audit trail berbasis blockchain yang tidak dapat dimanipulasi. Setiap transaksi anggaran tercatam permanen di distributed ledger — menghilangkan celah korupsi dan meningkatkan akuntabilitas publik.',
+    features: [
+      'Real-time APBD tracking per OPD, per program, per kegiatan',
+      'Blockchain immutable ledger untuk setiap transaksi anggaran',
+      'AI anomaly detection untuk deteksi penyimpangan otomatis',
+      'Public dashboard dengan delay ≤24 jam — warga bisa audit mandiri',
+      'Smart contract untuk otomatisasi pencairan dana berbasis kinerja'
+    ],
+    metrics: [
+      { label: 'Transaksi Dicatat', value: '12.400+', color: '#0ea5e9' },
+      { label: 'Audit Trail', value: '100%', color: '#10b981' },
+      { label: 'Delay Data', value: '<24 jam', color: '#f59e0b' },
+      { label: 'Opini Target', value: 'WTP', color: '#8b5cf6' }
+    ],
+    kpis: ['Opini BPK WTP Berkelanjutan', 'Zero korupsi APBD terdeteksi AI', 'Open Data Index ≥85%', 'Pencairan dana otomatis via smart contract'],
+    integration: 'Terintegrasi dengan SIPD, OneData Indonesia, dan APIP Digital'
+  },
+  {
+    id: 'PGA-117',
+    code: 'PGA-117',
+    title: 'Portal SPBE & Pelayanan Publik',
+    tagline: 'Satu Pintu Digital untuk Seluruh Layanan Pemerintahan',
+    icon: FolderSearch,
+    color: '#10b981',
+    status: 'PRIORITY 1',
+    desc: 'Portal layanan publik terintegrasi berbasis Sistem Pemerintahan Berbasis Elektronik (SPBE) yang menyatukan seluruh layanan pemerintahan dalam satu platform. Warga cukup login sekali untuk mengakses 47+ modul layanan — dari KTP hingga izin usaha, dari BPJS hingga pajak daerah.',
+    features: [
+      'Single Sign-On (SSO) untuk 47+ modul layanan pemerintahan',
+      'Digital signature berbasis blockchain untuk dokumen resmi',
+      'AI chatbot pelayanan 24/7 dalam Bahasa Minang & Indonesia',
+      'Mobile-first design — akses dari smartphone nelayan di pulau terpencil',
+      'Real-time tracking status permohonan dengan notifikasi push'
+    ],
+    metrics: [
+      { label: 'Modul Layanan', value: '47+', color: '#10b981' },
+      { label: 'Layanan Online', value: '100%', color: '#0ea5e9' },
+      { label: 'Skor SPBE', value: '4.5', color: '#f59e0b' },
+      { label: 'Kepuasan Warga', value: '85%+', color: '#22c55e' }
+    ],
+    kpis: ['Skor SPBE ≥4.5 (Excellent)', '47 modul layanan 100% online', 'Waktu layanan ≤15 menit', 'Zero physical queue di seluruh OPD'],
+    integration: 'Terintegrasi dengan Dukcapil, Kemenkeu, dan sistem 12 kementerian'
+  },
+  {
+    id: 'PGA-103',
+    code: 'PGA-103',
+    title: 'Pusat Data Ekonomi Bahari',
+    tagline: 'Data Lake Ekonomi Maritim untuk Keputusan Berbasis Bukti',
+    icon: PieChart,
+    color: '#f59e0b',
+    status: 'PRIORITY 2',
+    desc: 'Pusat data terpadu yang mengumpulkan, memproses, dan memvisualisasikan seluruh data ekonomi bahari Pesisir Selatan — dari hasil tangkapan ikan, nilai ekspor, traffic pelabuhan, hingga kualitas perairan. Data lake ini menjadi fondasi keputusan kebijakan maritim yang presisi dan berbasis bukti.',
+    features: [
+      'Data lake terpadu untuk 7 sektor ekonomi bahari',
+      'Real-time dashboard perikanan, pariwisata, dan logistik pelabuhan',
+      'AI predictive analytics untuk forecasting hasil tangkapan dan ekspor',
+      'GIS mapping sumber daya kelautan dengan citra satelit BRIN',
+      'API terbuka untuk riset akademisi dan investor'
+    ],
+    metrics: [
+      { label: 'Sektor Terintegrasi', value: '7', color: '#f59e0b' },
+      { label: 'Data Points', value: '50K+', color: '#0ea5e9' },
+      { label: 'Update Frekuensi', value: 'Real-time', color: '#10b981' },
+      { label: 'Akurasi Prediksi', value: '90%+', color: '#8b5cf6' }
+    ],
+    kpis: ['Kontribusi ekonomi bahari 50% PDRB pada 2030', 'Data latency ≤1 jam', 'Prediksi hasil tangkapan akurasi 90%+', '50.000+ data points terintegrasi'],
+    integration: 'Terintegrasi dengan BRIN, BPS, Dishub Laut, dan Sovereign Data Trust'
+  },
+  {
+    id: 'PAJAK',
+    code: 'SIPD+',
+    title: 'Sistem Retribusi & Pajak Digital Daerah',
+    tagline: 'Otomatisasi Pendapatan Asli Daerah dengan Teknologi Digital',
+    icon: Receipt,
+    color: '#8b5cf6',
+    status: 'PRIORITY 2',
+    desc: 'Sistem pajak dan retribusi daerah yang sepenuhnya digital — dari penagihan, pembayaran, hingga pelaporan. Menggunakan AI untuk identifikasi potensi pajak yang belum tergarap, fraud detection otomatis, dan prediksi pendapatan daerah. Target: meningkatkan PAD 300% dalam 5 tahun.',
+    features: [
+      'E-billing & e-payment untuk seluruh pajak dan retribusi daerah',
+      'AI tax gap analysis — identifikasi potensi PAD yang belum tergarap',
+      'Blockchain-based tax receipts yang tidak dapat dimanipulasi',
+      'Automated reconciliation dengan sistem keuangan daerah',
+      'QR code-based retribusi pasar, parkir, dan izin usaha'
+    ],
+    metrics: [
+      { label: 'Target PAD', value: 'Rp 850M+', color: '#8b5cf6' },
+      { label: 'Pajak Tergarap', value: '85%+', color: '#0ea5e9' },
+      { label: 'Fraud Rate', value: '<0.1%', color: '#f43f5e' },
+      { label: 'Digital Payment', value: '95%+', color: '#10b981' }
+    ],
+    kpis: ['PAD naik 300% dalam 5 tahun', 'Tax compliance ratio ≥85%', 'Fraud detection rate 99.9%', 'Zero manual cash handling di seluruh OPD'],
+    integration: 'Terintegrasi dengan DJP, Bank Nagari, dan Dashboard APBD PGA-165'
   }
 ]
 
@@ -1587,6 +1691,236 @@ function CommandCenterSection() {
   )
 }
 
+// ---- DIGITAL GOVERNANCE SYSTEMS SECTION ----
+function DigitalGovernanceSection() {
+  const [activeSystem, setActiveSystem] = useState<number>(0)
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-80px' })
+
+  const activeData = digitalGovernanceSystems[activeSystem]
+
+  return (
+    <section id="governance-systems" ref={ref} className="relative py-12 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #071a2c 0%, #0c2d48 30%, #0a1628 70%, #0c1445 100%)' }}>
+      {/* Background grid pattern */}
+      <div className="absolute inset-0 opacity-5"
+        style={{ backgroundImage: 'linear-gradient(rgba(14,165,233,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(14,165,233,0.3) 1px, transparent 1px)', backgroundSize: '50px 50px' }} />
+
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+        {/* Section Header */}
+        <motion.div
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          variants={staggerContainer}
+          className="text-center mb-10 md:mb-16"
+        >
+          <motion.div variants={scaleIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-sky-500/30 bg-sky-500/10 mb-6">
+            <Gavel className="w-4 h-4 text-sky-400" />
+            <span className="text-xs sm:text-sm font-semibold text-sky-300">DIGITAL GOVERNANCE INFRASTRUCTURE</span>
+          </motion.div>
+          <motion.h2 variants={fadeInUp} className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4">
+            4 Sistem <span style={{ background: 'linear-gradient(135deg, #0ea5e9, #10b981)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Tata Kelola Digital</span>
+          </motion.h2>
+          <motion.p variants={fadeInUp} className="text-sm sm:text-lg text-white/60 max-w-3xl mx-auto">
+            Infrastruktur digital penopang Smart Governance — dari transparansi APBD hingga pelayanan publik, dari data ekonomi bahari hingga pajak daerah
+          </motion.p>
+        </motion.div>
+
+        {/* System Selector Tabs */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-8 md:mb-12"
+        >
+          {digitalGovernanceSystems.map((sys, i) => (
+            <motion.button
+              key={sys.id}
+              onClick={() => setActiveSystem(i)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`flex items-center gap-2 px-3 sm:px-5 py-2 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 border ${
+                activeSystem === i
+                  ? 'text-white shadow-lg'
+                  : 'border-white/10 bg-white/5 text-white/50 hover:bg-white/10 hover:text-white/80'
+              }`}
+              style={activeSystem === i ? {
+                background: `linear-gradient(135deg, ${sys.color}30, ${sys.color}15)`,
+                borderColor: `${sys.color}50`,
+                boxShadow: `0 0 20px ${sys.color}20`
+              } : {}}
+            >
+              <sys.icon className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: activeSystem === i ? sys.color : undefined }} />
+              <span className="hidden sm:inline">{sys.code}</span>
+              <span className="sm:hidden">{sys.code}</span>
+              <span className={`hidden md:inline text-white/40`}>·</span>
+              <span className="hidden md:inline truncate max-w-[180px]">{sys.title}</span>
+            </motion.button>
+          ))}
+        </motion.div>
+
+        {/* Active System Detail */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeSystem}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-8">
+              {/* Main Detail Panel */}
+              <div className="lg:col-span-3">
+                <div className="p-5 sm:p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm h-full">
+                  {/* Header */}
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl flex items-center justify-center shrink-0 shadow-lg"
+                      style={{ background: `linear-gradient(135deg, ${activeData.color}25, ${activeData.color}45)` }}>
+                      <activeData.icon className="w-7 h-7 sm:w-8 sm:h-8" style={{ color: activeData.color }} />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex flex-wrap items-center gap-2 mb-2">
+                        <span className="text-xs font-bold px-2.5 py-1 rounded-full text-white" style={{ backgroundColor: activeData.color }}>
+                          {activeData.code}
+                        </span>
+                        <span className="text-xs font-semibold px-2 py-0.5 rounded-full border" style={{ borderColor: activeData.color, color: activeData.color }}>
+                          {activeData.status}
+                        </span>
+                      </div>
+                      <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-1">{activeData.title}</h3>
+                      <p className="text-xs sm:text-sm" style={{ color: activeData.color }}>{activeData.tagline}</p>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-sm text-white/60 leading-relaxed mb-6">{activeData.desc}</p>
+
+                  {/* Features */}
+                  <div className="space-y-3 mb-6">
+                    <h4 className="text-xs font-bold text-white/40 uppercase tracking-wider">Fitur Utama</h4>
+                    {activeData.features.map((feat, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.1 + i * 0.08, duration: 0.4 }}
+                        className="flex items-start gap-3"
+                      >
+                        <div className="w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style={{ background: `${activeData.color}20` }}>
+                          <CheckCircle2 className="w-3 h-3" style={{ color: activeData.color }} />
+                        </div>
+                        <span className="text-sm text-white/70">{feat}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* Integration badge */}
+                  <div className="p-3 sm:p-4 rounded-xl border border-white/10 bg-white/5">
+                    <div className="flex items-center gap-2 mb-1">
+                      <CloudCog className="w-4 h-4" style={{ color: activeData.color }} />
+                      <span className="text-xs font-bold text-white/50 uppercase tracking-wider">Integrasi</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-white/60">{activeData.integration}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Metrics & KPI Panel */}
+              <div className="lg:col-span-2 space-y-4 md:space-y-6">
+                {/* Live Metrics */}
+                <div className="p-4 sm:p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Activity className="w-4 h-4" style={{ color: activeData.color }} />
+                    <span className="text-xs font-bold text-white/50 uppercase tracking-wider">Key Metrics</span>
+                    <motion.div
+                      animate={{ opacity: [1, 0.3, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                      className="w-2 h-2 rounded-full ml-auto"
+                      style={{ backgroundColor: activeData.color }}
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    {activeData.metrics.map((m, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.2 + i * 0.1, duration: 0.4 }}
+                        className="p-3 sm:p-4 rounded-xl border border-white/10 bg-white/5 text-center hover:bg-white/10 transition-colors"
+                      >
+                        <p className="text-lg sm:text-xl md:text-2xl font-bold" style={{ color: m.color }}>{m.value}</p>
+                        <p className="text-[10px] sm:text-xs text-white/40 mt-1">{m.label}</p>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* KPI Targets */}
+                <div className="p-4 sm:p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Target className="w-4 h-4" style={{ color: activeData.color }} />
+                    <span className="text-xs font-bold text-white/50 uppercase tracking-wider">KPI Target 2029</span>
+                  </div>
+                  <div className="space-y-3">
+                    {activeData.kpis.map((kpi, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.3 + i * 0.1, duration: 0.4 }}
+                        className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-white/5 transition-colors"
+                      >
+                        <div className="w-6 h-6 rounded-md flex items-center justify-center shrink-0" style={{ background: `${activeData.color}20` }}>
+                          <ArrowUpRight className="w-3 h-3" style={{ color: activeData.color }} />
+                        </div>
+                        <span className="text-xs sm:text-sm text-white/70">{kpi}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Connection Map */}
+                <div className="p-4 sm:p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Globe className="w-4 h-4" style={{ color: activeData.color }} />
+                    <span className="text-xs font-bold text-white/50 uppercase tracking-wider">Koneksi Antar Sistem</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {digitalGovernanceSystems.map((sys, i) => (
+                      <div
+                        key={sys.id}
+                        className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-xs font-medium transition-all ${
+                          i === activeSystem
+                            ? 'border-white/20 bg-white/10 text-white'
+                            : 'border-white/5 bg-white/3 text-white/30'
+                        }`}
+                      >
+                        <sys.icon className="w-3 h-3" style={{ color: i === activeSystem ? sys.color : undefined }} />
+                        <span>{sys.code}</span>
+                        {i !== activeSystem && (
+                          <motion.div
+                            animate={{ opacity: [0.3, 0.8, 0.3] }}
+                            transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+                            className="w-1 h-1 rounded-full bg-white/30"
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-3 flex items-center gap-2 text-white/20">
+                    <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                    <span className="text-[10px]">DATA FLOW</span>
+                    <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </section>
+  )
+}
+
 // ---- BRILLIANT FUTURE SUPER IDEAS SECTION ----
 function BrilliantFutureSection() {
   const ref = useRef<HTMLDivElement>(null)
@@ -1795,6 +2129,7 @@ export default function Home() {
         <NineValuesSection />
         <PillarsSection />
         <SuperIdeasSection />
+        <DigitalGovernanceSection />
         <CommandCenterSection />
         <DigitalTwinSection />
         <WorldBenchmarkSection />
