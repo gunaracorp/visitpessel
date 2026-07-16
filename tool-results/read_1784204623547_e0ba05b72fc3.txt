@@ -1,0 +1,1816 @@
+     1→'use client'
+     2→
+     3→import { useEffect, useState, useRef } from 'react'
+     4→import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion'
+     5→import {
+     6→  Shield, Landmark, Ship, Heart, Leaf, Car, Radar,
+     7→  Cpu, Brain, Eye, Database, Wifi, Globe, Zap,
+     8→  TrendingUp, Users, Droplets, Sun, Wind, Mountain,
+     9→  Anchor, MapPin, ChevronRight, ArrowUpRight, Activity,
+    10→  BarChart3, Bell, Satellite, Lock, FileCheck, Coins,
+    11→  Building2, GraduationCap, Stethoscope, HomeIcon, Recycle,
+    12→  Truck, Plane, ShieldCheck, Server, ChevronDown, Sparkles,
+    13→  Waves, Star, Target, Clock, CheckCircle2, AlertTriangle,
+    14→  Handshake, Scale, Lightbulb, BookOpen, Rocket,
+    15→  Menu, X
+    16→} from 'lucide-react'
+    17→
+    18→// ===== ANIMATION UTILITIES =====
+    19→const fadeInUp = {
+    20→  hidden: { opacity: 0, y: 60 },
+    21→  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] } }
+    22→}
+    23→
+    24→const fadeInLeft = {
+    25→  hidden: { opacity: 0, x: -60 },
+    26→  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] } }
+    27→}
+    28→
+    29→const fadeInRight = {
+    30→  hidden: { opacity: 0, x: 60 },
+    31→  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] } }
+    32→}
+    33→
+    34→const staggerContainer = {
+    35→  hidden: { opacity: 0 },
+    36→  visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
+    37→}
+    38→
+    39→const scaleIn = {
+    40→  hidden: { opacity: 0, scale: 0.8 },
+    41→  visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } }
+    42→}
+    43→
+    44→// ===== DATA =====
+    45→const sevenPillars = [
+    46→  {
+    47→    id: 1, name: 'Smart Governance', icon: Landmark, color: '#0ea5e9',
+    48→    tagline: 'Tata Kelola APBD Berdaulat',
+    49→    description: 'Reformasi APBD berbasis Zero Based Budgeting + Kinerja (PBK), Blockchain APBD & Anti-Korupsi AI, SPBE & Open Data Real-Time Dashboard.',
+    50→    kpis: ['Skor SPBE 4.2', 'Opini BPK WTP', 'Open Data Index ≥85%'],
+    51→    details: ['Blockchain APBD 5-node validator', 'AI Cross-Check Engine', 'Pesisir Citizenship Digital ID', 'AI Mayor & Virtual Sekda', 'Inspektorat Digital & IT Audit Forensik']
+    52→  },
+    53→  {
+    54→    id: 2, name: 'Smart Economy', icon: TrendingUp, color: '#10b981',
+    55→    tagline: 'Ekonomi Biru Berkeadilan',
+    56→    description: 'Ekonomi biru berbasis maritim, BUMD Digital, Koperasi Nelayan KMN Berdikari, PAD Digital, Smart Wakaf & Green Sukuk.',
+    57→    kpis: ['PAD Digital ≥Rp 50M', '100K UMKM on-platform', 'Bankable ratio 65%'],
+    58→    details: ['BUMD Digital & Koperasi Nelayan', 'Pajak Data & Digital Service Tax', 'Smart Wakaf & Green Sukuk', 'Sovereign Data Trust', 'Ekosistem UMKM Digital Pesisir']
+    59→  },
+    60→  {
+    61→    id: 3, name: 'Smart Maritime', icon: Anchor, color: '#6366f1',
+    62→    tagline: 'Pelabuhan Pintar & Logistik Kepulauan',
+    63→    description: 'Smart Port Pesisir Selatan, Jalan Tol Laut, Drone Logistik, Armada Nelayan Digital, BTS Solar-Powered, Data Center Edge Maritim.',
+    64→    kpis: ['Smart Port 3 lokasi', '47 BTS solar', 'DC Edge maritim'],
+    65→    details: ['Smart Port otomatis', 'Jalan Tol Laut & Drone Logistik', 'Armada Nelayan Digital', 'BTS Solar-Powered 47 titik', 'Pesisir Space & Satellite Layer']
+    66→  },
+    67→  {
+    68→    id: 4, name: 'Smart Living', icon: Heart, color: '#f43f5e',
+    69→    tagline: 'Kesejahteraan Inklusif',
+    70→    description: 'Telemedisin Kepulauan, Smart Clinic, Pendidikan Digital, Sekolah Polymath Pesisir, Smart Housing, Layanan Dasar Inklusif.',
+    71→    kpis: ['Telemedisin 100% pulau', 'SPM 90%', 'IKD 70'],
+    72→    details: ['Telemedisin Kepulauan & Smart Clinic', 'Pendidikan Digital & Sekolah Polymath', 'Smart Housing & Permukiman Tangguh', 'Layanan Dasar Inklusif', 'Pesisir Cultural Digital Archive']
+    73→  },
+    74→  {
+    75→    id: 5, name: 'Smart Environment', icon: Leaf, color: '#22c55e',
+    76→    tagline: 'Ekologi Hijau Berkelanjutan',
+    77→    description: 'Smart Energy Grid surya & angin, IoT Banjir & Tsunami Early Warning, Pengelolaan Sampah Laut, Mangrove Digital, Blue Carbon Farming.',
+    78→    kpis: ['Emisi −30%', '1.000 ha mangrove restorasi', 'Sampah laut −60%'],
+    79→    details: ['Smart Energy Grid berbasis Surya & Angin', 'IoT Banjir, Abrasi & Tsunami Early Warning', 'Pengelolaan Sampah Laut', 'Mangrove Digital Monitoring', 'Smart Agriculture & Blue Carbon Farming']
+    80→  },
+    81→  {
+    82→    id: 6, name: 'Smart Mobility', icon: Car, color: '#f59e0b',
+    83→    tagline: 'Mobilitas Berlayar Cerdas',
+    84→    description: 'Transportasi Laut Terintegrasi, EV Chain Pesisir, Drone Logistik & Air Taxi Maritim, Smart Road & Traffic AI.',
+    85→    kpis: ['Ferry smart 5 rute', '50 EV charging', '3 drone corridor'],
+    86→    details: ['Transportasi Laut Terintegrasi', 'EV Chain Motor Listrik Nelayan', 'Drone Logistik & Air Taxi Maritim', 'Smart Road & Traffic AI', 'Integrated Mobility Platform']
+    87→  },
+    88→  {
+    89→    id: 7, name: 'Smart Defense', icon: Shield, color: '#8b5cf6',
+    90→    tagline: 'Pertahanan Sipil Digital',
+    91→    description: 'Keamanan Siber Daerah & SOC, Citra Satelit & Geospasial Intelligence, Sistem Darurat Bencana, KMN Pertahanan Ekonomi.',
+    92→    kpis: ['SOC Daerah 24/7', '2 citra satelit/hari', 'EOC Digital terpadu'],
+    93→    details: ['Keamanan Siber Daerah & SOC', 'Citra Satelit & Geospasial Intelligence', 'Sistem Darurat Bencana Terintegrasi', 'KMN Berdikari Pertahanan Ekonomi', 'Perlindungan Data Strategis & UU PDP']
+    94→  }
+    95→]
+    96→
+    97→const nineValues = [
+    98→  { name: 'Amanah', icon: ShieldCheck, meaning: 'Kepercayaan & integritas total', indicator: '0% fraud audited' },
+    99→  { name: 'Keadilan', icon: Scale, meaning: 'Distribusi merata ke 11 kecamatan', indicator: 'Gini ratio ≤ 0.32' },
+   100→  { name: 'Transparansi', icon: Eye, meaning: 'APBD real-time open data & blockchain', indicator: 'Open Data Index ≥ 85%' },
+   101→  { name: 'Kemaslahatan', icon: Handshake, meaning: 'Manfaat nyata bagi warga paling tepi', indicator: 'SPM Kinerja ≥ 90%' },
+   102→  { name: 'Kesederhanaan', icon: Lightbulb, meaning: 'Birokrasi digital-first, no-paper', indicator: 'Paperless ratio ≥ 95%' },
+   103→  { name: 'Kebersamaan', icon: Users, meaning: 'KMN Berdikari koperasi multipihak', indicator: '100K+ members aktif' },
+   104→  { name: 'Kelestarian', icon: Recycle, meaning: 'Mangrove, energi terbarukan, sirkular', indicator: 'Emisi −30%' },
+   105→  { name: 'Kedaulatan', icon: Lock, meaning: 'Sovereign Data Trust, cloud daerah', indicator: 'On-prem DC 100%' },
+   106→  { name: 'Keilmuan', icon: BookOpen, meaning: 'Riset BRIN/PT, akademi polymath', indicator: 'R&D ratio ≥ 3% APBD' }
+   107→]
+   108→
+   109→const superIdeas = [
+   110→  { id: 1, title: 'Dana Kluster Inovasi Digital 3% APBD', desc: 'Minimal 3% belanja non-gaji APBD dialokasikan untuk Kluster Inovasi Digital — dikelola KMN Berdikari, diawasi Inspektorat Digital, terekam blockchain APBD.', icon: Coins, color: '#f59e0b' },
+   111→  { id: 2, title: 'Three-Layer Sovereign Architecture', desc: 'Setiap inisiatif smart city harus memiliki jejak di 3 lapisan: Infrastruktur (fisik & jaringan), Platform (aplikasi & data), dan Tata Kelola (kelembagaan & nilai).', icon: Building2, color: '#0ea5e9' },
+   112→  { id: 3, title: 'KMN Berdikari sebagai Governance Layer', desc: 'Koperasi Korporasi Multipihak Nusa Berdikari sebagai lapisan tata kelola ekonomi yang beroperasi di atas APBD dan di bawah kerangka regulasi nasional.', icon: Landmark, color: '#10b981' },
+   113→  { id: 4, title: 'AI Cross-Check Auto-Block', desc: 'Sistem AI yang mendeteksi duplikasi anggaran, anomali harga, dan pola kroni secara real-time dalam 60 detik — otomatis memblokir transaksi mencurigakan.', icon: Brain, color: '#8b5cf6' },
+   114→  { id: 5, title: 'Blockchain APBD 5-Node Validator', desc: 'Hyperledger Fabric dengan 5 node validator independen: Inspektorat, BPK, KPK, KMN Berdikari, dan node publik akademisi. Konsensus PBFT.', icon: Database, color: '#6366f1' },
+   115→  { id: 6, title: 'Pesisir Digital Twin', desc: 'Replika digital 3D seluruh kabupaten dengan topografi, batimetri, sensor IoT real-time, dan model ML untuk simulasi kebijakan dan mitigasi bencana.', icon: Globe, color: '#0ea5e9' },
+   116→  { id: 7, title: 'Sovereign Data Trust', desc: 'Warga pemilik data. Cloud daerah berdaulat. Data strategis disimpan on-premise. Kepemilikan data dikembalikan ke tangan rakyat.', icon: Lock, color: '#f43f5e' },
+   117→  { id: 8, title: 'AI Mayor & Virtual Sekda', desc: 'Asisten LLM untuk pimpinan daerah yang mampu menganalisis data APBD, memprediksi dampak kebijakan, dan memberikan rekomendasi berbasis bukti 24/7.', icon: Cpu, color: '#22c55e' }
+   118→]
+   119→
+   120→const roadmapData = [
+   121→  { phase: 'Fase 1', year: '2026-2027', title: 'Fondasi Regulasi & Pilot', items: ['Pembentukan Tim SatuData Pesisir', 'Pilot PBK di 3 OPD prioritas', 'Pembangunan Data Center Edge', '47 BTS Solar-Powered', 'Perda Smart City & KMN Berdikari', 'Akademi Polymath Pesisir launch'], color: '#0ea5e9' },
+   122→  { phase: 'Fase 2', year: '2028-2029', title: 'Akselerasi & Integrasi', items: ['PBK ke seluruh OPD', 'Blockchain APBD live', 'Smart Port 3 lokasi operasional', 'Digital Twin Live Layer', '5G pilot Painan', 'Telemedisin 100% pulau'], color: '#10b981' },
+   123→  { phase: 'Fase 3', year: '2030', title: 'Kematangan & Ekspor Model', items: ['Role Model ASEAN Smart Maritime', 'Simulation Layer Digital Twin', 'ASCN membership', '5G full coverage', 'Emisi −45% achieved', 'Ekspor model ke kabupaten lain'], color: '#f59e0b' }
+   124→]
+   125→
+   126→const investmentData = [
+   127→  { sector: 'Marina & Yacht Club', value: 1200, pct: 15 },
+   128→  { sector: 'Waterfront & Commercial', value: 1000, pct: 12.5 },
+   129→  { sector: 'Smart Port & Logistik', value: 900, pct: 11.3 },
+   130→  { sector: 'Jalan & Infrastruktur', value: 850, pct: 10.6 },
+   131→  { sector: 'Smart Government & DC', value: 700, pct: 8.8 },
+   132→  { sector: 'Pendidikan', value: 800, pct: 10 },
+   133→  { sector: 'Perumahan & Resort', value: 1100, pct: 13.8 },
+   134→  { sector: 'Pertanian & Cold Storage', value: 450, pct: 5.6 },
+   135→  { sector: 'Perikanan & Agroindustri', value: 300, pct: 3.8 },
+   136→  { sector: 'Kesehatan', value: 200, pct: 2.5 },
+   137→  { sector: 'Lingkungan & Energi Hijau', value: 200, pct: 2.5 }
+   138→]
+   139→
+   140→const kpiDashboard = [
+   141→  { label: 'Layanan Publik Digital', current: 45, target: 100, unit: '%', icon: FileCheck },
+   142→  { label: 'Cakupan Internet 4G', current: 62, target: 100, unit: '%', icon: Wifi },
+   143→  { label: 'Skor SPBE', current: 2.6, target: 4.5, unit: '', icon: BarChart3 },
+   144→  { label: 'Energi Terbarukan', current: 15, target: 80, unit: '%', icon: Sun },
+   145→  { label: 'Indeks Kepuasan Warga', current: 55, target: 85, unit: '%', icon: Users },
+   146→  { label: 'UMKM Go Digital', current: 5000, target: 10000, unit: '', icon: TrendingUp }
+   147→]
+   148→
+   149→const strategicProfile = [
+   150→  { dim: 'Penduduk', current: '~600.000', target2029: '620.000', target2030: '640.000' },
+   151→  { dim: 'IPM', current: '71,2', target2029: '76,5', target2030: '79,5' },
+   152→  { dim: 'PDRB (Miliar Rp)', current: '~12.500', target2029: '22.000', target2030: '32.000' },
+   153→  { dim: 'Cakupan 4G', current: '62%', target2029: '100%', target2030: '100% + 5G' },
+   154→  { dim: 'Skor SPBE', current: '2,6 (Cukup)', target2029: '4,2 (Sangat Baik)', target2030: '4,5 (Excellent)' },
+   155→  { dim: 'Opini BPK', current: 'WDP', target2029: 'WTP', target2030: 'WTP Berkelanjutan' },
+   156→  { dim: 'Emisi GRK', current: 'Baseline 2024', target2029: '−30%', target2030: '−45%' }
+   157→]
+   158→
+   159→// ===== INTERNATIONAL SMART CITY BENCHMARKS =====
+   160→const worldSmartCities = [
+   161→  {
+   162→    city: 'Virtual Singapore',
+   163→    country: 'Singapura',
+   164→    flag: '🇸🇬',
+   165→    specialty: 'Digital Twin Nasional',
+   166→    desc: 'Singapura membangun Virtual Singapore — replika 3D seluruh kota yang digunakan untuk simulasi kebijakan, perencanaan kota, dan analisis dampak lingkungan. Pesisir Selatan mengadaptasi konsep ini menjadi Pesisir Digital Twin dengan karakteristik maritim-kepulauan.',
+   167→    keyTech: ['3D City Model', 'Urban Simulation', 'Solar Analysis', 'Emergency Planning'],
+   168→    color: '#0ea5e9',
+   169→    learned: 'Digital Twin untuk simulasi kebijakan APBD dan mitigasi bencana'
+   170→  },
+   171→  {
+   172→    city: 'Helsinki',
+   173→    country: 'Finlandia',
+   174→    flag: '🇫🇮',
+   175→    specialty: 'Open Data & Citizen Engagement',
+   176→    desc: 'Helsinki membuka 1.200+ dataset publik secara real-time dan membangun platform MyCity yang memungkinkan warga berpartisipasi langsung dalam perencanaan kota. Model ini menjadi inspirasi Open Data Real-Time Dashboard Pesisir Selatan.',
+   177→    keyTech: ['Open Data Portal', 'Citizen Participation', 'Real-time APIs', 'AI Assistant'],
+   178→    color: '#10b981',
+   179→    learned: 'Open Data Dashboard dengan delay ≤24 jam dan API publik untuk akademisi'
+   180→  },
+   181→  {
+   182→    city: 'Barcelona CityOS',
+   183→    country: 'Spanyol',
+   184→    flag: '🇪🇸',
+   185→    specialty: 'IoT Terintegrasi',
+   186→    desc: 'Barcelona membangun CityOS — sistem operasi kota yang mengintegrasikan 19.500 sensor IoT untuk manajemen lalu lintas, pencahayaan jalan, pengelolaan sampah, dan irigasi taman. Pesisir Selatan mengadaptasi dengan jaringan 1.200 sensor IoT maritim.',
+   187→    keyTech: ['CityOS Platform', 'Smart Lighting', 'Waste Management', 'Traffic AI'],
+   188→    color: '#f59e0b',
+   189→    learned: 'IoT Sensor Network terintegrasi untuk 1.200 titik pemantauan maritim'
+   190→  },
+   191→  {
+   192→    city: 'Copenhagen',
+   193→    country: 'Denmark',
+   194→    flag: '🇩🇰',
+   195→    specialty: 'Carbon Neutral 2025',
+   196→    desc: 'Copenhagen menargetkan kota bebas karbon pertama di dunia. Dengan smart energy grid, jalur sepeda elektrik, dan district heating system, kota ini mengurangi emisi 42% sejak 2005. Pesisir Selatan mengadaptasi dengan target emisi −45% pada 2030.',
+   197→    keyTech: ['Carbon Neutral', 'Smart Grid', 'Green Mobility', 'District Heating'],
+   198→    color: '#22c55e',
+   199→    learned: 'Smart Energy Grid berbasis surya & angin untuk target emisi −45%'
+   200→  },
+   201→  {
+   202→    city: 'Dubai',
+   203→    country: 'UAE',
+   204→    flag: '🇦🇪',
+   205→    specialty: 'AI-First Government',
+   206→    desc: 'Dubai meluncurkan strategi AI-First Government yang menjadikan kecerdasan buatan sebagai fondasi setiap layanan publik. Virtual assistant, autonomous transport, dan AI-powered policing. Pesisir Selatan mengadaptasi dengan AI Mayor & Virtual Sekda.',
+   207→    keyTech: ['AI Strategy', 'Autonomous Transport', 'Virtual Assistant', 'Smart Police'],
+   208→    color: '#8b5cf6',
+   209→    learned: 'AI Mayor & Virtual Sekda sebagai pengganda kapasitas pimpinan daerah'
+   210→  },
+   211→  {
+   212→    city: 'Seoul',
+   213→    country: 'Korea Selatan',
+   214→    flag: '🇰🇷',
+   215→    specialty: 'Digital Democracy & Metaverse',
+   216→    desc: 'Seoul membangun Metaverse Seoul — platform virtual di mana warga dapat mengakses layanan publik, menghadiri rapat, dan berpartisipasi dalam demokrasi digital. Pesisir Selatan mengadaptasi dengan Citizenship Digital ID dan e-voting pilot.',
+   217→    keyTech: ['Metaverse Seoul', 'Digital Democracy', 'E-Voting', 'Smart Transport'],
+   218→    color: '#f43f5e',
+   219→    learned: 'Citizenship Digital ID dan e-voting untuk demokrasi digital maritim'
+   220→  }
+   221→]
+   222→
+   223→// ===== BRILLIANT FUTURE SUPER IDEAS =====
+   224→const brilliantFutureIdeas = [
+   225→  {
+   226→    id: 1,
+   227→    title: 'Pesisir Metaverse — Virtual Civilization',
+   228→    desc: 'Platform metaverse maritim di mana warga dapat mengakses layanan publik, menghadiri musyawarah nagari virtual, mengunjungi destinasi wisata digital, dan berdagang UMKM di marketplace 3D. Integrasi dengan Digital Twin untuk simulasi kebijakan bersama warga.',
+   229→    icon: Globe,
+   230→    color: '#8b5cf6',
+   231→    tag: 'WEB3 + DIGITAL TWIN'
+   232→  },
+   233→  {
+   234→    id: 2,
+   235→    title: 'Ocean Thermal Energy Conversion (OTEC)',
+   236→    desc: 'Pembangkit listrik tenaga osean termal yang memanfaatkan perbedaan suhu permukaan laut hangat dan laut dalam dingin. Pilot 100 kW di perairan Pesisir Selatan — energi terbarukan 24/7 yang tidak bergantung pada cuaca, cocok untuk kepulauan.',
+   237→    icon: Waves,
+   238→    color: '#0ea5e9',
+   239→    tag: 'ENERGI LAUT'
+   240→  },
+   241→  {
+   242→    id: 3,
+   243→    title: 'Pesisir Quantum-Safe Blockchain',
+   244→    desc: 'Blockchain APBD generasi berikutnya yang tahan terhadap serangan komputer kuantum. Menggunakan algoritma lattice-based cryptography (NIST PQC standar) untuk memastikan keamanan data anggaran hingga 50 tahun ke depan.',
+   245→    icon: Lock,
+   246→    color: '#f43f5e',
+   247→    tag: 'QUANTUM SECURITY'
+   248→  },
+   249→  {
+   250→    id: 4,
+   251→    title: 'Autonomous Maritime Drone Swarm',
+   252→    desc: 'Armada drone otonom untuk patroli laut anti-IUU fishing, monitoring mangrove, search & rescue, dan pengiriman logistik ke pulau terpencil. Swarm intelligence memungkinkan 50+ drone berkoordinasi tanpa manusia.',
+   253→    icon: Radar,
+   254→    color: '#10b981',
+   255→    tag: 'DRONE AI'
+   256→  },
+   257→  {
+   258→    id: 5,
+   259→    title: 'Carbon Negative Mangrove Economy',
+   260→    desc: 'Pesisir Selatan sebagai kabupaten karbon-negatif pertama di Indonesia. Restorasi 1.000 ha mangrove menghasilkan 500.000+ karbon kredit/tahun yang diperdagangkan di pasar karbon internasional. Pendapatan karbon mengalir langsung ke warga via Sovereign Data Trust.',
+   261→    icon: Leaf,
+   262→    color: '#22c55e',
+   263→    tag: 'CARBON ECONOMY'
+   264→  },
+   265→  {
+   266→    id: 6,
+   267→    title: 'Neural Interface Fishing Intelligence',
+   268→    desc: 'Sistem AI yang memprediksi migrasi ikan dengan akurasi 90%+ menggunakan data satelit, suhu permukaan laut, arus oseanografik, dan data historis tangkapan. Informasi dikirim langsung ke smartphone nelayan — mengurangi bahan bakar 40% dan meningkatkan tangkapan 60%.',
+   269→    icon: Brain,
+   270→    color: '#f59e0b',
+   271→    tag: 'AI MARITIME'
+   272→  },
+   273→  {
+   274→    id: 7,
+   275→    title: 'Holographic Nagari — Digital Adat Council',
+   276→    desc: 'Musyawarah nagari digital di mana ninik mamak, alim ulama, dan cerdik pandai dapat berpartisipasi dari mana saja melalui hologram real-time. Keputusan adat terekam di blockchain dan terintegrasi dengan SPBE — menyatukan tradisi Minangkabau dengan teknologi terkini.',
+   277→    icon: Users,
+   278→    color: '#6366f1',
+   279→    tag: 'ADAT + DIGITAL'
+   280→  },
+   281→  {
+   282→    id: 8,
+   283→    title: 'Bioluminescent Smart Coastline',
+   284→    desc: 'Integrasi ecologi alami dengan smart monitoring. Fitoplankton bioluminescent sebagai indikator kualitas air alami — saat air bersih, pantai bercahaya biru; saat tercemar, cahaya meredup. Sensor IoT memvalidasi data bioluminescent secara real-time.',
+   285→    icon: Sparkles,
+   286→    color: '#06b6d4',
+   287→    tag: 'BIO-TECH'
+   288→  },
+   289→  {
+   290→    id: 9,
+   291→    title: 'Pesisir Sovereign AI — LLM Daerah',
+   292→    desc: 'Large Language Model yang dilatih khusus dengan 100.000+ dokumen Pesisir Selatan — peraturan daerah, data APBD, sejarah adat, kearifan lokal. Berjalan di on-premise GPU server, bukan cloud publik. Kedaulatan AI sejati: model yang memahami budaya dan kebutuhan daerahnya sendiri.',
+   293→    icon: Cpu,
+   294→    color: '#0ea5e9',
+   295→    tag: 'SOVEREIGN AI'
+   296→  },
+   297→  {
+   298→    id: 10,
+   299→    title: 'Tidal Highway — Smart Sea Corridor',
+   300→    desc: 'Koridor laut pintar yang menghubungkan seluruh kecamatan dengan autonomous electric ferry, real-time tide prediction, dan AI traffic management. Setiap dermaga dilengkapi wireless charging untuk ferry listrik. Koridor ini menjadi "jalan tol laut" pertama di Indonesia yang 100% elektrik dan otonom.',
+   301→    icon: Anchor,
+   302→    color: '#10b981',
+   303→    tag: 'AUTONOMOUS MARITIME'
+   304→  }
+   305→]
+   306→
+   307→// ===== COMPONENTS =====
+   308→
+   309→function AnimatedCounter({ target, duration = 2, suffix = '' }: { target: number, duration?: number, suffix?: string }) {
+   310→  const [count, setCount] = useState(0)
+   311→  const ref = useRef<HTMLSpanElement>(null)
+   312→  const isInView = useInView(ref, { once: true, margin: '-100px' })
+   313→
+   314→  useEffect(() => {
+   315→    if (!isInView) return
+   316→    let start = 0
+   317→    const increment = target / (duration * 60)
+   318→    const timer = setInterval(() => {
+   319→      start += increment
+   320→      if (start >= target) {
+   321→        setCount(target)
+   322→        clearInterval(timer)
+   323→      } else {
+   324→        setCount(Math.floor(start))
+   325→      }
+   326→    }, 1000 / 60)
+   327→    return () => clearInterval(timer)
+   328→  }, [isInView, target, duration])
+   329→
+   330→  return <span ref={ref}>{count.toLocaleString()}{suffix}</span>
+   331→}
+   332→
+   333→function SectionTitle({ title, subtitle, light = false }: { title: string, subtitle?: string, light?: boolean }) {
+   334→  const ref = useRef<HTMLDivElement>(null)
+   335→  const isInView = useInView(ref, { once: true, margin: '-80px' })
+   336→
+   337→  return (
+   338→    <motion.div
+   339→      ref={ref}
+   340→      initial="hidden"
+   341→      animate={isInView ? 'visible' : 'hidden'}
+   342→      variants={staggerContainer}
+   343→      className="text-center mb-12 md:mb-16"
+   344→    >
+   345→      <motion.h2
+   346→        variants={fadeInUp}
+   347→        className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 ${light ? 'text-white' : 'text-foreground'}`}
+   348→      >
+   349→        {title}
+   350→      </motion.h2>
+   351→      {subtitle && (
+   352→        <motion.p variants={fadeInUp} className={`text-sm sm:text-lg md:text-xl max-w-3xl mx-auto ${light ? 'text-white/80' : 'text-muted-foreground'}`}>
+   353→          {subtitle}
+   354→        </motion.p>
+   355→      )}
+   356→      <motion.div
+   357→        variants={scaleIn}
+   358→        className="mt-4 mx-auto w-24 h-1 rounded-full"
+   359→        style={{ background: 'linear-gradient(90deg, #0ea5e9, #10b981, #f59e0b)' }}
+   360→      />
+   361→    </motion.div>
+   362→  )
+   363→}
+   364→
+   365→// ---- HERO SECTION ----
+   366→function HeroSection() {
+   367→  const [mounted, setMounted] = useState(false)
+   368→  const containerRef = useRef<HTMLDivElement>(null)
+   369→  const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start start', 'end start'] })
+   370→  const y = useTransform(scrollYProgress, [0, 1], [0, 300])
+   371→  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+   372→
+   373→  useEffect(() => { setMounted(true) }, [])
+   374→
+   375→  return (
+   376→    <section ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ position: 'relative' }}>
+   377→      {/* Animated Background */}
+   378→      <div className="absolute inset-0">
+   379→        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #0c1445 0%, #0a1628 30%, #0d2137 60%, #071a2c 100%)' }} />
+   380→        {/* Animated gradient orbs */}
+   381→        <motion.div
+   382→          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+   383→          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+   384→          className="absolute top-1/4 left-1/4 w-48 h-48 sm:w-96 sm:h-96 rounded-full"
+   385→          style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.3) 0%, transparent 70%)' }}
+   386→        />
+   387→        <motion.div
+   388→          animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.4, 0.2] }}
+   389→          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+   390→          className="absolute bottom-1/4 right-1/4 w-40 h-40 sm:w-80 sm:h-80 rounded-full"
+   391→          style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.3) 0%, transparent 70%)' }}
+   392→        />
+   393→        <motion.div
+   394→          animate={{ scale: [1, 1.3, 1], opacity: [0.15, 0.3, 0.15] }}
+   395→          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+   396→          className="absolute top-1/2 right-1/3 w-36 h-36 sm:w-72 sm:h-72 rounded-full"
+   397→          style={{ background: 'radial-gradient(circle, rgba(245,158,11,0.2) 0%, transparent 70%)' }}
+   398→        />
+   399→        {/* Particle system */}
+   400→        {mounted && Array.from({ length: 15 }).map((_, i) => (
+   401→          <motion.div
+   402→            key={i}
+   403→            className="absolute w-1 h-1 rounded-full bg-white/30"
+   404→            style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }}
+   405→            animate={{ y: [0, -30, 0], opacity: [0, 1, 0] }}
+   406→            transition={{ duration: 3 + Math.random() * 4, repeat: Infinity, delay: Math.random() * 5, ease: 'easeInOut' }}
+   407→          />
+   408→        ))}
+   409→        {/* Ocean waves at bottom */}
+   410→        <div className="absolute bottom-0 left-0 right-0">
+   411→          <svg viewBox="0 0 1440 200" className="w-full" preserveAspectRatio="none">
+   412→            <motion.path
+   413→              d="M0,100 C240,150 480,50 720,100 C960,150 1200,50 1440,100 L1440,200 L0,200 Z"
+   414→              fill="rgba(14,165,233,0.1)"
+   415→              animate={{ d: [
+   416→                'M0,100 C240,150 480,50 720,100 C960,150 1200,50 1440,100 L1440,200 L0,200 Z',
+   417→                'M0,120 C240,70 480,130 720,80 C960,130 1200,70 1440,120 L1440,200 L0,200 Z',
+   418→                'M0,100 C240,150 480,50 720,100 C960,150 1200,50 1440,100 L1440,200 L0,200 Z'
+   419→              ] }}
+   420→              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+   421→            />
+   422→            <motion.path
+   423→              d="M0,130 C300,170 600,90 900,130 C1100,160 1300,100 1440,130 L1440,200 L0,200 Z"
+   424→              fill="rgba(16,185,129,0.08)"
+   425→              animate={{ d: [
+   426→                'M0,130 C300,170 600,90 900,130 C1100,160 1300,100 1440,130 L1440,200 L0,200 Z',
+   427→                'M0,140 C300,100 600,160 900,120 C1100,150 1300,110 1440,140 L1440,200 L0,200 Z',
+   428→                'M0,130 C300,170 600,90 900,130 C1100,160 1300,100 1440,130 L1440,200 L0,200 Z'
+   429→              ] }}
+   430→              transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+   431→            />
+   432→          </svg>
+   433→        </div>
+   434→      </div>
+   435→
+   436→      <motion.div style={{ y, opacity }} className="relative z-10 text-center px-4 max-w-6xl mx-auto">
+   437→        <motion.div
+   438→          initial={{ opacity: 0, scale: 0.5 }}
+   439→          animate={{ opacity: 1, scale: 1 }}
+   440→          transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+   441→          className="mb-6"
+   442→        >
+   443→          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-xs sm:text-sm text-white/80">
+   444→            <Sparkles className="w-4 h-4 text-yellow-400" />
+   445→            PGA-166 · Edisi Berdaulat 2026 · KMN Berdikari Governance Layer
+   446→          </span>
+   447→        </motion.div>
+   448→
+   449→        <motion.h1
+   450→          initial={{ opacity: 0, y: 40 }}
+   451→          animate={{ opacity: 1, y: 0 }}
+   452→          transition={{ duration: 1, delay: 0.3 }}
+   453→          className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold text-white mb-4 leading-tight"
+   454→        >
+   455→          <span className="block" style={{ background: 'linear-gradient(135deg, #0ea5e9, #22d3ee, #10b981)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+   456→            PESISIR SELATAN
+   457→          </span>
+   458→          <span className="block mt-2" style={{ background: 'linear-gradient(135deg, #f59e0b, #fbbf24, #10b981)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+   459→            SMART CIVILIZATION
+   460→          </span>
+   461→        </motion.h1>
+   462→
+   463→        <motion.p
+   464→          initial={{ opacity: 0, y: 30 }}
+   465→          animate={{ opacity: 1, y: 0 }}
+   466→          transition={{ duration: 1, delay: 0.6 }}
+   467→          className="text-lg md:text-2xl text-white/70 max-w-3xl mx-auto mb-4"
+   468→        >
+   469→          Atlas 7 Pilar Peradaban Maritim Digital
+   470→        </motion.p>
+   471→
+   472→        <motion.p
+   473→          initial={{ opacity: 0, y: 20 }}
+   474→          animate={{ opacity: 1, y: 0 }}
+   475→          transition={{ duration: 1, delay: 0.8 }}
+   476→          className="text-base md:text-lg text-white/50 max-w-2xl mx-auto mb-8 italic"
+   477→        >
+   478→          &ldquo;Sebuah peradaban tidak diukur dari tinggi puncak menaranya, melainkan dari sejauh mana teknologi terdalamnya menyentuh nelayan terpencil dan petani paling tepi.&rdquo;
+   479→        </motion.p>
+   480→
+   481→        <motion.div
+   482→          initial={{ opacity: 0, y: 20 }}
+   483→          animate={{ opacity: 1, y: 0 }}
+   484→          transition={{ duration: 1, delay: 1 }}
+   485→          className="flex flex-wrap gap-3 justify-center mb-10"
+   486→        >
+   487→          {['GOVERNANCE', 'ECONOMY', 'MARITIME', 'LIVING', 'ENVIRONMENT', 'MOBILITY', 'DEFENSE'].map((p, i) => (
+   488→            <motion.span
+   489→              key={p}
+   490→              initial={{ opacity: 0, scale: 0 }}
+   491→              animate={{ opacity: 1, scale: 1 }}
+   492→              transition={{ delay: 1.2 + i * 0.1, type: 'spring', stiffness: 200 }}
+   493→              className="px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-xs md:text-sm font-semibold border backdrop-blur-sm"
+   494→              style={{
+   495→                borderColor: `${sevenPillars[i].color}40`,
+   496→                color: sevenPillars[i].color,
+   497→                backgroundColor: `${sevenPillars[i].color}15`
+   498→              }}
+   499→            >
+   500→              {p}
+   501→            </motion.span>
+   502→          ))}
+   503→        </motion.div>
+   504→
+   505→        <motion.div
+   506→          initial={{ opacity: 0, y: 20 }}
+   507→          animate={{ opacity: 1, y: 0 }}
+   508→          transition={{ duration: 1, delay: 1.5 }}
+   509→          className="flex flex-col sm:flex-row gap-4 justify-center"
+   510→        >
+   511→          <a href="#pillars" className="inline-flex items-center gap-2 px-5 py-3 sm:px-8 sm:py-4 rounded-xl text-white font-bold text-base sm:text-lg shadow-2xl hover:shadow-3xl transition-all hover:scale-105"
+   512→            style={{ background: 'linear-gradient(135deg, #0ea5e9, #10b981)' }}>
+   513→            Jelajahi 7 Pilar <ChevronRight className="w-5 h-5" />
+   514→          </a>
+   515→          <a href="#dashboard" className="inline-flex items-center gap-2 px-5 py-3 sm:px-8 sm:py-4 rounded-xl text-white font-bold text-base sm:text-lg border-2 border-white/30 hover:bg-white/10 transition-all hover:scale-105">
+   516→            Dashboard KPI <Activity className="w-5 h-5" />
+   517→          </a>
+   518→        </motion.div>
+   519→
+   520→        <motion.div
+   521→          initial={{ opacity: 0 }}
+   522→          animate={{ opacity: 1 }}
+   523→          transition={{ delay: 2, duration: 1 }}
+   524→          className="mt-16"
+   525→        >
+   526→          <motion.div
+   527→            animate={{ y: [0, 10, 0] }}
+   528→            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+   529→          >
+   530→            <ChevronDown className="w-8 h-8 text-white/40 mx-auto" />
+   531→          </motion.div>
+   532→        </motion.div>
+   533→      </motion.div>
+   534→    </section>
+   535→  )
+   536→}
+   537→
+   538→// ---- VISION SECTION ----
+   539→function VisionSection() {
+   540→  const ref = useRef<HTMLDivElement>(null)
+   541→  const isInView = useInView(ref, { once: true, margin: '-100px' })
+   542→
+   543→  return (
+   544→    <section ref={ref} className="relative py-12 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #071a2c 0%, #0c2d48 50%, #0a1628 100%)' }}>
+   545→      <div className="absolute inset-0 opacity-5">
+   546→        <div className="absolute inset-0" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
+   547→      </div>
+   548→      <div className="max-w-6xl mx-auto px-4">
+   549→        <SectionTitle light title="Visi 2030" subtitle="Peradaban Maritim Digital yang Berdaulat, Berkeadilan, dan Berkelanjutan" />
+   550→        <motion.div
+   551→          initial="hidden"
+   552→          animate={isInView ? 'visible' : 'hidden'}
+   553→          variants={staggerContainer}
+   554→          className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8"
+   555→        >
+   556→          {[
+   557→            { title: 'Berdaulat', desc: 'Data warga adalah milik warga, infrastruktur kritikal dimiliki daerah, dan kebijakan tidak diiktisarkan oleh kepentingan asing.', icon: Shield, color: '#0ea5e9' },
+   558→            { title: 'Berkeadilan', desc: 'Teknologi harus lebih dahulu menyentuh nelayan terpencil, bukan hanya kelas menengah perkotaan.', icon: Scale, color: '#10b981' },
+   559→            { title: 'Berkelanjutan', desc: 'Setiap investasi harus memperhitungkan generasi ke-7 ke depan, bukan hanya periode anggaran lima tahun.', icon: Leaf, color: '#f59e0b' }
+   560→          ].map((item, i) => (
+   561→            <motion.div key={i} variants={fadeInUp} className="relative group">
+   562→              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"
+   563→                style={{ background: `radial-gradient(circle, ${item.color}30, transparent)` }} />
+   564→              <div className="relative p-5 sm:p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-500 hover:border-white/20 hover:scale-[1.02]">
+   565→                <div className="w-16 h-16 rounded-xl flex items-center justify-center mb-6" style={{ background: `${item.color}20` }}>
+   566→                  <item.icon className="w-8 h-8" style={{ color: item.color }} />
+   567→                </div>
+   568→                <h3 className="text-2xl font-bold text-white mb-3">{item.title}</h3>
+   569→                <p className="text-white/60 leading-relaxed">{item.desc}</p>
+   570→              </div>
+   571→            </motion.div>
+   572→          ))}
+   573→        </motion.div>
+   574→
+   575→        <motion.div
+   576→          initial={{ opacity: 0, y: 40 }}
+   577→          animate={isInView ? { opacity: 1, y: 0 } : {}}
+   578→          transition={{ delay: 0.6, duration: 0.8 }}
+   579→          className="mt-16 p-5 sm:p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm"
+   580→        >
+   581→          <p className="text-center text-white/80 text-lg md:text-xl italic max-w-4xl mx-auto">
+   582→            &ldquo;Pesisir Selatan 2030 — Peradaban Maritim Digital yang Berdaulat, Berkeadilan, dan Berkelanjutan,
+   583→            sebagai <span className="font-bold" style={{ color: '#f59e0b' }}>Role Model ASEAN Smart Maritime Civilization</span>.&rdquo;
+   584→          </p>
+   585→        </motion.div>
+   586→      </div>
+   587→    </section>
+   588→  )
+   589→}
+   590→
+   591→// ---- NINE VALUES SECTION ----
+   592→function NineValuesSection() {
+   593→  const ref = useRef<HTMLDivElement>(null)
+   594→  const isInView = useInView(ref, { once: true, margin: '-80px' })
+   595→
+   596→  return (
+   597→    <section ref={ref} className="relative py-12 md:py-32 bg-background">
+   598→      <div className="max-w-7xl mx-auto px-4">
+   599→        <SectionTitle
+   600→          title="9 Pilar Nilai Peradaban"
+   601→          subtitle="Fondasi etis yang membedakan peradaban Pesisir Selatan dari sekadar proyek smart city konvensional"
+   602→        />
+   603→        <motion.div
+   604→          initial="hidden"
+   605→          animate={isInView ? 'visible' : 'hidden'}
+   606→          variants={staggerContainer}
+   607→          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+   608→        >
+   609→          {nineValues.map((v, i) => (
+   610→            <motion.div
+   611→              key={i}
+   612→              variants={fadeInUp}
+   613→              whileHover={{ scale: 1.03, y: -5 }}
+   614→              className="group relative p-4 sm:p-6 rounded-xl border border-border bg-card hover:shadow-xl transition-all duration-300"
+   615→            >
+   616→              <div className="flex items-start gap-4">
+   617→                <div className="w-12 h-12 rounded-lg flex items-center justify-center shrink-0 bg-primary/10 group-hover:bg-primary/20 transition-colors">
+   618→                  <v.icon className="w-6 h-6 text-primary" />
+   619→                </div>
+   620→                <div className="flex-1">
+   621→                  <h4 className="font-bold text-base sm:text-lg text-foreground">{v.name}</h4>
+   622→                  <p className="text-sm text-muted-foreground mt-1">{v.meaning}</p>
+   623→                  <div className="mt-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 text-xs font-medium text-primary">
+   624→                    <Target className="w-3 h-3" />
+   625→                    {v.indicator}
+   626→                  </div>
+   627→                </div>
+   628→              </div>
+   629→            </motion.div>
+   630→          ))}
+   631→        </motion.div>
+   632→      </div>
+   633→    </section>
+   634→  )
+   635→}
+   636→
+   637→// ---- 7 PILLARS SECTION ----
+   638→function PillarsSection() {
+   639→  const [activePillar, setActivePillar] = useState<number | null>(null)
+   640→  const ref = useRef<HTMLDivElement>(null)
+   641→  const isInView = useInView(ref, { once: true, margin: '-80px' })
+   642→
+   643→  return (
+   644→    <section id="pillars" ref={ref} className="relative py-12 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #f8fafc 0%, #e0f2fe 50%, #f0fdf4 100%)' }}>
+   645→      <div className="max-w-7xl mx-auto px-4">
+   646→        <SectionTitle
+   647→          title="Arsitektur 7 Pilar"
+   648→          subtitle="Tujuh pilar Smart City Pesisir Selatan yang lebih sesuai dengan karakter maritim dan kepulauan"
+   649→        />
+   650→        <motion.div
+   651→          initial="hidden"
+   652→          animate={isInView ? 'visible' : 'hidden'}
+   653→          variants={staggerContainer}
+   654→          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
+   655→        >
+   656→          {sevenPillars.map((pillar, i) => (
+   657→            <motion.div
+   658→              key={pillar.id}
+   659→              variants={fadeInUp}
+   660→              whileHover={{ y: -8 }}
+   661→              onClick={() => setActivePillar(activePillar === i ? null : i)}
+   662→              className="cursor-pointer group relative"
+   663→            >
+   664→              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+   665→                style={{ background: `radial-gradient(circle at 50% 0%, ${pillar.color}25, transparent 70%)` }} />
+   666→              <div className="relative p-4 sm:p-6 rounded-2xl border bg-white hover:shadow-2xl transition-all duration-500 h-full"
+   667→                style={{ borderColor: activePillar === i ? pillar.color : 'transparent' }}>
+   668→                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center mb-4 shadow-lg"
+   669→                  style={{ background: `linear-gradient(135deg, ${pillar.color}20, ${pillar.color}40)` }}>
+   670→                  <pillar.icon className="w-6 h-6 sm:w-7 sm:h-7" style={{ color: pillar.color }} />
+   671→                </div>
+   672→                <div className="flex items-center gap-2 mb-2">
+   673→                  <span className="text-xs font-bold px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: pillar.color }}>
+   674→                    {pillar.id}
+   675→                  </span>
+   676→                  <h3 className="font-bold text-base sm:text-lg text-foreground">{pillar.name}</h3>
+   677→                </div>
+   678→                <p className="text-sm font-medium mb-2" style={{ color: pillar.color }}>{pillar.tagline}</p>
+   679→                <p className="text-sm text-muted-foreground mb-4">{pillar.description}</p>
+   680→
+   681→                <AnimatePresence>
+   682→                  {activePillar === i && (
+   683→                    <motion.div
+   684→                      initial={{ opacity: 0, height: 0 }}
+   685→                      animate={{ opacity: 1, height: 'auto' }}
+   686→                      exit={{ opacity: 0, height: 0 }}
+   687→                      transition={{ duration: 0.3 }}
+   688→                      className="overflow-hidden"
+   689→                    >
+   690→                      <div className="pt-4 border-t border-border space-y-3">
+   691→                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">KPI Target 2029</p>
+   692→                        {pillar.kpis.map((kpi, j) => (
+   693→                          <div key={j} className="flex items-center gap-2">
+   694→                            <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: pillar.color }} />
+   695→                            <span className="text-sm text-foreground">{kpi}</span>
+   696→                          </div>
+   697→                        ))}
+   698→                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider pt-2">Program Utama</p>
+   699→                        {pillar.details.map((d, j) => (
+   700→                          <div key={j} className="flex items-center gap-2">
+   701→                            <ArrowUpRight className="w-3 h-3 shrink-0" style={{ color: pillar.color }} />
+   702→                            <span className="text-xs text-muted-foreground">{d}</span>
+   703→                          </div>
+   704→                        ))}
+   705→                      </div>
+   706→                    </motion.div>
+   707→                  )}
+   708→                </AnimatePresence>
+   709→
+   710→                <div className="mt-4 flex items-center gap-1 text-xs" style={{ color: pillar.color }}>
+   711→                  {activePillar === i ? 'Tutup detail' : 'Klik untuk detail'}
+   712→                  <ChevronDown className={`w-3 h-3 transition-transform ${activePillar === i ? 'rotate-180' : ''}`} />
+   713→                </div>
+   714→              </div>
+   715→            </motion.div>
+   716→          ))}
+   717→
+   718→          {/* Three-Layer Architecture Card */}
+   719→          <motion.div variants={fadeInUp} whileHover={{ y: -8 }} className="group relative">
+   720→            <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+   721→              style={{ background: 'radial-gradient(circle at 50% 0%, rgba(99,102,241,0.2), transparent 70%)' }} />
+   722→            <div className="relative p-6 rounded-2xl border border-dashed border-primary/30 bg-white/80 h-full flex flex-col items-center justify-center text-center">
+   723→              <Building2 className="w-12 h-12 text-primary/40 mb-4" />
+   724→              <h3 className="font-bold text-lg text-foreground mb-2">Three-Layer Sovereign Architecture</h3>
+   725→              <div className="space-y-2 w-full">
+   726→                {[
+   727→                  { layer: 'Infrastruktur', desc: 'Fisik & Jaringan', color: '#0ea5e9' },
+   728→                  { layer: 'Platform', desc: 'Aplikasi & Data', color: '#10b981' },
+   729→                  { layer: 'Tata Kelola', desc: 'Kelembagaan & Nilai', color: '#f59e0b' }
+   730→                ].map((l, j) => (
+   731→                  <div key={j} className="flex items-center gap-3 p-2 rounded-lg" style={{ backgroundColor: `${l.color}10` }}>
+   732→                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: l.color }} />
+   733→                    <span className="text-sm font-medium" style={{ color: l.color }}>{l.layer}</span>
+   734→                    <span className="text-xs text-muted-foreground">— {l.desc}</span>
+   735→                  </div>
+   736→                ))}
+   737→              </div>
+   738→            </div>
+   739→          </motion.div>
+   740→        </motion.div>
+   741→      </div>
+   742→    </section>
+   743→  )
+   744→}
+   745→
+   746→// ---- SUPER IDEAS SECTION ----
+   747→function SuperIdeasSection() {
+   748→  const ref = useRef<HTMLDivElement>(null)
+   749→  const isInView = useInView(ref, { once: true, margin: '-80px' })
+   750→
+   751→  return (
+   752→    <section ref={ref} className="relative py-12 md:py-32" style={{ background: 'linear-gradient(180deg, #0a1628 0%, #0c2d48 50%, #071a2c 100%)' }}>
+   753→      <div className="max-w-7xl mx-auto px-4">
+   754→        <SectionTitle light title="8 Super Idea Terobosan" subtitle="Inovasi revolusioner yang membedakan Atlas PGA-166 dari konvensi smart city biasa" />
+   755→        <motion.div
+   756→          initial="hidden"
+   757→          animate={isInView ? 'visible' : 'hidden'}
+   758→          variants={staggerContainer}
+   759→          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+   760→        >
+   761→          {superIdeas.map((idea, i) => (
+   762→            <motion.div
+   763→              key={idea.id}
+   764→              variants={i % 2 === 0 ? fadeInLeft : fadeInRight}
+   765→              whileHover={{ scale: 1.02 }}
+   766→              className="group relative"
+   767→            >
+   768→              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+   769→                style={{ background: `radial-gradient(circle at 30% 30%, ${idea.color}20, transparent 60%)` }} />
+   770→              <div className="relative p-4 sm:p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:border-white/20">
+   771→                <div className="flex items-start gap-4">
+   772→                  <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
+   773→                    style={{ background: `${idea.color}20` }}>
+   774→                    <idea.icon className="w-6 h-6" style={{ color: idea.color }} />
+   775→                  </div>
+   776→                  <div>
+   777→                    <div className="flex items-center gap-2 mb-2">
+   778→                      <span className="text-xs font-bold px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: idea.color }}>
+   779→                        SUPER IDEA #{idea.id}
+   780→                      </span>
+   781→                    </div>
+   782→                    <h4 className="font-bold text-base sm:text-lg text-white mb-2">{idea.title}</h4>
+   783→                    <p className="text-sm text-white/60 leading-relaxed">{idea.desc}</p>
+   784→                  </div>
+   785→                </div>
+   786→              </div>
+   787→            </motion.div>
+   788→          ))}
+   789→        </motion.div>
+   790→      </div>
+   791→    </section>
+   792→  )
+   793→}
+   794→
+   795→// ---- ROADMAP SECTION ----
+   796→function RoadmapSection() {
+   797→  const ref = useRef<HTMLDivElement>(null)
+   798→  const isInView = useInView(ref, { once: true, margin: '-80px' })
+   799→
+   800→  return (
+   801→    <section ref={ref} className="relative py-12 md:py-32 bg-background">
+   802→      <div className="max-w-6xl mx-auto px-4">
+   803→        <SectionTitle title="Roadmap 2026-2030" subtitle="Implementasi bertahap menuju Role Model ASEAN Smart Maritime Civilization" />
+   804→        <motion.div
+   805→          initial="hidden"
+   806→          animate={isInView ? 'visible' : 'hidden'}
+   807→          variants={staggerContainer}
+   808→          className="space-y-8"
+   809→        >
+   810→          {roadmapData.map((phase, i) => (
+   811→            <motion.div key={i} variants={fadeInUp} className="relative">
+   812→              <div className="flex items-start gap-4 md:gap-8">
+   813→                <div className="flex flex-col items-center shrink-0">
+   814→                  <motion.div
+   815→                    whileHover={{ scale: 1.2, rotate: 360 }}
+   816→                    transition={{ duration: 0.5 }}
+   817→                    className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center shadow-lg"
+   818→                    style={{ background: `linear-gradient(135deg, ${phase.color}, ${phase.color}80)` }}
+   819→                  >
+   820→                    <span className="text-white font-bold text-sm">{phase.phase}</span>
+   821→                  </motion.div>
+   822→                  {i < roadmapData.length - 1 && (
+   823→                    <div className="w-0.5 h-10 sm:h-16 mt-2" style={{ backgroundColor: `${phase.color}30` }} />
+   824→                  )}
+   825→                </div>
+   826→                <div className="flex-1 pb-8">
+   827→                  <div className="flex items-center gap-3 mb-1">
+   828→                    <span className="text-sm font-bold px-3 py-1 rounded-full text-white" style={{ backgroundColor: phase.color }}>
+   829→                      {phase.year}
+   830→                    </span>
+   831→                    <h3 className="text-lg sm:text-xl font-bold text-foreground">{phase.title}</h3>
+   832→                  </div>
+   833→                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4">
+   834→                    {phase.items.map((item, j) => (
+   835→                      <motion.div
+   836→                        key={j}
+   837→                        initial={{ opacity: 0, x: -20 }}
+   838→                        animate={isInView ? { opacity: 1, x: 0 } : {}}
+   839→                        transition={{ delay: 0.3 + j * 0.1, duration: 0.5 }}
+   840→                        className="flex items-center gap-2 p-3 rounded-lg border border-border bg-card hover:shadow-md transition-all"
+   841→                      >
+   842→                        <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: phase.color }} />
+   843→                        <span className="text-sm text-foreground">{item}</span>
+   844→                      </motion.div>
+   845→                    ))}
+   846→                  </div>
+   847→                </div>
+   848→              </div>
+   849→            </motion.div>
+   850→          ))}
+   851→        </motion.div>
+   852→      </div>
+   853→    </section>
+   854→  )
+   855→}
+   856→
+   857→// ---- INVESTMENT SECTION ----
+   858→function InvestmentSection() {
+   859→  const ref = useRef<HTMLDivElement>(null)
+   860→  const isInView = useInView(ref, { once: true, margin: '-80px' })
+   861→
+   862→  return (
+   863→    <section ref={ref} className="relative py-12 md:py-32" style={{ background: 'linear-gradient(180deg, #f0fdf4 0%, #ecfdf5 50%, #f0f9ff 100%)' }}>
+   864→      <div className="max-w-7xl mx-auto px-4">
+   865→        <SectionTitle title="Estimasi Investasi" subtitle="Total investasi Rp 8.000 Miliar untuk transformasi Smart City Pesisir Selatan 2026-2028" />
+   866→        <motion.div
+   867→          initial="hidden"
+   868→          animate={isInView ? 'visible' : 'hidden'}
+   869→          variants={staggerContainer}
+   870→          className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+   871→        >
+   872→          {/* Investment Bars */}
+   873→          <motion.div variants={fadeInLeft} className="space-y-3">
+   874→            {investmentData.map((item, i) => (
+   875→              <motion.div
+   876→                key={i}
+   877→                initial={{ opacity: 0, x: -30 }}
+   878→                animate={isInView ? { opacity: 1, x: 0 } : {}}
+   879→                transition={{ delay: i * 0.08, duration: 0.5 }}
+   880→                className="group"
+   881→              >
+   882→                <div className="flex items-center justify-between mb-1">
+   883→                  <span className="text-sm font-medium text-foreground">{item.sector}</span>
+   884→                  <span className="text-sm font-bold text-primary">Rp {item.value} M</span>
+   885→                </div>
+   886→                <div className="h-8 rounded-lg bg-primary/10 overflow-hidden relative">
+   887→                  <motion.div
+   888→                    initial={{ width: 0 }}
+   889→                    animate={isInView ? { width: `${item.pct * (100 / 15)}%` } : { width: 0 }}
+   890→                    transition={{ delay: 0.5 + i * 0.1, duration: 1, ease: 'easeOut' }}
+   891→                    className="h-full rounded-lg relative overflow-hidden"
+   892→                    style={{ background: `linear-gradient(90deg, #0ea5e9, #10b981)` }}
+   893→                  >
+   894→                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+   895→                      style={{ background: 'linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.3))' }} />
+   896→                    <span className="absolute inset-0 flex items-center px-3 text-xs font-bold text-white">{item.pct}%</span>
+   897→                  </motion.div>
+   898→                </div>
+   899→              </motion.div>
+   900→            ))}
+   901→          </motion.div>
+   902→
+   903→          {/* Key Metrics */}
+   904→          <motion.div variants={fadeInRight} className="space-y-4">
+   905→            <div className="grid grid-cols-2 gap-4">
+   906→              {[
+   907→                { label: 'Total Investasi', numTarget: 8000, suffix: ' Miliar', icon: Coins, color: '#0ea5e9' },
+   908→                { label: 'Lapangan Kerja Baru', numTarget: 25000, suffix: '+', icon: Users, color: '#10b981' },
+   909→                { label: 'Wisatawan/Tahun', numTarget: 25, suffix: '', display: '2,5 Juta', icon: Globe, color: '#f59e0b' },
+   910→                { label: 'PAD per Tahun', numTarget: 850, suffix: ' M+', icon: TrendingUp, color: '#8b5cf6' },
+   911→                { label: 'UMKM Go Digital', numTarget: 10000, suffix: '+', icon: Cpu, color: '#f43f5e' },
+   912→                { label: 'Nilai Ekspor', numTarget: 12, suffix: '', display: '1,2 Triliun+', icon: Ship, color: '#22c55e' }
+   913→              ].map((m, i) => (
+   914→                <motion.div
+   915→                  key={i}
+   916→                  whileHover={{ scale: 1.05, y: -3 }}
+   917→                  className="p-3 sm:p-5 rounded-xl bg-white border border-border shadow-sm hover:shadow-lg transition-all"
+   918→                >
+   919→                  <m.icon className="w-6 h-6 sm:w-8 sm:h-8 mb-3" style={{ color: m.color }} />
+   920→                  <p className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
+   921→                    {m.display ? m.display : <><AnimatedCounter target={m.numTarget} />{m.suffix}</>}
+   922→                  </p>
+   923→                  <p className="text-sm text-muted-foreground mt-1">{m.label}</p>
+   924→                </motion.div>
+   925→              ))}
+   926→            </div>
+   927→            <div className="p-4 sm:p-5 rounded-xl bg-white border border-border">
+   928→              <div className="flex items-center gap-3 mb-3">
+   929→                <Clock className="w-5 h-5 text-primary" />
+   930→                <span className="font-bold text-foreground">Break Even Point</span>
+   931→              </div>
+   932→              <p className="text-2xl sm:text-3xl font-bold" style={{ color: '#10b981' }}>6-7 Tahun</p>
+   933→              <p className="text-sm text-muted-foreground">Total Net Cashflow Tahunan: Rp 1.150 – 1.300 Miliar</p>
+   934→            </div>
+   935→          </motion.div>
+   936→        </motion.div>
+   937→      </div>
+   938→    </section>
+   939→  )
+   940→}
+   941→
+   942→// ---- KPI DASHBOARD SECTION ----
+   943→function KPIDashboardSection() {
+   944→  const ref = useRef<HTMLDivElement>(null)
+   945→  const isInView = useInView(ref, { once: true, margin: '-80px' })
+   946→  const [liveData, setLiveData] = useState<number[]>(kpiDashboard.map(() => 0))
+   947→
+   948→  useEffect(() => {
+   949→    if (!isInView) return
+   950→    const interval = setInterval(() => {
+   951→      setLiveData(prev => prev.map((val, i) => {
+   952→        const target = kpiDashboard[i].current
+   953→        const increment = target / 40
+   954→        return val + increment >= target ? target : val + increment
+   955→      }))
+   956→    }, 50)
+   957→    return () => clearInterval(interval)
+   958→  }, [isInView])
+   959→
+   960→  return (
+   961→    <section id="dashboard" ref={ref} className="relative py-12 md:py-32" style={{ background: 'linear-gradient(180deg, #071a2c 0%, #0c2d48 100%)' }}>
+   962→      <div className="max-w-7xl mx-auto px-4">
+   963→        <SectionTitle light title="Dashboard KPI Smart City" subtitle="Monitoring real-time pencapaian Smart City Pesisir Selatan menuju 2030" />
+   964→        <motion.div
+   965→          initial="hidden"
+   966→          animate={isInView ? 'visible' : 'hidden'}
+   967→          variants={staggerContainer}
+   968→          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+   969→        >
+   970→          {kpiDashboard.map((kpi, i) => {
+   971→            const progress = kpi.unit === '%' ? (kpi.current / kpi.target) * 100 : (kpi.current / kpi.target) * 100
+   972→            return (
+   973→              <motion.div
+   974→                key={i}
+   975→                variants={scaleIn}
+   976→                whileHover={{ scale: 1.03, y: -5 }}
+   977→                className="p-4 sm:p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
+   978→              >
+   979→                <div className="flex items-center justify-between mb-4">
+   980→                  <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'rgba(14,165,233,0.2)' }}>
+   981→                    <kpi.icon className="w-5 h-5 text-sky-400" />
+   982→                  </div>
+   983→                  <span className="text-xs font-medium px-2 py-1 rounded-full" style={{ background: 'rgba(16,185,129,0.2)', color: '#34d399' }}>
+   984→                    {progress.toFixed(0)}% tercapai
+   985→                  </span>
+   986→                </div>
+   987→                <h4 className="font-semibold text-white mb-2">{kpi.label}</h4>
+   988→                <div className="flex items-end gap-2 mb-3">
+   989→                  <span className="text-2xl sm:text-3xl font-bold text-white">
+   990→                    {kpi.unit === '%' ? Math.round(liveData[i]) : Math.round(liveData[i]).toLocaleString()}
+   991→                  </span>
+   992→                  <span className="text-sm text-white/50 mb-1">/ {kpi.target}{kpi.unit} {kpi.unit}</span>
+   993→                </div>
+   994→                <div className="h-2 rounded-full bg-white/10 overflow-hidden">
+   995→                  <motion.div
+   996→                    initial={{ width: 0 }}
+   997→                    animate={isInView ? { width: `${Math.min(progress, 100)}%` } : { width: 0 }}
+   998→                    transition={{ delay: 0.5 + i * 0.15, duration: 1.5, ease: 'easeOut' }}
+   999→                    className="h-full rounded-full"
+  1000→                    style={{ background: 'linear-gradient(90deg, #0ea5e9, #10b981)' }}
+  1001→                  />
+  1002→                </div>
+  1003→              </motion.div>
+  1004→            )
+  1005→          })}
+  1006→        </motion.div>
+  1007→      </div>
+  1008→    </section>
+  1009→  )
+  1010→}
+  1011→
+  1012→// ---- STRATEGIC PROFILE SECTION ----
+  1013→function StrategicProfileSection() {
+  1014→  const ref = useRef<HTMLDivElement>(null)
+  1015→  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  1016→
+  1017→  return (
+  1018→    <section ref={ref} className="relative py-12 md:py-32 bg-background">
+  1019→      <div className="max-w-6xl mx-auto px-4">
+  1020→        <SectionTitle title="Profil Strategis 2024-2030" subtitle="Transformasi Pesisir Selatan dalam angka menuju Role Model ASEAN" />
+  1021→        <motion.div
+  1022→          initial="hidden"
+  1023→          animate={isInView ? 'visible' : 'hidden'}
+  1024→          variants={staggerContainer}
+  1025→          className="overflow-x-auto"
+  1026→        >
+  1027→          <table className="w-full min-w-[600px]">
+  1028→            <thead>
+  1029→              <tr className="border-b border-border">
+  1030→                <th className="text-left p-2 sm:p-4 font-semibold text-xs sm:text-sm text-foreground">Dimensi</th>
+  1031→                <th className="text-center p-2 sm:p-4 font-semibold text-xs sm:text-sm text-muted-foreground">2024</th>
+  1032→                <th className="text-center p-2 sm:p-4 font-semibold text-xs sm:text-sm" style={{ color: '#0ea5e9' }}>Target 2029</th>
+  1033→                <th className="text-center p-2 sm:p-4 font-semibold text-xs sm:text-sm" style={{ color: '#10b981' }}>Target 2030</th>
+  1034→              </tr>
+  1035→            </thead>
+  1036→            <tbody>
+  1037→              {strategicProfile.map((row, i) => (
+  1038→                <motion.tr
+  1039→                  key={i}
+  1040→                  variants={fadeInUp}
+  1041→                  className="border-b border-border/50 hover:bg-primary/5 transition-colors"
+  1042→                >
+  1043→                  <td className="p-2 sm:p-4 font-medium text-foreground">{row.dim}</td>
+  1044→                  <td className="p-2 sm:p-4 text-center text-muted-foreground">{row.current}</td>
+  1045→                  <td className="p-2 sm:p-4 text-center font-semibold" style={{ color: '#0ea5e9' }}>{row.target2029}</td>
+  1046→                  <td className="p-2 sm:p-4 text-center font-semibold" style={{ color: '#10b981' }}>{row.target2030}</td>
+  1047→                </motion.tr>
+  1048→              ))}
+  1049→            </tbody>
+  1050→          </table>
+  1051→        </motion.div>
+  1052→      </div>
+  1053→    </section>
+  1054→  )
+  1055→}
+  1056→
+  1057→// ---- DIGITAL TWIN SECTION ----
+  1058→function DigitalTwinSection() {
+  1059→  const ref = useRef<HTMLDivElement>(null)
+  1060→  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  1061→
+  1062→  return (
+  1063→    <section ref={ref} className="relative py-12 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #0c1445 0%, #1a1a3e 50%, #0a1628 100%)' }}>
+  1064→      <div className="absolute inset-0">
+  1065→        {/* Grid pattern */}
+  1066→        <div className="absolute inset-0 opacity-5"
+  1067→          style={{ backgroundImage: 'linear-gradient(rgba(14,165,233,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(14,165,233,0.3) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+  1068→      </div>
+  1069→      <div className="max-w-6xl mx-auto px-4 relative z-10">
+  1070→        <SectionTitle light title="Pesisir Digital Twin" subtitle="Replika digital 3D seluruh kabupaten untuk simulasi kebijakan dan mitigasi bencana" />
+  1071→        <motion.div
+  1072→          initial="hidden"
+  1073→          animate={isInView ? 'visible' : 'hidden'}
+  1074→          variants={staggerContainer}
+  1075→          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+  1076→        >
+  1077→          {[
+  1078→            { title: 'Base Layer', desc: 'Citra satelit resolusi tinggi (BRIN/RISAT), LiDAR topografi resolusi 1 meter, batimetri multi-beam perairan dangkal.', icon: Satellite, color: '#0ea5e9' },
+  1079→            { title: 'Live Layer', desc: 'Feed real-time dari 1.200 sensor IoT — cuaca, pasang surut, kualitas air, kepadatan ikan, banjir, abrasi — dan data transaksional APBD.', icon: Activity, color: '#10b981' },
+  1080→            { title: 'Simulation Layer', desc: 'Model machine learning untuk prediksi banjir, abrasi pantai, dan dampak ekonomi kebijakan. Simulasi 1.000 hari ke depan.', icon: Brain, color: '#f59e0b' }
+  1081→          ].map((layer, i) => (
+  1082→            <motion.div
+  1083→              key={i}
+  1084→              variants={fadeInUp}
+  1085→              whileHover={{ y: -10, scale: 1.02 }}
+  1086→              className="group relative"
+  1087→            >
+  1088→              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+  1089→                style={{ background: `radial-gradient(circle at 50% 0%, ${layer.color}30, transparent 60%)` }} />
+  1090→              <div className="relative p-5 sm:p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 text-center">
+  1091→                <motion.div
+  1092→                  animate={{ rotateY: [0, 360] }}
+  1093→                  transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+  1094→                  className="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg"
+  1095→                  style={{ background: `linear-gradient(135deg, ${layer.color}30, ${layer.color}50)` }}
+  1096→                >
+  1097→                  <layer.icon className="w-7 h-7 sm:w-10 sm:h-10" style={{ color: layer.color }} />
+  1098→                </motion.div>
+  1099→                <h3 className="text-xl font-bold text-white mb-3">{layer.title}</h3>
+  1100→                <p className="text-sm text-white/60 leading-relaxed">{layer.desc}</p>
+  1101→              </div>
+  1102→            </motion.div>
+  1103→          ))}
+  1104→        </motion.div>
+  1105→
+  1106→        <motion.div
+  1107→          initial={{ opacity: 0, y: 30 }}
+  1108→          animate={isInView ? { opacity: 1, y: 0 } : {}}
+  1109→          transition={{ delay: 0.6, duration: 0.8 }}
+  1110→          className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4"
+  1111→        >
+  1112→          {[
+  1113→            { label: 'Total Investasi 5 Tahun', value: 'Rp 42 M', icon: Coins },
+  1114→            { label: 'Sensor IoT', value: '1.200+', icon: Wifi },
+  1115→            { label: 'Model ML Prioritas', value: '5', icon: Brain },
+  1116→            { label: 'Sumber Dana', value: 'DAK + Green Sukuk + BRIN', icon: FileCheck }
+  1117→          ].map((item, i) => (
+  1118→            <div key={i} className="p-4 rounded-xl border border-white/10 bg-white/5 text-center">
+  1119→              <item.icon className="w-6 h-6 text-sky-400 mx-auto mb-2" />
+  1120→              <p className="text-xl font-bold text-white">{item.value}</p>
+  1121→              <p className="text-xs text-white/50 mt-1">{item.label}</p>
+  1122→            </div>
+  1123→          ))}
+  1124→        </motion.div>
+  1125→      </div>
+  1126→    </section>
+  1127→  )
+  1128→}
+  1129→
+  1130→// ---- GAP ANALYSIS SECTION ----
+  1131→function GapAnalysisSection() {
+  1132→  const ref = useRef<HTMLDivElement>(null)
+  1133→  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  1134→
+  1135→  return (
+  1136→    <section ref={ref} className="relative py-12 md:py-32 bg-background">
+  1137→      <div className="max-w-6xl mx-auto px-4">
+  1138→        <SectionTitle title="GAP Analysis" subtitle="Enam kesenjangan struktural yang harus dijembatani oleh Atlas PGA-166" />
+  1139→        <motion.div
+  1140→          initial="hidden"
+  1141→          animate={isInView ? 'visible' : 'hidden'}
+  1142→          variants={staggerContainer}
+  1143→          className="space-y-4"
+  1144→        >
+  1145→          {[
+  1146→            { gap: 'Kesenjangan Digital', baseline: '4G 62% wilayah', target: '4G 100% + 5G pilot', instrument: 'Solar BTS 47 titik, DC Edge 3 lokasi, kepulauan Wi-Fi mesh', icon: Wifi, color: '#0ea5e9' },
+  1147→            { gap: 'Refocusing APBD', baseline: 'IT CAPEX < 1,5%', target: 'IT CAPEX ≥ 3%', instrument: 'PBK + Dana Kluster Inovasi Digital 3%', icon: Coins, color: '#f59e0b' },
+  1148→            { gap: 'Integrasi Data Vertikal', baseline: 'Silo data 12 OPD', target: 'SatuData Pesisir terpadu', instrument: 'SIPD, OneData Indonesia, Sovereign Data Trust', icon: Database, color: '#10b981' },
+  1149→            { gap: 'SDM Digital', baseline: 'IKD 38/100', target: 'IKD 70/100', instrument: 'Akademi Polymath Pesisir, sandi kompetensi 5K warga', icon: GraduationCap, color: '#8b5cf6' },
+  1150→            { gap: 'Tata Kelola & Anti-Korupsi', baseline: 'Audit manual, Opini WDP', target: 'Audit blockchain, Opini WTP', instrument: 'Blockchain APBD, AI Cross-Check, APIP Digital', icon: Shield, color: '#f43f5e' },
+  1151→            { gap: 'Akses Pembiayaan Nelayan', baseline: 'Bankable ratio 18%', target: 'Bankable ratio 65%', instrument: 'KMN Berdikari, Green Sukuk Daerah, Smart Wakaf', icon: Handshake, color: '#22c55e' }
+  1152→          ].map((item, i) => (
+  1153→            <motion.div
+  1154→              key={i}
+  1155→              variants={fadeInUp}
+  1156→              whileHover={{ x: 5 }}
+  1157→              className="p-3 sm:p-5 rounded-xl border border-border bg-card hover:shadow-lg transition-all duration-300"
+  1158→            >
+  1159→              <div className="flex flex-col md:flex-row md:items-center gap-4">
+  1160→                <div className="flex items-center gap-4 md:w-1/4">
+  1161→                  <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${item.color}15` }}>
+  1162→                    <item.icon className="w-5 h-5" style={{ color: item.color }} />
+  1163→                  </div>
+  1164→                  <span className="font-bold text-foreground">{item.gap}</span>
+  1165→                </div>
+  1166→                <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
+  1167→                  <div className="p-3 rounded-lg bg-red-50 dark:bg-red-950/30">
+  1168→                    <p className="text-xs text-muted-foreground mb-1">Baseline 2024</p>
+  1169→                    <p className="font-semibold text-red-600 dark:text-red-400">{item.baseline}</p>
+  1170→                  </div>
+  1171→                  <div className="p-3 rounded-lg bg-green-50 dark:bg-green-950/30">
+  1172→                    <p className="text-xs text-muted-foreground mb-1">Target 2029</p>
+  1173→                    <p className="font-semibold text-green-600 dark:text-green-400">{item.target}</p>
+  1174→                  </div>
+  1175→                  <div className="p-3 rounded-lg" style={{ background: `${item.color}10` }}>
+  1176→                    <p className="text-xs text-muted-foreground mb-1">Instrumen</p>
+  1177→                    <p className="font-medium text-foreground text-xs">{item.instrument}</p>
+  1178→                  </div>
+  1179→                </div>
+  1180→              </div>
+  1181→            </motion.div>
+  1182→          ))}
+  1183→        </motion.div>
+  1184→      </div>
+  1185→    </section>
+  1186→  )
+  1187→}
+  1188→
+  1189→// ---- FINANCING SECTION ----
+  1190→function FinancingSection() {
+  1191→  const ref = useRef<HTMLDivElement>(null)
+  1192→  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  1193→
+  1194→  return (
+  1195→    <section ref={ref} className="relative py-12 md:py-32" style={{ background: 'linear-gradient(180deg, #f0f9ff 0%, #f8fafc 100%)' }}>
+  1196→      <div className="max-w-6xl mx-auto px-4">
+  1197→        <SectionTitle title="Skema Pembiayaan" subtitle="Empat pilar pembiayaan dengan prinsip transparan, akuntabel, berkelanjutan, dan berkeadilan" />
+  1198→        <motion.div
+  1199→          initial="hidden"
+  1200→          animate={isInView ? 'visible' : 'hidden'}
+  1201→          variants={staggerContainer}
+  1202→          className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+  1203→        >
+  1204→          {[
+  1205→            { title: 'KPBUI', desc: 'Kerjasama Pemerintah & Badan Usaha untuk infrastruktur strategis dan layanan publik.', icon: Building2, color: '#0ea5e9' },
+  1206→            { title: 'Sukuk Daerah / Green Sukuk', desc: 'Pembiayaan berbasis syariah dan lingkungan untuk proyek berkelanjutan.', icon: Coins, color: '#10b981' },
+  1207→            { title: 'Investor Swasta & Global', desc: 'Investasi langsung pada sektor potensial maritim, pariwisata, dan teknologi.', icon: Globe, color: '#f59e0b' },
+  1208→            { title: 'Multilateral / Development Bank', desc: 'Pendanaan proyek berkelanjutan dari lembaga multilateral internasional.', icon: Landmark, color: '#8b5cf6' }
+  1209→          ].map((item, i) => (
+  1210→            <motion.div key={i} variants={fadeInUp} whileHover={{ scale: 1.03, y: -5 }}
+  1211→              className="p-4 sm:p-6 rounded-2xl border border-border bg-white shadow-sm hover:shadow-xl transition-all duration-300">
+  1212→              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center mb-4" style={{ background: `${item.color}15` }}>
+  1213→                <item.icon className="w-7 h-7" style={{ color: item.color }} />
+  1214→              </div>
+  1215→              <h3 className="text-lg font-bold text-foreground mb-2">{item.title}</h3>
+  1216→              <p className="text-sm text-muted-foreground">{item.desc}</p>
+  1217→            </motion.div>
+  1218→          ))}
+  1219→        </motion.div>
+  1220→      </div>
+  1221→    </section>
+  1222→  )
+  1223→}
+  1224→
+  1225→// ---- 100 HARI PERTAMA SECTION ----
+  1226→function First100DaysSection() {
+  1227→  const ref = useRef<HTMLDivElement>(null)
+  1228→  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  1229→
+  1230→  return (
+  1231→    <section ref={ref} className="relative py-12 md:py-32" style={{ background: 'linear-gradient(180deg, #0a1628 0%, #0c2d48 100%)' }}>
+  1232→      <div className="max-w-6xl mx-auto px-4">
+  1233→        <SectionTitle light title="Rencana Aksi 100 Hari Pertama" subtitle="Langkah cepat dan terukur untuk sinyal kepemimpinan transformasi digital" />
+  1234→        <motion.div
+  1235→          initial="hidden"
+  1236→          animate={isInView ? 'visible' : 'hidden'}
+  1237→          variants={staggerContainer}
+  1238→          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+  1239→        >
+  1240→          {[
+  1241→            { phase: 'Hari 1-25', title: 'Sinyal Kepemimpinan', items: ['Pelantikan Tim SatuData Pesisir', 'Penandatanganan Perda Smart City', 'Launching Akademi Polymath', 'Pengumuman Open Data Policy'], color: '#0ea5e9', icon: Zap },
+  1242→            { phase: 'Hari 26-50', title: 'Konsolidasi Kelembagaan', items: ['Pembentukan Inspektorat Digital', 'Pengadaan Data Center Edge', 'MoU dengan BRIN untuk Digital Twin', 'Perda KMN Berdikari'], color: '#10b981', icon: Building2 },
+  1243→            { phase: 'Hari 51-75', title: 'Quick Wins', items: ['Pilot PBK di 3 OPD', 'Smart Clinic di 3 pulau', 'Blockchain APBD testnet', '47 BTS Solar groundbreaking'], color: '#f59e0b', icon: Star },
+  1244→            { phase: 'Hari 76-100', title: 'Skala & Legitimasi', items: ['Pilot Digital Twin Base Layer', 'SPBE integration 20 modul', 'KPBUI framework launch', 'ASCN membership application'], color: '#8b5cf6', icon: Rocket }
+  1245→          ].map((item, i) => (
+  1246→            <motion.div
+  1247→              key={i}
+  1248→              variants={fadeInUp}
+  1249→              whileHover={{ scale: 1.02 }}
+  1250→              className="p-4 sm:p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
+  1251→            >
+  1252→              <div className="flex items-center gap-3 mb-4">
+  1253→                <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: `${item.color}20` }}>
+  1254→                  <item.icon className="w-5 h-5" style={{ color: item.color }} />
+  1255→                </div>
+  1256→                <div>
+  1257→                  <span className="text-xs font-bold px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: item.color }}>{item.phase}</span>
+  1258→                  <h3 className="text-lg font-bold text-white mt-1">{item.title}</h3>
+  1259→                </div>
+  1260→              </div>
+  1261→              <div className="space-y-2">
+  1262→                {item.items.map((it, j) => (
+  1263→                  <div key={j} className="flex items-center gap-2">
+  1264→                    <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: item.color }} />
+  1265→                    <span className="text-sm text-white/70">{it}</span>
+  1266→                  </div>
+  1267→                ))}
+  1268→              </div>
+  1269→            </motion.div>
+  1270→          ))}
+  1271→        </motion.div>
+  1272→      </div>
+  1273→    </section>
+  1274→  )
+  1275→}
+  1276→
+  1277→// ---- VISION IMAGE SECTION ----
+  1278→function VisionImageSection() {
+  1279→  const ref = useRef<HTMLDivElement>(null)
+  1280→  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  1281→
+  1282→  return (
+  1283→    <section ref={ref} className="relative py-12 md:py-32 bg-background">
+  1284→      <div className="max-w-5xl mx-auto px-4">
+  1285→        <SectionTitle title="Visi Smart City Pesisir Selatan 2028" subtitle="Proyek Strategis Visi MESITA 2030 — True Paradise in the World" />
+  1286→        <motion.div
+  1287→          initial={{ opacity: 0, scale: 0.9 }}
+  1288→          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+  1289→          transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+  1290→          className="relative rounded-2xl overflow-hidden shadow-2xl"
+  1291→        >
+  1292→          <img
+  1293→            src="/smart-city-vision.png"
+  1294→            alt="Visi Smart City Pesisir Selatan 2028"
+  1295→            className="w-full h-auto object-contain"
+  1296→          />
+  1297→          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+  1298→          <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+  1299→            <p className="text-white font-bold text-lg md:text-xl">PEMERINTAH KABUPATEN PESISIR SELATAN</p>
+  1300→            <p className="text-white/70 text-sm">PT. Medina Kapital Investment · Dasar Hukum: PP No. 77 Tahun 2021</p>
+  1301→          </div>
+  1302→        </motion.div>
+  1303→      </div>
+  1304→    </section>
+  1305→  )
+  1306→}
+  1307→
+  1308→// ---- ENHANCED VISION 2028 SECTION ----
+  1309→function EnhancedVisionSection() {
+  1310→  const ref = useRef<HTMLDivElement>(null)
+  1311→  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  1312→
+  1313→  return (
+  1314→    <section ref={ref} className="relative py-12 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #0c1445 0%, #0a1628 50%, #0c2d48 100%)' }}>
+  1315→      <div className="absolute inset-0 opacity-5">
+  1316→        <div className="absolute inset-0" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'80\' height=\'80\' viewBox=\'0 0 80 80\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%2306b6d4\' fill-opacity=\'0.15\'%3E%3Cpath d=\'M40 0l10 20H30zM0 40l20-10v20zM80 40L60 30v20zM40 80L30 60h20z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
+  1317→      </div>
+  1318→      <div className="max-w-7xl mx-auto px-4 relative z-10">
+  1319→        <SectionTitle light title="Visi Smart City Pesisir Selatan 2028" subtitle="Proyek Strategis Visi MESITA 2030 — True Paradise in the World" />
+  1320→
+  1321→        {/* Hero Image with Enhanced Overlay */}
+  1322→        <motion.div
+  1323→          initial={{ opacity: 0, y: 40 }}
+  1324→          animate={isInView ? { opacity: 1, y: 0 } : {}}
+  1325→          transition={{ duration: 1 }}
+  1326→          className="relative rounded-2xl overflow-hidden shadow-2xl mb-12"
+  1327→        >
+  1328→          <img
+  1329→            src="/smart-city-hero-v2.png"
+  1330→            alt="Visi Smart City Pesisir Selatan 2028 - Futuristic Maritime City"
+  1331→            className="w-full h-auto object-cover"
+  1332→          />
+  1333→          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+  1334→          <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-10">
+  1335→            <div className="flex flex-wrap gap-2 mb-4">
+  1336→              {['Smart Marina', 'Digital Twin', 'IoT Network', 'Green Energy', 'Smart Port', 'Telemedisin'].map((tag, i) => (
+  1337→                <span key={i} className="px-3 py-1 rounded-full text-xs font-medium bg-white/15 backdrop-blur-sm text-white border border-white/20">
+  1338→                  {tag}
+  1339→                </span>
+  1340→              ))}
+  1341→            </div>
+  1342→            <p className="text-white font-bold text-xl sm:text-2xl md:text-3xl mb-2">PESISIR SELATAN 2028</p>
+  1343→            <p className="text-white/70 text-sm md:text-base max-w-3xl">
+  1344→              Transformasi kabupaten pesisir menjadi smart city terintegrasi, destinasi wisata bahari kelas dunia,
+  1345→              berdaya saing global, masyarakat sejahtera, dan berkelanjutan.
+  1346→            </p>
+  1347→          </div>
+  1348→        </motion.div>
+  1349→
+  1350→        {/* Detailed Vision Description Cards */}
+  1351→        <motion.div
+  1352→          initial="hidden"
+  1353→          animate={isInView ? 'visible' : 'hidden'}
+  1354→          variants={staggerContainer}
+  1355→          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
+  1356→        >
+  1357→          {[
+  1358→            { title: 'Smart Marina & Waterfront', desc: 'Marina internasional dengan yacht club, promenade, dan waterfront lifestyle. Pelabuhan pintu gerbang maritim ASEAN dengan smart port, logistik efisien, dan pengangkutan ekspor terintegrasi.', icon: Anchor, color: '#0ea5e9' },
+  1359→            { title: 'Smart Tourism Paradise', desc: 'Destinasi wisata bahari kelas dunia — Boros Batu, Pantai Carocok, Mandeh Tourism Region. Peningkatan destinasi, promosi digital, dan smart tourism apps untuk 2,5 juta wisatawan/tahun.', icon: Globe, color: '#10b981' },
+  1360→            { title: 'Digital Government Excellence', desc: 'Tata kelola digital, SPBE, dan layanan publik terintegrasi 100%. Command center smart city untuk real-time city monitoring, keamanan, transportasi, kesehatan, dan pendidikan.', icon: Landmark, color: '#f59e0b' },
+  1361→            { title: 'Blue Economy Powerhouse', desc: 'Perikanan modern dengan cold storage, traceability, dan ekspor. Pertanian presisi berbasis IoT dan supply chain modern. Ekonomi biru berkontribusi 50% PDRB pada 2030.', icon: TrendingUp, color: '#22c55e' },
+  1362→            { title: 'Resilient & Green Environment', desc: 'Smart disaster management dengan early warning system dan command center. Energi terbarukan 80% dari kapasitas. Restorasi 1.000 ha mangrove. Sampah laut berkurang 60%.', icon: Leaf, color: '#06b6d4' },
+  1363→            { title: 'Inclusive Smart Living', desc: 'Telemedicine 100% pulau, smart school dan rumah belajar di setiap kecamatan. Smart housing tangguh bencana. Layanan dasar inklusif — air, sanitasi, energi untuk seluruh warga.', icon: Heart, color: '#f43f5e' }
+  1364→          ].map((item, i) => (
+  1365→            <motion.div key={i} variants={fadeInUp} whileHover={{ y: -5, scale: 1.02 }}
+  1366→              className="group relative p-4 sm:p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:border-white/20">
+  1367→              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+  1368→                style={{ background: `radial-gradient(circle at 50% 0%, ${item.color}20, transparent 60%)` }} />
+  1369→              <div className="relative">
+  1370→                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{ background: `${item.color}20` }}>
+  1371→                  <item.icon className="w-6 h-6" style={{ color: item.color }} />
+  1372→                </div>
+  1373→                <h4 className="text-base sm:text-lg font-bold text-white mb-2">{item.title}</h4>
+  1374→                <p className="text-sm text-white/60 leading-relaxed">{item.desc}</p>
+  1375→              </div>
+  1376→            </motion.div>
+  1377→          ))}
+  1378→        </motion.div>
+  1379→
+  1380→        {/* Transformation Image */}
+  1381→        <motion.div
+  1382→          initial={{ opacity: 0, y: 40 }}
+  1383→          animate={isInView ? { opacity: 1, y: 0 } : {}}
+  1384→          transition={{ delay: 0.5, duration: 1 }}
+  1385→          className="relative rounded-2xl overflow-hidden shadow-2xl"
+  1386→        >
+  1387→          <img
+  1388→            src="/transformation-vision.png"
+  1389→            alt="Transformasi Desa Nelayan menuju Smart City"
+  1390→            className="w-full h-auto object-cover"
+  1391→          />
+  1392→          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
+  1393→          <div className="absolute top-2 left-2 sm:top-4 sm:left-4 px-2 py-1 sm:px-4 sm:py-2 rounded-lg bg-red-500/80 backdrop-blur-sm text-white text-xs sm:text-sm font-bold">
+  1394→            BEFORE — Desa Nelayan Tradisional
+  1395→          </div>
+  1396→          <div className="absolute top-2 right-2 sm:top-4 sm:right-4 px-2 py-1 sm:px-4 sm:py-2 rounded-lg bg-emerald-500/80 backdrop-blur-sm text-white text-xs sm:text-sm font-bold">
+  1397→            AFTER — Smart Maritime City
+  1398→          </div>
+  1399→        </motion.div>
+  1400→      </div>
+  1401→    </section>
+  1402→  )
+  1403→}
+  1404→
+  1405→// ---- INTERNATIONAL SMART CITY BENCHMARK SECTION ----
+  1406→function WorldBenchmarkSection() {
+  1407→  const [activeCity, setActiveCity] = useState<number | null>(null)
+  1408→  const ref = useRef<HTMLDivElement>(null)
+  1409→  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  1410→
+  1411→  return (
+  1412→    <section ref={ref} className="relative py-12 md:py-32 bg-background">
+  1413→      <div className="max-w-7xl mx-auto px-4">
+  1414→        <SectionTitle
+  1415→          title="Studi Banding Smart City Terbaik Dunia"
+  1416→          subtitle="Inspirasi dari 6 kota pintar terdepan yang diadaptasi untuk konteks maritim-kepulauan Pesisir Selatan"
+  1417→        />
+  1418→        <motion.div
+  1419→          initial="hidden"
+  1420→          animate={isInView ? 'visible' : 'hidden'}
+  1421→          variants={staggerContainer}
+  1422→          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+  1423→        >
+  1424→          {worldSmartCities.map((city, i) => (
+  1425→            <motion.div
+  1426→              key={i}
+  1427→              variants={fadeInUp}
+  1428→              whileHover={{ y: -8, scale: 1.02 }}
+  1429→              onClick={() => setActiveCity(activeCity === i ? null : i)}
+  1430→              className="cursor-pointer group"
+  1431→            >
+  1432→              <div className="relative p-4 sm:p-6 rounded-2xl border border-border bg-card hover:shadow-2xl transition-all duration-500 h-full"
+  1433→                style={{ borderColor: activeCity === i ? city.color : undefined }}>
+  1434→                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+  1435→                  style={{ background: `radial-gradient(circle at 50% 0%, ${city.color}15, transparent 60%)` }} />
+  1436→                <div className="relative">
+  1437→                  <div className="flex items-center gap-3 mb-3">
+  1438→                    <span className="text-2xl sm:text-3xl">{city.flag}</span>
+  1439→                    <div>
+  1440→                      <h3 className="font-bold text-lg text-foreground">{city.city}</h3>
+  1441→                      <p className="text-xs text-muted-foreground">{city.country}</p>
+  1442→                    </div>
+  1443→                  </div>
+  1444→                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full mb-3" style={{ background: `${city.color}15` }}>
+  1445→                    <Star className="w-3 h-3" style={{ color: city.color }} />
+  1446→                    <span className="text-xs font-semibold" style={{ color: city.color }}>{city.specialty}</span>
+  1447→                  </div>
+  1448→                  <p className="text-sm text-muted-foreground leading-relaxed mb-3">{city.desc}</p>
+  1449→
+  1450→                  <div className="flex flex-wrap gap-1.5 mb-3">
+  1451→                    {city.keyTech.map((tech, j) => (
+  1452→                      <span key={j} className="px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary">
+  1453→                        {tech}
+  1454→                      </span>
+  1455→                    ))}
+  1456→                  </div>
+  1457→
+  1458→                  <div className="pt-3 border-t border-border">
+  1459→                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Adaptasi Pesisir Selatan</p>
+  1460→                    <p className="text-sm font-medium" style={{ color: city.color }}>{city.learned}</p>
+  1461→                  </div>
+  1462→                </div>
+  1463→              </div>
+  1464→            </motion.div>
+  1465→          ))}
+  1466→        </motion.div>
+  1467→      </div>
+  1468→    </section>
+  1469→  )
+  1470→}
+  1471→
+  1472→// ---- COMMAND CENTER SIMULATION SECTION ----
+  1473→function CommandCenterSection() {
+  1474→  const ref = useRef<HTMLDivElement>(null)
+  1475→  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  1476→  const [activeScreen, setActiveScreen] = useState(0)
+  1477→
+  1478→  useEffect(() => {
+  1479→    const interval = setInterval(() => {
+  1480→      setActiveScreen(prev => (prev + 1) % 6)
+  1481→    }, 3000)
+  1482→    return () => clearInterval(interval)
+  1483→  }, [])
+  1484→
+  1485→  const screens = [
+  1486→    { label: 'Layanan Publik', icon: FileCheck, status: 'Online', metric: '47 modul aktif', color: '#0ea5e9' },
+  1487→    { label: 'Real-time Monitoring', icon: Activity, status: 'Live', metric: '1.200 sensor IoT', color: '#10b981' },
+  1488→    { label: 'Keamanan & Ketertiban', icon: Shield, status: 'Secure', metric: '0 insiden 24 jam', color: '#f59e0b' },
+  1489→    { label: 'Transportasi Pintar', icon: Car, status: 'Active', metric: '5 rute ferry smart', color: '#8b5cf6' },
+  1490→    { label: 'Kesehatan & Pendidikan', icon: Heart, status: 'Connected', metric: '100% telemedisin', color: '#f43f5e' },
+  1491→    { label: 'Pariwisata & Ekonomi', icon: TrendingUp, status: 'Growing', metric: 'Rp 850M+ PAD', color: '#22c55e' }
+  1492→  ]
+  1493→
+  1494→  return (
+  1495→    <section ref={ref} className="relative py-12 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #050d18 0%, #0a1628 50%, #0c1445 100%)' }}>
+  1496→      <div className="max-w-7xl mx-auto px-4 relative z-10">
+  1497→        <SectionTitle light title="Command Center Smart City" subtitle="Pusat kendali digital terintegrasi untuk monitoring real-time seluruh operasi kota" />
+  1498→
+  1499→        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+  1500→          {/* Main Screen */}
+  1501→          <motion.div
+  1502→            initial={{ opacity: 0, scale: 0.95 }}
+  1503→            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+  1504→            transition={{ duration: 1 }}
+  1505→            className="lg:col-span-3 relative rounded-2xl overflow-hidden shadow-2xl"
+  1506→          >
+  1507→            <img
+  1508→              src="/command-center.png"
+  1509→              alt="Smart City Command Center Pesisir Selatan"
+  1510→              className="w-full h-auto object-cover"
+  1511→            />
+  1512→            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+  1513→            <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
+  1514→              <div className="flex items-center gap-3 mb-3">
+  1515→                <motion.div
+  1516→                  animate={{ scale: [1, 1.2, 1] }}
+  1517→                  transition={{ duration: 1, repeat: Infinity }}
+  1518→                  className="w-3 h-3 rounded-full bg-red-500"
+  1519→                />
+  1520→                <span className="text-white font-bold text-sm uppercase tracking-wider">LIVE — Command Center Pesisir Selatan</span>
+  1521→              </div>
+  1522→              <div className="flex items-center gap-4">
+  1523→                <span className="text-xs text-white/60">Screen: <span className="text-white font-semibold">{screens[activeScreen].label}</span></span>
+  1524→                <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: `${screens[activeScreen].color}20`, color: screens[activeScreen].color }}>
+  1525→                  {screens[activeScreen].status}
+  1526→                </span>
+  1527→              </div>
+  1528→            </div>
+  1529→          </motion.div>
+  1530→
+  1531→          {/* Status Panels */}
+  1532→          <div className="lg:col-span-2 space-y-3">
+  1533→            {screens.map((screen, i) => (
+  1534→              <motion.div
+  1535→                key={i}
+  1536→                initial={{ opacity: 0, x: 30 }}
+  1537→                animate={isInView ? { opacity: 1, x: 0 } : {}}
+  1538→                transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
+  1539→                whileHover={{ x: -3 }}
+  1540→                onClick={() => setActiveScreen(i)}
+  1541→                className={`cursor-pointer p-3 sm:p-4 rounded-xl border transition-all duration-300 ${
+  1542→                  activeScreen === i ? 'border-white/30 bg-white/10' : 'border-white/10 bg-white/5 hover:bg-white/8'
+  1543→                }`}
+  1544→              >
+  1545→                <div className="flex items-center gap-3">
+  1546→                  <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: `${screen.color}20` }}>
+  1547→                    <screen.icon className="w-5 h-5" style={{ color: screen.color }} />
+  1548→                  </div>
+  1549→                  <div className="flex-1">
+  1550→                    <div className="flex items-center justify-between">
+  1551→                      <span className="text-sm font-semibold text-white">{screen.label}</span>
+  1552→                      {activeScreen === i && (
+  1553→                        <motion.div
+  1554→                          animate={{ opacity: [1, 0.5, 1] }}
+  1555→                          transition={{ duration: 1.5, repeat: Infinity }}
+  1556→                          className="w-2 h-2 rounded-full" style={{ backgroundColor: screen.color }}
+  1557→                        />
+  1558→                      )}
+  1559→                    </div>
+  1560→                    <span className="text-xs text-white/40">{screen.metric}</span>
+  1561→                  </div>
+  1562→                  <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: `${screen.color}20`, color: screen.color }}>
+  1563→                    {screen.status}
+  1564→                  </span>
+  1565→                </div>
+  1566→              </motion.div>
+  1567→            ))}
+  1568→
+  1569→            {/* Aggregate Stats */}
+  1570→            <div className="grid grid-cols-2 gap-3 pt-3">
+  1571→              {[
+  1572→                { label: 'Kamera CCTV', value: '240+', color: '#0ea5e9' },
+  1573→                { label: 'IoT Sensors', value: '1.200+', color: '#10b981' },
+  1574→                { label: 'Uptime', value: '99.9%', color: '#f59e0b' },
+  1575→                { label: 'Response Time', value: '<3 detik', color: '#8b5cf6' }
+  1576→              ].map((stat, i) => (
+  1577→                <div key={i} className="p-3 rounded-lg border border-white/10 bg-white/5 text-center">
+  1578→                  <p className="text-lg font-bold" style={{ color: stat.color }}>{stat.value}</p>
+  1579→                  <p className="text-xs text-white/40">{stat.label}</p>
+  1580→                </div>
+  1581→              ))}
+  1582→            </div>
+  1583→          </div>
+  1584→        </div>
+  1585→      </div>
+  1586→    </section>
+  1587→  )
+  1588→}
+  1589→
+  1590→// ---- BRILLIANT FUTURE SUPER IDEAS SECTION ----
+  1591→function BrilliantFutureSection() {
+  1592→  const ref = useRef<HTMLDivElement>(null)
+  1593→  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  1594→
+  1595→  return (
+  1596→    <section ref={ref} className="relative py-12 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #0a1628 0%, #1a0a2e 50%, #0a1628 100%)' }}>
+  1597→      <div className="absolute inset-0">
+  1598→        {/* Neural network pattern - static SVG, no Math.random to avoid hydration mismatch */}
+  1599→        <svg className="absolute inset-0 w-full h-full opacity-5" viewBox="0 0 800 400">
+  1600→          {[
+  1601→            {cx:120,cy:80},{cx:350,cy:200},{cx:600,cy:50},{cx:200,cy:350},{cx:500,cy:300},
+  1602→            {cx:700,cy:150},{cx:50,cy:250},{cx:450,cy:100},{cx:650,cy:380},{cx:300,cy:50},
+  1603→            {cx:150,cy:200},{cx:550,cy:250},{cx:750,cy:80},{cx:80,cy:380},{cx:400,cy:350},
+  1604→            {cx:250,cy:150},{cx:680,cy:280},{cx:100,cy:30},{cx:500,cy:50},{cx:350,cy:380}
+  1605→          ].map((p, i) => (
+  1606→            <motion.circle
+  1607→              key={i}
+  1608→              cx={p.cx}
+  1609→              cy={p.cy}
+  1610→              r={2}
+  1611→              fill="#8b5cf6"
+  1612→              animate={{ opacity: [0.2, 0.8, 0.2] }}
+  1613→              transition={{ duration: 3 + (i % 4), repeat: Infinity, delay: (i % 5) * 0.5 }}
+  1614→            />
+  1615→          ))}
+  1616→          {[
+  1617→            {x1:120,y1:80,x2:350,y2:200},{x1:350,y1:200,x2:600,y2:50},{x1:200,y1:350,x2:500,y2:300},
+  1618→            {x1:500,y1:300,x2:700,y2:150},{x1:50,y1:250,x2:450,y2:100},{x1:450,y1:100,x2:650,y2:380},
+  1619→            {x1:300,y1:50,x2:150,y2:200},{x1:550,y1:250,x2:750,y2:80},{x1:80,y1:380,x2:400,y2:350},
+  1620→            {x1:250,y1:150,x2:680,y2:280},{x1:100,y1:30,x2:500,y2:50},{x1:350,y1:380,x2:700,y2:150},
+  1621→            {x1:600,y1:50,x2:200,y2:350},{x1:650,y1:380,x2:300,y2:50},{x1:120,y1:80,x2:550,y2:250}
+  1622→          ].map((l, i) => (
+  1623→            <motion.line
+  1624→              key={`l${i}`}
+  1625→              x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2}
+  1626→              stroke="#8b5cf6"
+  1627→              strokeWidth={0.5}
+  1628→              animate={{ opacity: [0.1, 0.3, 0.1] }}
+  1629→              transition={{ duration: 4 + (i % 5), repeat: Infinity, delay: (i % 4) * 0.7 }}
+  1630→            />
+  1631→          ))}
+  1632→        </svg>
+  1633→      </div>
+  1634→      <div className="max-w-7xl mx-auto px-4 relative z-10">
+  1635→        <motion.div
+  1636→          initial="hidden"
+  1637→          animate={isInView ? 'visible' : 'hidden'}
+  1638→          variants={staggerContainer}
+  1639→          className="text-center mb-12"
+  1640→        >
+  1641→          <motion.div variants={scaleIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 mb-6">
+  1642→            <Sparkles className="w-4 h-4 text-purple-400" />
+  1643→            <span className="text-sm font-semibold text-purple-300">BRILLIANT THE FUTURE</span>
+  1644→          </motion.div>
+  1645→          <motion.h2 variants={fadeInUp} className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4">
+  1646→            10 Super Idea <span style={{ background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Masa Depan</span>
+  1647→          </motion.h2>
+  1648→          <motion.p variants={fadeInUp} className="text-lg text-white/60 max-w-3xl mx-auto">
+  1649→            Konsep revolusioner yang melampaui smart city konvensional — menuju peradaban maritim digital yang belum pernah ada di dunia
+  1650→          </motion.p>
+  1651→        </motion.div>
+  1652→
+  1653→        <motion.div
+  1654→          initial="hidden"
+  1655→          animate={isInView ? 'visible' : 'hidden'}
+  1656→          variants={staggerContainer}
+  1657→          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+  1658→        >
+  1659→          {brilliantFutureIdeas.map((idea, i) => (
+  1660→            <motion.div
+  1661→              key={idea.id}
+  1662→              variants={i % 2 === 0 ? fadeInLeft : fadeInRight}
+  1663→              whileHover={{ scale: 1.02, y: -3 }}
+  1664→              className="group relative"
+  1665→            >
+  1666→              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+  1667→                style={{ background: `radial-gradient(circle at 30% 30%, ${idea.color}20, transparent 60%)` }} />
+  1668→              <div className="relative p-4 sm:p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/8 transition-all duration-300 hover:border-white/20">
+  1669→                <div className="flex items-start gap-4">
+  1670→                  <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${idea.color}20` }}>
+  1671→                    <idea.icon className="w-6 h-6" style={{ color: idea.color }} />
+  1672→                  </div>
+  1673→                  <div className="flex-1">
+  1674→                    <div className="flex items-center gap-2 mb-2 flex-wrap">
+  1675→                      <span className="text-xs font-bold px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: idea.color }}>
+  1676→                        #{idea.id}
+  1677→                      </span>
+  1678→                      <span className="text-xs font-medium px-2 py-0.5 rounded-full border" style={{ borderColor: `${idea.color}40`, color: idea.color }}>
+  1679→                        {idea.tag}
+  1680→                      </span>
+  1681→                    </div>
+  1682→                    <h4 className="font-bold text-base sm:text-lg text-white mb-2">{idea.title}</h4>
+  1683→                    <p className="text-sm text-white/55 leading-relaxed">{idea.desc}</p>
+  1684→                  </div>
+  1685→                </div>
+  1686→              </div>
+  1687→            </motion.div>
+  1688→          ))}
+  1689→        </motion.div>
+  1690→      </div>
+  1691→    </section>
+  1692→  )
+  1693→}
+  1694→
+  1695→// ---- FOOTER ----
+  1696→function Footer() {
+  1697→  return (
+  1698→    <footer className="relative py-8 sm:py-12" style={{ background: 'linear-gradient(180deg, #0a1628, #050d18)' }}>
+  1699→      <div className="max-w-6xl mx-auto px-4">
+  1700→        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-8">
+  1701→          <div>
+  1702→            <h3 className="text-xl font-bold text-white mb-4" style={{ background: 'linear-gradient(135deg, #0ea5e9, #10b981)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+  1703→              PESISIR SELATAN SMART CIVILIZATION
+  1704→            </h3>
+  1705→            <p className="text-sm text-white/50 leading-relaxed">
+  1706→              Atlas peradaban yang menyatukan tujuh pilar Smart City, delapan Super Idea terobosan, dan kerangka tata kelola APBD berbasis blockchain kepatuhan.
+  1707→            </p>
+  1708→          </div>
+  1709→          <div>
+  1710→            <h4 className="font-bold text-white mb-4">7 Pilar Smart City</h4>
+  1711→            <div className="space-y-2">
+  1712→              {sevenPillars.map(p => (
+  1713→                <div key={p.id} className="flex items-center gap-2">
+  1714→                  <div className="w-2 h-2 rounded-full" style={{ backgroundColor: p.color }} />
+  1715→                  <span className="text-sm text-white/50">{p.name}</span>
+  1716→                </div>
+  1717→              ))}
+  1718→            </div>
+  1719→          </div>
+  1720→          <div>
+  1721→            <h4 className="font-bold text-white mb-4">Dokumen</h4>
+  1722→            <div className="space-y-2 text-sm text-white/50">
+  1723→              <p>PGA-166 · Versi 1.0 · 2026</p>
+  1724→              <p>Disusun oleh Dewan 46 Master Polymath</p>
+  1725→              <p>KMN Berdikari Governance Layer</p>
+  1726→              <p>Edisi Berdaulat 2026</p>
+  1727→            </div>
+  1728→
+  1729→          </div>
+  1730→        </div>
+  1731→        <div className="pt-8 border-t border-white/10 text-center">
+  1732→          <p className="text-sm text-white/30">
+  1733→            &copy; 2026 Kabupaten Pesisir Selatan, Sumatera Barat — Smart Civilization Atlas PGA-166
+  1734→          </p>
+  1735→          <p className="text-xs text-white/20 mt-2 italic">
+  1736→            &ldquo;Pesisir Selatan akan membuktikan bahwa kecerdasan digital dapat dibangun di atas laut, bukan hanya di atas beton.&rdquo;
+  1737→          </p>
+  1738→        </div>
+  1739→      </div>
+  1740→    </footer>
+  1741→  )
+  1742→}
+  1743→
+  1744→// ===== MAIN PAGE =====
+  1745→export default function Home() {
+  1746→  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  1747→
+  1748→  return (
+  1749→    <div className="min-h-screen flex flex-col overflow-x-hidden">
+  1750→      {/* Navigation */}
+  1751→      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-black/30 border-b border-white/10">
+  1752→        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+  1753→          <div className="flex items-center gap-3">
+  1754→            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #0ea5e9, #10b981)' }}>
+  1755→              <Waves className="w-5 h-5 text-white" />
+  1756→            </div>
+  1757→            <span className="font-bold text-white text-sm md:text-base">PESISIR SELATAN <span className="text-sky-400">SMART CITY</span></span>
+  1758→          </div>
+  1759→          <div className="hidden md:flex items-center gap-6 text-sm text-white/60">
+  1760→            <a href="#pillars" className="hover:text-white transition-colors">7 Pilar</a>
+  1761→            <a href="#dashboard" className="hover:text-white transition-colors">Dashboard</a>
+  1762→            <a href="#" className="px-4 py-2 rounded-lg text-white font-medium hover:scale-105 transition-transform" style={{ background: 'linear-gradient(135deg, #0ea5e9, #10b981)' }}>
+  1763→              PGA-166
+  1764→            </a>
+  1765→          </div>
+  1766→          <button className="md:hidden text-white p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+  1767→            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+  1768→          </button>
+  1769→        </div>
+  1770→        <AnimatePresence>
+  1771→          {mobileMenuOpen && (
+  1772→            <motion.div
+  1773→              initial={{ opacity: 0, height: 0 }}
+  1774→              animate={{ opacity: 1, height: 'auto' }}
+  1775→              exit={{ opacity: 0, height: 0 }}
+  1776→              transition={{ duration: 0.3 }}
+  1777→              className="md:hidden border-t border-white/10 bg-black/90 backdrop-blur-xl"
+  1778→            >
+  1779→              <div className="px-4 py-4 space-y-3">
+  1780→                <a href="#pillars" onClick={() => setMobileMenuOpen(false)} className="block text-white/70 hover:text-white transition-colors py-2">7 Pilar</a>
+  1781→                <a href="#dashboard" onClick={() => setMobileMenuOpen(false)} className="block text-white/70 hover:text-white transition-colors py-2">Dashboard</a>
+  1782→                <a href="#" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 rounded-lg text-white font-medium text-center" style={{ background: 'linear-gradient(135deg, #0ea5e9, #10b981)' }}>
+  1783→                  PGA-166
+  1784→                </a>
+  1785→              </div>
+  1786→            </motion.div>
+  1787→          )}
+  1788→        </AnimatePresence>
+  1789→      </nav>
+  1790→
+  1791→      <main className="flex-1">
+  1792→        <HeroSection />
+  1793→        <VisionSection />
+  1794→        <EnhancedVisionSection />
+  1795→        <NineValuesSection />
+  1796→        <PillarsSection />
+  1797→        <SuperIdeasSection />
+  1798→        <CommandCenterSection />
+  1799→        <DigitalTwinSection />
+  1800→        <WorldBenchmarkSection />
+  1801→        <BrilliantFutureSection />
+  1802→        <GapAnalysisSection />
+  1803→        <RoadmapSection />
+  1804→        <InvestmentSection />
+  1805→        <KPIDashboardSection />
+  1806→        <StrategicProfileSection />
+  1807→        <FinancingSection />
+  1808→        <First100DaysSection />
+  1809→        <VisionImageSection />
+  1810→      </main>
+  1811→
+  1812→      <Footer />
+  1813→    </div>
+  1814→  )
+  1815→}
+  1816→

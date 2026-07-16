@@ -11,7 +11,8 @@ import {
   Building2, GraduationCap, Stethoscope, HomeIcon, Recycle,
   Truck, Plane, ShieldCheck, Server, ChevronDown, Sparkles,
   Waves, Star, Target, Clock, CheckCircle2, AlertTriangle,
-  Handshake, Scale, Lightbulb, BookOpen, Rocket
+  Handshake, Scale, Lightbulb, BookOpen, Rocket,
+  Menu, X
 } from 'lucide-react'
 
 // ===== ANIMATION UTILITIES =====
@@ -343,12 +344,12 @@ function SectionTitle({ title, subtitle, light = false }: { title: string, subti
     >
       <motion.h2
         variants={fadeInUp}
-        className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-4 ${light ? 'text-white' : 'text-foreground'}`}
+        className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 ${light ? 'text-white' : 'text-foreground'}`}
       >
         {title}
       </motion.h2>
       {subtitle && (
-        <motion.p variants={fadeInUp} className={`text-lg md:text-xl max-w-3xl mx-auto ${light ? 'text-white/80' : 'text-muted-foreground'}`}>
+        <motion.p variants={fadeInUp} className={`text-sm sm:text-lg md:text-xl max-w-3xl mx-auto ${light ? 'text-white/80' : 'text-muted-foreground'}`}>
           {subtitle}
         </motion.p>
       )}
@@ -380,23 +381,23 @@ function HeroSection() {
         <motion.div
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full"
+          className="absolute top-1/4 left-1/4 w-48 h-48 sm:w-96 sm:h-96 rounded-full"
           style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.3) 0%, transparent 70%)' }}
         />
         <motion.div
           animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.4, 0.2] }}
           transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full"
+          className="absolute bottom-1/4 right-1/4 w-40 h-40 sm:w-80 sm:h-80 rounded-full"
           style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.3) 0%, transparent 70%)' }}
         />
         <motion.div
           animate={{ scale: [1, 1.3, 1], opacity: [0.15, 0.3, 0.15] }}
           transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/2 right-1/3 w-72 h-72 rounded-full"
+          className="absolute top-1/2 right-1/3 w-36 h-36 sm:w-72 sm:h-72 rounded-full"
           style={{ background: 'radial-gradient(circle, rgba(245,158,11,0.2) 0%, transparent 70%)' }}
         />
         {/* Particle system */}
-        {mounted && Array.from({ length: 30 }).map((_, i) => (
+        {mounted && Array.from({ length: 15 }).map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 rounded-full bg-white/30"
@@ -439,7 +440,7 @@ function HeroSection() {
           transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="mb-6"
         >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-sm text-white/80">
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-xs sm:text-sm text-white/80">
             <Sparkles className="w-4 h-4 text-yellow-400" />
             PGA-166 · Edisi Berdaulat 2026 · KMN Berdikari Governance Layer
           </span>
@@ -489,7 +490,7 @@ function HeroSection() {
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1.2 + i * 0.1, type: 'spring', stiffness: 200 }}
-              className="px-3 py-1 rounded-full text-xs md:text-sm font-semibold border backdrop-blur-sm"
+              className="px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-xs md:text-sm font-semibold border backdrop-blur-sm"
               style={{
                 borderColor: `${sevenPillars[i].color}40`,
                 color: sevenPillars[i].color,
@@ -507,11 +508,11 @@ function HeroSection() {
           transition={{ duration: 1, delay: 1.5 }}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
-          <a href="#pillars" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-white font-bold text-lg shadow-2xl hover:shadow-3xl transition-all hover:scale-105"
+          <a href="#pillars" className="inline-flex items-center gap-2 px-5 py-3 sm:px-8 sm:py-4 rounded-xl text-white font-bold text-base sm:text-lg shadow-2xl hover:shadow-3xl transition-all hover:scale-105"
             style={{ background: 'linear-gradient(135deg, #0ea5e9, #10b981)' }}>
             Jelajahi 7 Pilar <ChevronRight className="w-5 h-5" />
           </a>
-          <a href="#dashboard" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-white font-bold text-lg border-2 border-white/30 hover:bg-white/10 transition-all hover:scale-105">
+          <a href="#dashboard" className="inline-flex items-center gap-2 px-5 py-3 sm:px-8 sm:py-4 rounded-xl text-white font-bold text-base sm:text-lg border-2 border-white/30 hover:bg-white/10 transition-all hover:scale-105">
             Dashboard KPI <Activity className="w-5 h-5" />
           </a>
         </motion.div>
@@ -540,7 +541,7 @@ function VisionSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section ref={ref} className="relative py-20 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #071a2c 0%, #0c2d48 50%, #0a1628 100%)' }}>
+    <section ref={ref} className="relative py-12 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #071a2c 0%, #0c2d48 50%, #0a1628 100%)' }}>
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
       </div>
@@ -560,7 +561,7 @@ function VisionSection() {
             <motion.div key={i} variants={fadeInUp} className="relative group">
               <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"
                 style={{ background: `radial-gradient(circle, ${item.color}30, transparent)` }} />
-              <div className="relative p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-500 hover:border-white/20 hover:scale-[1.02]">
+              <div className="relative p-5 sm:p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-500 hover:border-white/20 hover:scale-[1.02]">
                 <div className="w-16 h-16 rounded-xl flex items-center justify-center mb-6" style={{ background: `${item.color}20` }}>
                   <item.icon className="w-8 h-8" style={{ color: item.color }} />
                 </div>
@@ -575,7 +576,7 @@ function VisionSection() {
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.6, duration: 0.8 }}
-          className="mt-16 p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm"
+          className="mt-16 p-5 sm:p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm"
         >
           <p className="text-center text-white/80 text-lg md:text-xl italic max-w-4xl mx-auto">
             &ldquo;Pesisir Selatan 2030 — Peradaban Maritim Digital yang Berdaulat, Berkeadilan, dan Berkelanjutan,
@@ -593,7 +594,7 @@ function NineValuesSection() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="relative py-20 md:py-32 bg-background">
+    <section ref={ref} className="relative py-12 md:py-32 bg-background">
       <div className="max-w-7xl mx-auto px-4">
         <SectionTitle
           title="9 Pilar Nilai Peradaban"
@@ -610,14 +611,14 @@ function NineValuesSection() {
               key={i}
               variants={fadeInUp}
               whileHover={{ scale: 1.03, y: -5 }}
-              className="group relative p-6 rounded-xl border border-border bg-card hover:shadow-xl transition-all duration-300"
+              className="group relative p-4 sm:p-6 rounded-xl border border-border bg-card hover:shadow-xl transition-all duration-300"
             >
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-lg flex items-center justify-center shrink-0 bg-primary/10 group-hover:bg-primary/20 transition-colors">
                   <v.icon className="w-6 h-6 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-bold text-lg text-foreground">{v.name}</h4>
+                  <h4 className="font-bold text-base sm:text-lg text-foreground">{v.name}</h4>
                   <p className="text-sm text-muted-foreground mt-1">{v.meaning}</p>
                   <div className="mt-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 text-xs font-medium text-primary">
                     <Target className="w-3 h-3" />
@@ -640,7 +641,7 @@ function PillarsSection() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="pillars" ref={ref} className="relative py-20 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #f8fafc 0%, #e0f2fe 50%, #f0fdf4 100%)' }}>
+    <section id="pillars" ref={ref} className="relative py-12 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #f8fafc 0%, #e0f2fe 50%, #f0fdf4 100%)' }}>
       <div className="max-w-7xl mx-auto px-4">
         <SectionTitle
           title="Arsitektur 7 Pilar"
@@ -662,17 +663,17 @@ function PillarsSection() {
             >
               <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                 style={{ background: `radial-gradient(circle at 50% 0%, ${pillar.color}25, transparent 70%)` }} />
-              <div className="relative p-6 rounded-2xl border bg-white hover:shadow-2xl transition-all duration-500 h-full"
+              <div className="relative p-4 sm:p-6 rounded-2xl border bg-white hover:shadow-2xl transition-all duration-500 h-full"
                 style={{ borderColor: activePillar === i ? pillar.color : 'transparent' }}>
-                <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-4 shadow-lg"
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center mb-4 shadow-lg"
                   style={{ background: `linear-gradient(135deg, ${pillar.color}20, ${pillar.color}40)` }}>
-                  <pillar.icon className="w-7 h-7" style={{ color: pillar.color }} />
+                  <pillar.icon className="w-6 h-6 sm:w-7 sm:h-7" style={{ color: pillar.color }} />
                 </div>
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-xs font-bold px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: pillar.color }}>
                     {pillar.id}
                   </span>
-                  <h3 className="font-bold text-lg text-foreground">{pillar.name}</h3>
+                  <h3 className="font-bold text-base sm:text-lg text-foreground">{pillar.name}</h3>
                 </div>
                 <p className="text-sm font-medium mb-2" style={{ color: pillar.color }}>{pillar.tagline}</p>
                 <p className="text-sm text-muted-foreground mb-4">{pillar.description}</p>
@@ -748,7 +749,7 @@ function SuperIdeasSection() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="relative py-20 md:py-32" style={{ background: 'linear-gradient(180deg, #0a1628 0%, #0c2d48 50%, #071a2c 100%)' }}>
+    <section ref={ref} className="relative py-12 md:py-32" style={{ background: 'linear-gradient(180deg, #0a1628 0%, #0c2d48 50%, #071a2c 100%)' }}>
       <div className="max-w-7xl mx-auto px-4">
         <SectionTitle light title="8 Super Idea Terobosan" subtitle="Inovasi revolusioner yang membedakan Atlas PGA-166 dari konvensi smart city biasa" />
         <motion.div
@@ -766,7 +767,7 @@ function SuperIdeasSection() {
             >
               <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                 style={{ background: `radial-gradient(circle at 30% 30%, ${idea.color}20, transparent 60%)` }} />
-              <div className="relative p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:border-white/20">
+              <div className="relative p-4 sm:p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:border-white/20">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
                     style={{ background: `${idea.color}20` }}>
@@ -778,7 +779,7 @@ function SuperIdeasSection() {
                         SUPER IDEA #{idea.id}
                       </span>
                     </div>
-                    <h4 className="font-bold text-lg text-white mb-2">{idea.title}</h4>
+                    <h4 className="font-bold text-base sm:text-lg text-white mb-2">{idea.title}</h4>
                     <p className="text-sm text-white/60 leading-relaxed">{idea.desc}</p>
                   </div>
                 </div>
@@ -797,7 +798,7 @@ function RoadmapSection() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="relative py-20 md:py-32 bg-background">
+    <section ref={ref} className="relative py-12 md:py-32 bg-background">
       <div className="max-w-6xl mx-auto px-4">
         <SectionTitle title="Roadmap 2026-2030" subtitle="Implementasi bertahap menuju Role Model ASEAN Smart Maritime Civilization" />
         <motion.div
@@ -813,13 +814,13 @@ function RoadmapSection() {
                   <motion.div
                     whileHover={{ scale: 1.2, rotate: 360 }}
                     transition={{ duration: 0.5 }}
-                    className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg"
+                    className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center shadow-lg"
                     style={{ background: `linear-gradient(135deg, ${phase.color}, ${phase.color}80)` }}
                   >
                     <span className="text-white font-bold text-sm">{phase.phase}</span>
                   </motion.div>
                   {i < roadmapData.length - 1 && (
-                    <div className="w-0.5 h-16 mt-2" style={{ backgroundColor: `${phase.color}30` }} />
+                    <div className="w-0.5 h-10 sm:h-16 mt-2" style={{ backgroundColor: `${phase.color}30` }} />
                   )}
                 </div>
                 <div className="flex-1 pb-8">
@@ -827,7 +828,7 @@ function RoadmapSection() {
                     <span className="text-sm font-bold px-3 py-1 rounded-full text-white" style={{ backgroundColor: phase.color }}>
                       {phase.year}
                     </span>
-                    <h3 className="text-xl font-bold text-foreground">{phase.title}</h3>
+                    <h3 className="text-lg sm:text-xl font-bold text-foreground">{phase.title}</h3>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4">
                     {phase.items.map((item, j) => (
@@ -859,7 +860,7 @@ function InvestmentSection() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="relative py-20 md:py-32" style={{ background: 'linear-gradient(180deg, #f0fdf4 0%, #ecfdf5 50%, #f0f9ff 100%)' }}>
+    <section ref={ref} className="relative py-12 md:py-32" style={{ background: 'linear-gradient(180deg, #f0fdf4 0%, #ecfdf5 50%, #f0f9ff 100%)' }}>
       <div className="max-w-7xl mx-auto px-4">
         <SectionTitle title="Estimasi Investasi" subtitle="Total investasi Rp 8.000 Miliar untuk transformasi Smart City Pesisir Selatan 2026-2028" />
         <motion.div
@@ -913,22 +914,22 @@ function InvestmentSection() {
                 <motion.div
                   key={i}
                   whileHover={{ scale: 1.05, y: -3 }}
-                  className="p-5 rounded-xl bg-white border border-border shadow-sm hover:shadow-lg transition-all"
+                  className="p-3 sm:p-5 rounded-xl bg-white border border-border shadow-sm hover:shadow-lg transition-all"
                 >
-                  <m.icon className="w-8 h-8 mb-3" style={{ color: m.color }} />
-                  <p className="text-2xl md:text-3xl font-bold text-foreground">
+                  <m.icon className="w-6 h-6 sm:w-8 sm:h-8 mb-3" style={{ color: m.color }} />
+                  <p className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
                     {m.display ? m.display : <><AnimatedCounter target={m.numTarget} />{m.suffix}</>}
                   </p>
                   <p className="text-sm text-muted-foreground mt-1">{m.label}</p>
                 </motion.div>
               ))}
             </div>
-            <div className="p-5 rounded-xl bg-white border border-border">
+            <div className="p-4 sm:p-5 rounded-xl bg-white border border-border">
               <div className="flex items-center gap-3 mb-3">
                 <Clock className="w-5 h-5 text-primary" />
                 <span className="font-bold text-foreground">Break Even Point</span>
               </div>
-              <p className="text-3xl font-bold" style={{ color: '#10b981' }}>6-7 Tahun</p>
+              <p className="text-2xl sm:text-3xl font-bold" style={{ color: '#10b981' }}>6-7 Tahun</p>
               <p className="text-sm text-muted-foreground">Total Net Cashflow Tahunan: Rp 1.150 – 1.300 Miliar</p>
             </div>
           </motion.div>
@@ -957,7 +958,7 @@ function KPIDashboardSection() {
   }, [isInView])
 
   return (
-    <section id="dashboard" ref={ref} className="relative py-20 md:py-32" style={{ background: 'linear-gradient(180deg, #071a2c 0%, #0c2d48 100%)' }}>
+    <section id="dashboard" ref={ref} className="relative py-12 md:py-32" style={{ background: 'linear-gradient(180deg, #071a2c 0%, #0c2d48 100%)' }}>
       <div className="max-w-7xl mx-auto px-4">
         <SectionTitle light title="Dashboard KPI Smart City" subtitle="Monitoring real-time pencapaian Smart City Pesisir Selatan menuju 2030" />
         <motion.div
@@ -973,7 +974,7 @@ function KPIDashboardSection() {
                 key={i}
                 variants={scaleIn}
                 whileHover={{ scale: 1.03, y: -5 }}
-                className="p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
+                className="p-4 sm:p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'rgba(14,165,233,0.2)' }}>
@@ -985,7 +986,7 @@ function KPIDashboardSection() {
                 </div>
                 <h4 className="font-semibold text-white mb-2">{kpi.label}</h4>
                 <div className="flex items-end gap-2 mb-3">
-                  <span className="text-3xl font-bold text-white">
+                  <span className="text-2xl sm:text-3xl font-bold text-white">
                     {kpi.unit === '%' ? Math.round(liveData[i]) : Math.round(liveData[i]).toLocaleString()}
                   </span>
                   <span className="text-sm text-white/50 mb-1">/ {kpi.target}{kpi.unit} {kpi.unit}</span>
@@ -1014,7 +1015,7 @@ function StrategicProfileSection() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="relative py-20 md:py-32 bg-background">
+    <section ref={ref} className="relative py-12 md:py-32 bg-background">
       <div className="max-w-6xl mx-auto px-4">
         <SectionTitle title="Profil Strategis 2024-2030" subtitle="Transformasi Pesisir Selatan dalam angka menuju Role Model ASEAN" />
         <motion.div
@@ -1026,10 +1027,10 @@ function StrategicProfileSection() {
           <table className="w-full min-w-[600px]">
             <thead>
               <tr className="border-b border-border">
-                <th className="text-left p-4 font-semibold text-foreground">Dimensi</th>
-                <th className="text-center p-4 font-semibold text-muted-foreground">2024</th>
-                <th className="text-center p-4 font-semibold" style={{ color: '#0ea5e9' }}>Target 2029</th>
-                <th className="text-center p-4 font-semibold" style={{ color: '#10b981' }}>Target 2030</th>
+                <th className="text-left p-2 sm:p-4 font-semibold text-xs sm:text-sm text-foreground">Dimensi</th>
+                <th className="text-center p-2 sm:p-4 font-semibold text-xs sm:text-sm text-muted-foreground">2024</th>
+                <th className="text-center p-2 sm:p-4 font-semibold text-xs sm:text-sm" style={{ color: '#0ea5e9' }}>Target 2029</th>
+                <th className="text-center p-2 sm:p-4 font-semibold text-xs sm:text-sm" style={{ color: '#10b981' }}>Target 2030</th>
               </tr>
             </thead>
             <tbody>
@@ -1039,10 +1040,10 @@ function StrategicProfileSection() {
                   variants={fadeInUp}
                   className="border-b border-border/50 hover:bg-primary/5 transition-colors"
                 >
-                  <td className="p-4 font-medium text-foreground">{row.dim}</td>
-                  <td className="p-4 text-center text-muted-foreground">{row.current}</td>
-                  <td className="p-4 text-center font-semibold" style={{ color: '#0ea5e9' }}>{row.target2029}</td>
-                  <td className="p-4 text-center font-semibold" style={{ color: '#10b981' }}>{row.target2030}</td>
+                  <td className="p-2 sm:p-4 font-medium text-foreground">{row.dim}</td>
+                  <td className="p-2 sm:p-4 text-center text-muted-foreground">{row.current}</td>
+                  <td className="p-2 sm:p-4 text-center font-semibold" style={{ color: '#0ea5e9' }}>{row.target2029}</td>
+                  <td className="p-2 sm:p-4 text-center font-semibold" style={{ color: '#10b981' }}>{row.target2030}</td>
                 </motion.tr>
               ))}
             </tbody>
@@ -1059,7 +1060,7 @@ function DigitalTwinSection() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="relative py-20 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #0c1445 0%, #1a1a3e 50%, #0a1628 100%)' }}>
+    <section ref={ref} className="relative py-12 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #0c1445 0%, #1a1a3e 50%, #0a1628 100%)' }}>
       <div className="absolute inset-0">
         {/* Grid pattern */}
         <div className="absolute inset-0 opacity-5"
@@ -1086,14 +1087,14 @@ function DigitalTwinSection() {
             >
               <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                 style={{ background: `radial-gradient(circle at 50% 0%, ${layer.color}30, transparent 60%)` }} />
-              <div className="relative p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 text-center">
+              <div className="relative p-5 sm:p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 text-center">
                 <motion.div
                   animate={{ rotateY: [0, 360] }}
                   transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-                  className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg"
+                  className="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg"
                   style={{ background: `linear-gradient(135deg, ${layer.color}30, ${layer.color}50)` }}
                 >
-                  <layer.icon className="w-10 h-10" style={{ color: layer.color }} />
+                  <layer.icon className="w-7 h-7 sm:w-10 sm:h-10" style={{ color: layer.color }} />
                 </motion.div>
                 <h3 className="text-xl font-bold text-white mb-3">{layer.title}</h3>
                 <p className="text-sm text-white/60 leading-relaxed">{layer.desc}</p>
@@ -1106,7 +1107,7 @@ function DigitalTwinSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.6, duration: 0.8 }}
-          className="mt-12 grid grid-cols-1 sm:grid-cols-4 gap-4"
+          className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4"
         >
           {[
             { label: 'Total Investasi 5 Tahun', value: 'Rp 42 M', icon: Coins },
@@ -1132,7 +1133,7 @@ function GapAnalysisSection() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="relative py-20 md:py-32 bg-background">
+    <section ref={ref} className="relative py-12 md:py-32 bg-background">
       <div className="max-w-6xl mx-auto px-4">
         <SectionTitle title="GAP Analysis" subtitle="Enam kesenjangan struktural yang harus dijembatani oleh Atlas PGA-166" />
         <motion.div
@@ -1153,7 +1154,7 @@ function GapAnalysisSection() {
               key={i}
               variants={fadeInUp}
               whileHover={{ x: 5 }}
-              className="p-5 rounded-xl border border-border bg-card hover:shadow-lg transition-all duration-300"
+              className="p-3 sm:p-5 rounded-xl border border-border bg-card hover:shadow-lg transition-all duration-300"
             >
               <div className="flex flex-col md:flex-row md:items-center gap-4">
                 <div className="flex items-center gap-4 md:w-1/4">
@@ -1191,7 +1192,7 @@ function FinancingSection() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="relative py-20 md:py-32" style={{ background: 'linear-gradient(180deg, #f0f9ff 0%, #f8fafc 100%)' }}>
+    <section ref={ref} className="relative py-12 md:py-32" style={{ background: 'linear-gradient(180deg, #f0f9ff 0%, #f8fafc 100%)' }}>
       <div className="max-w-6xl mx-auto px-4">
         <SectionTitle title="Skema Pembiayaan" subtitle="Empat pilar pembiayaan dengan prinsip transparan, akuntabel, berkelanjutan, dan berkeadilan" />
         <motion.div
@@ -1207,8 +1208,8 @@ function FinancingSection() {
             { title: 'Multilateral / Development Bank', desc: 'Pendanaan proyek berkelanjutan dari lembaga multilateral internasional.', icon: Landmark, color: '#8b5cf6' }
           ].map((item, i) => (
             <motion.div key={i} variants={fadeInUp} whileHover={{ scale: 1.03, y: -5 }}
-              className="p-6 rounded-2xl border border-border bg-white shadow-sm hover:shadow-xl transition-all duration-300">
-              <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-4" style={{ background: `${item.color}15` }}>
+              className="p-4 sm:p-6 rounded-2xl border border-border bg-white shadow-sm hover:shadow-xl transition-all duration-300">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center mb-4" style={{ background: `${item.color}15` }}>
                 <item.icon className="w-7 h-7" style={{ color: item.color }} />
               </div>
               <h3 className="text-lg font-bold text-foreground mb-2">{item.title}</h3>
@@ -1227,7 +1228,7 @@ function First100DaysSection() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="relative py-20 md:py-32" style={{ background: 'linear-gradient(180deg, #0a1628 0%, #0c2d48 100%)' }}>
+    <section ref={ref} className="relative py-12 md:py-32" style={{ background: 'linear-gradient(180deg, #0a1628 0%, #0c2d48 100%)' }}>
       <div className="max-w-6xl mx-auto px-4">
         <SectionTitle light title="Rencana Aksi 100 Hari Pertama" subtitle="Langkah cepat dan terukur untuk sinyal kepemimpinan transformasi digital" />
         <motion.div
@@ -1246,7 +1247,7 @@ function First100DaysSection() {
               key={i}
               variants={fadeInUp}
               whileHover={{ scale: 1.02 }}
-              className="p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
+              className="p-4 sm:p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
             >
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: `${item.color}20` }}>
@@ -1279,7 +1280,7 @@ function VisionImageSection() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="relative py-20 md:py-32 bg-background">
+    <section ref={ref} className="relative py-12 md:py-32 bg-background">
       <div className="max-w-5xl mx-auto px-4">
         <SectionTitle title="Visi Smart City Pesisir Selatan 2028" subtitle="Proyek Strategis Visi MESITA 2030 — True Paradise in the World" />
         <motion.div
@@ -1310,7 +1311,7 @@ function EnhancedVisionSection() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="relative py-20 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #0c1445 0%, #0a1628 50%, #0c2d48 100%)' }}>
+    <section ref={ref} className="relative py-12 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #0c1445 0%, #0a1628 50%, #0c2d48 100%)' }}>
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'80\' height=\'80\' viewBox=\'0 0 80 80\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%2306b6d4\' fill-opacity=\'0.15\'%3E%3Cpath d=\'M40 0l10 20H30zM0 40l20-10v20zM80 40L60 30v20zM40 80L30 60h20z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
       </div>
@@ -1330,7 +1331,7 @@ function EnhancedVisionSection() {
             className="w-full h-auto object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
+          <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-10">
             <div className="flex flex-wrap gap-2 mb-4">
               {['Smart Marina', 'Digital Twin', 'IoT Network', 'Green Energy', 'Smart Port', 'Telemedisin'].map((tag, i) => (
                 <span key={i} className="px-3 py-1 rounded-full text-xs font-medium bg-white/15 backdrop-blur-sm text-white border border-white/20">
@@ -1338,7 +1339,7 @@ function EnhancedVisionSection() {
                 </span>
               ))}
             </div>
-            <p className="text-white font-bold text-2xl md:text-3xl mb-2">PESISIR SELATAN 2028</p>
+            <p className="text-white font-bold text-xl sm:text-2xl md:text-3xl mb-2">PESISIR SELATAN 2028</p>
             <p className="text-white/70 text-sm md:text-base max-w-3xl">
               Transformasi kabupaten pesisir menjadi smart city terintegrasi, destinasi wisata bahari kelas dunia,
               berdaya saing global, masyarakat sejahtera, dan berkelanjutan.
@@ -1362,14 +1363,14 @@ function EnhancedVisionSection() {
             { title: 'Inclusive Smart Living', desc: 'Telemedicine 100% pulau, smart school dan rumah belajar di setiap kecamatan. Smart housing tangguh bencana. Layanan dasar inklusif — air, sanitasi, energi untuk seluruh warga.', icon: Heart, color: '#f43f5e' }
           ].map((item, i) => (
             <motion.div key={i} variants={fadeInUp} whileHover={{ y: -5, scale: 1.02 }}
-              className="group relative p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:border-white/20">
+              className="group relative p-4 sm:p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:border-white/20">
               <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                 style={{ background: `radial-gradient(circle at 50% 0%, ${item.color}20, transparent 60%)` }} />
               <div className="relative">
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{ background: `${item.color}20` }}>
                   <item.icon className="w-6 h-6" style={{ color: item.color }} />
                 </div>
-                <h4 className="text-lg font-bold text-white mb-2">{item.title}</h4>
+                <h4 className="text-base sm:text-lg font-bold text-white mb-2">{item.title}</h4>
                 <p className="text-sm text-white/60 leading-relaxed">{item.desc}</p>
               </div>
             </motion.div>
@@ -1389,10 +1390,10 @@ function EnhancedVisionSection() {
             className="w-full h-auto object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
-          <div className="absolute top-4 left-4 px-4 py-2 rounded-lg bg-red-500/80 backdrop-blur-sm text-white text-sm font-bold">
+          <div className="absolute top-2 left-2 sm:top-4 sm:left-4 px-2 py-1 sm:px-4 sm:py-2 rounded-lg bg-red-500/80 backdrop-blur-sm text-white text-xs sm:text-sm font-bold">
             BEFORE — Desa Nelayan Tradisional
           </div>
-          <div className="absolute top-4 right-4 px-4 py-2 rounded-lg bg-emerald-500/80 backdrop-blur-sm text-white text-sm font-bold">
+          <div className="absolute top-2 right-2 sm:top-4 sm:right-4 px-2 py-1 sm:px-4 sm:py-2 rounded-lg bg-emerald-500/80 backdrop-blur-sm text-white text-xs sm:text-sm font-bold">
             AFTER — Smart Maritime City
           </div>
         </motion.div>
@@ -1408,7 +1409,7 @@ function WorldBenchmarkSection() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="relative py-20 md:py-32 bg-background">
+    <section ref={ref} className="relative py-12 md:py-32 bg-background">
       <div className="max-w-7xl mx-auto px-4">
         <SectionTitle
           title="Studi Banding Smart City Terbaik Dunia"
@@ -1428,13 +1429,13 @@ function WorldBenchmarkSection() {
               onClick={() => setActiveCity(activeCity === i ? null : i)}
               className="cursor-pointer group"
             >
-              <div className="relative p-6 rounded-2xl border border-border bg-card hover:shadow-2xl transition-all duration-500 h-full"
+              <div className="relative p-4 sm:p-6 rounded-2xl border border-border bg-card hover:shadow-2xl transition-all duration-500 h-full"
                 style={{ borderColor: activeCity === i ? city.color : undefined }}>
                 <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                   style={{ background: `radial-gradient(circle at 50% 0%, ${city.color}15, transparent 60%)` }} />
                 <div className="relative">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="text-3xl">{city.flag}</span>
+                    <span className="text-2xl sm:text-3xl">{city.flag}</span>
                     <div>
                       <h3 className="font-bold text-lg text-foreground">{city.city}</h3>
                       <p className="text-xs text-muted-foreground">{city.country}</p>
@@ -1491,7 +1492,7 @@ function CommandCenterSection() {
   ]
 
   return (
-    <section ref={ref} className="relative py-20 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #050d18 0%, #0a1628 50%, #0c1445 100%)' }}>
+    <section ref={ref} className="relative py-12 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #050d18 0%, #0a1628 50%, #0c1445 100%)' }}>
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         <SectionTitle light title="Command Center Smart City" subtitle="Pusat kendali digital terintegrasi untuk monitoring real-time seluruh operasi kota" />
 
@@ -1509,7 +1510,7 @@ function CommandCenterSection() {
               className="w-full h-auto object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-6">
+            <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
               <div className="flex items-center gap-3 mb-3">
                 <motion.div
                   animate={{ scale: [1, 1.2, 1] }}
@@ -1537,7 +1538,7 @@ function CommandCenterSection() {
                 transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
                 whileHover={{ x: -3 }}
                 onClick={() => setActiveScreen(i)}
-                className={`cursor-pointer p-4 rounded-xl border transition-all duration-300 ${
+                className={`cursor-pointer p-3 sm:p-4 rounded-xl border transition-all duration-300 ${
                   activeScreen === i ? 'border-white/30 bg-white/10' : 'border-white/10 bg-white/5 hover:bg-white/8'
                 }`}
               >
@@ -1592,7 +1593,7 @@ function BrilliantFutureSection() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="relative py-20 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #0a1628 0%, #1a0a2e 50%, #0a1628 100%)' }}>
+    <section ref={ref} className="relative py-12 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #0a1628 0%, #1a0a2e 50%, #0a1628 100%)' }}>
       <div className="absolute inset-0">
         {/* Neural network pattern - static SVG, no Math.random to avoid hydration mismatch */}
         <svg className="absolute inset-0 w-full h-full opacity-5" viewBox="0 0 800 400">
@@ -1641,7 +1642,7 @@ function BrilliantFutureSection() {
             <Sparkles className="w-4 h-4 text-purple-400" />
             <span className="text-sm font-semibold text-purple-300">BRILLIANT THE FUTURE</span>
           </motion.div>
-          <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-bold text-white mb-4">
+          <motion.h2 variants={fadeInUp} className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4">
             10 Super Idea <span style={{ background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Masa Depan</span>
           </motion.h2>
           <motion.p variants={fadeInUp} className="text-lg text-white/60 max-w-3xl mx-auto">
@@ -1664,7 +1665,7 @@ function BrilliantFutureSection() {
             >
               <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                 style={{ background: `radial-gradient(circle at 30% 30%, ${idea.color}20, transparent 60%)` }} />
-              <div className="relative p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/8 transition-all duration-300 hover:border-white/20">
+              <div className="relative p-4 sm:p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/8 transition-all duration-300 hover:border-white/20">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${idea.color}20` }}>
                     <idea.icon className="w-6 h-6" style={{ color: idea.color }} />
@@ -1678,7 +1679,7 @@ function BrilliantFutureSection() {
                         {idea.tag}
                       </span>
                     </div>
-                    <h4 className="font-bold text-lg text-white mb-2">{idea.title}</h4>
+                    <h4 className="font-bold text-base sm:text-lg text-white mb-2">{idea.title}</h4>
                     <p className="text-sm text-white/55 leading-relaxed">{idea.desc}</p>
                   </div>
                 </div>
@@ -1694,9 +1695,9 @@ function BrilliantFutureSection() {
 // ---- FOOTER ----
 function Footer() {
   return (
-    <footer className="relative py-12" style={{ background: 'linear-gradient(180deg, #0a1628, #050d18)' }}>
+    <footer className="relative py-8 sm:py-12" style={{ background: 'linear-gradient(180deg, #0a1628, #050d18)' }}>
       <div className="max-w-6xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-8">
           <div>
             <h3 className="text-xl font-bold text-white mb-4" style={{ background: 'linear-gradient(135deg, #0ea5e9, #10b981)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
               PESISIR SELATAN SMART CIVILIZATION
@@ -1742,8 +1743,10 @@ function Footer() {
 
 // ===== MAIN PAGE =====
 export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-x-hidden">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-black/30 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -1760,7 +1763,29 @@ export default function Home() {
               PGA-166
             </a>
           </div>
+          <button className="md:hidden text-white p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden border-t border-white/10 bg-black/90 backdrop-blur-xl"
+            >
+              <div className="px-4 py-4 space-y-3">
+                <a href="#pillars" onClick={() => setMobileMenuOpen(false)} className="block text-white/70 hover:text-white transition-colors py-2">7 Pilar</a>
+                <a href="#dashboard" onClick={() => setMobileMenuOpen(false)} className="block text-white/70 hover:text-white transition-colors py-2">Dashboard</a>
+                <a href="#" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 rounded-lg text-white font-medium text-center" style={{ background: 'linear-gradient(135deg, #0ea5e9, #10b981)' }}>
+                  PGA-166
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       <main className="flex-1">
