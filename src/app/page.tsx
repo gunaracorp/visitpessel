@@ -1724,8 +1724,7 @@ function Footer() {
               <p>KMN Berdikari Governance Layer</p>
               <p>Edisi Berdaulat 2026</p>
             </div>
-            <h4 className="font-bold text-white mt-6 mb-2">Dipersembahkan untuk</h4>
-            <p className="text-sm font-semibold bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-300 bg-clip-text text-transparent">Gugun Gunara · M. Lutfi Azmi · Prabu Danling · Santri Angon</p>
+
           </div>
         </div>
         <div className="pt-8 border-t border-white/10 text-center">
