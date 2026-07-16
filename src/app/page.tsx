@@ -855,7 +855,7 @@ function SuperIdeasSection() {
   return (
     <section ref={ref} className="relative py-12 md:py-32" style={{ background: 'linear-gradient(180deg, #0a1628 0%, #0c2d48 50%, #071a2c 100%)' }}>
       <div className="max-w-7xl mx-auto px-4">
-        <SectionTitle light title="8 Super Idea Terobosan" subtitle="Inovasi revolusioner yang membedakan Atlas PGA-166 dari konvensi smart city biasa" />
+        <SectionTitle light title="8 Inovasi Revolusioner" subtitle="Terobosan strategis yang membedakan Atlas PGA-166 dari konvensi smart city biasa" />
         <motion.div
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
@@ -880,7 +880,7 @@ function SuperIdeasSection() {
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-xs font-bold px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: idea.color }}>
-                        SUPER IDEA #{idea.id}
+                        #{idea.id}
                       </span>
                     </div>
                     <h4 className="font-bold text-base sm:text-lg text-white mb-2">{idea.title}</h4>
@@ -1977,7 +1977,7 @@ function BrilliantFutureSection() {
             <span className="text-sm font-semibold text-purple-300">BRILLIANT THE FUTURE</span>
           </motion.div>
           <motion.h2 variants={fadeInUp} className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4">
-            10 Super Idea <span style={{ background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Masa Depan</span>
+            10 Pilar <span style={{ background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Brilliant the Future</span>
           </motion.h2>
           <motion.p variants={fadeInUp} className="text-lg text-white/60 max-w-3xl mx-auto">
             Konsep revolusioner yang melampaui smart city konvensional — menuju peradaban maritim digital yang belum pernah ada di dunia
@@ -2037,7 +2037,7 @@ function Footer() {
               PESISIR SELATAN SMART CIVILIZATION
             </h3>
             <p className="text-sm text-white/50 leading-relaxed">
-              Atlas peradaban yang menyatukan tujuh pilar Smart City, delapan Super Idea terobosan, dan kerangka tata kelola APBD berbasis blockchain kepatuhan.
+              Atlas peradaban yang menyatukan tujuh pilar Smart City, delapan inovasi revolusioner, dan kerangka tata kelola APBD berbasis blockchain kepatuhan.
             </p>
           </div>
           <div>
