@@ -12,7 +12,8 @@ import {
   Truck, Plane, ShieldCheck, Server, ChevronDown, Sparkles,
   Waves, Star, Target, Clock, CheckCircle2, AlertTriangle,
   Handshake, Scale, Lightbulb, BookOpen, Rocket,
-  Menu, X, Receipt, LayoutDashboard, Gavel, PieChart, FolderSearch, CloudCog
+  Menu, X, Receipt, LayoutDashboard, Gavel, PieChart, FolderSearch, CloudCog,
+  ShieldAlert
 } from 'lucide-react'
 
 // ===== ANIMATION UTILITIES =====
@@ -406,6 +407,56 @@ const digitalGovernanceSystems = [
     kpis: ['PAD naik 300% dalam 5 tahun', 'Tax compliance ratio ≥85%', 'Fraud detection rate 99.9%', 'Zero manual cash handling di seluruh OPD'],
     integration: 'Terintegrasi dengan DJP, Bank Nagari, dan Dashboard APBD PGA-165'
   }
+]
+
+// ===== DE-RISKED MASTERPLAN DATA =====
+const deRiskedMasterplan = {
+  scenarios: [
+    { name: 'Optimis', prob: '15%', color: '#10b981', trigger: 'Status KEK didapat 2026; anchor investor Jepang/Korea commit Rp 3T; BIM di-upgrade atau STOLport dibangun', result: 'Wisatawan 1,0 juta; PAD Rp 500M; investasi Rp 5,5T; BEP 10-12 tahun' },
+    { name: 'Moderat', prob: '50%', color: '#f59e0b', trigger: 'Status KEK tertunda 12-18 bulan; hanya 1-2 investor minor masuk; bandara tidak di-upgrade', result: 'Wisatawan 400rb; PAD Rp 200M; investasi Rp 2,4T (30%); BEP belum tercapai 2028' },
+    { name: 'Pesimis', prob: '35%', color: '#f43f5e', trigger: 'Status KEK ditolak; AMDAL gagal; investor mundur; konflik lahan naik; pergantian kepemimpinan daerah', result: 'Wisatawan 100rb; investasi Rp 0,5T; proyek terhenti; stranded asset' }
+  ],
+  targets: [
+    { metric: 'Wisatawan/tahun', original: '2,5 juta', deRisked: '1,0 juta (optimis); 400rb (moderat)', reason: 'Akses bandara 3-4 jam dari BIM belum diselesaikan' },
+    { metric: 'PAD/tahun', original: 'Rp 850 M', deRisked: 'Rp 500 M (optimis); Rp 200 M (moderat)', reason: 'Economic leakage 60-80% tanpa local content wajib' },
+    { metric: 'Investasi total', original: 'Rp 8T dalam 3 tahun', deRisked: 'Rp 2,4T Phase 1 + Rp 5,6T Phase 2 conditional', reason: 'Phased delivery membatasi eksposur' },
+    { metric: 'BEP', original: '6-7 tahun', deRisked: '10-12 tahun (optimis)', reason: 'Rp 8T / 7 tahun = Rp 1,14T/tahun — setara PAD seluruh kabupaten' },
+    { metric: 'UMKM digital', original: '2,5 juta', deRisked: '25.000 (realistis)', reason: '2,5 juta UMKM berarti 14 UMKM per jiwa — mustahil' },
+    { metric: 'Lapangan kerja', original: '25.000', deRisked: '8.000-12.000', reason: 'Multiplier ekonomi lokal terbatas' }
+  ]
+}
+
+// ===== VALIDATION GATES DATA =====
+const validationGates = [
+  { gate: 1, title: 'Audit Independen PT. Medina', subtitle: 'KAP Big-Four Verification', owner: 'M. Lutfi Azmi', deadline: '8 minggu', icon: ShieldCheck, color: '#0ea5e9', kpis: ['Rating kapasitas diberikan (mampu / sebagian / tidak mampu)', 'Struktur modal & beneficial ownership terverifikasi', 'Proyek historis 5 tahun terakhir diaudit', 'Kapasitas pendanaan Rp 8T terverifikasi'], fallback: 'Tetapkan PT. Medina sebagai co-developer, bukan lead developer; cari BUMN sebagai lead' },
+  { gate: 2, title: 'Studi Kelayakan Independen', subtitle: 'Third-Party Feasibility Study', owner: 'Prabu Danling', deadline: '16 minggu', icon: FileCheck, color: '#10b981', kpis: ['Demand forecast credible (confidence interval 90%)', 'AMDAL preliminary disetujui KLHK', 'Disaster risk assessment selesai', 'Prioritisasi sektor berdasarkan ROI'], fallback: 'Restrukturisasi menjadi phased delivery dengan Phase 1 terbatas' },
+  { gate: 3, title: 'Status KEK/KPBTU Formal', subtitle: 'National Strategic Area Designation', owner: 'Gugun Gunara', deadline: '24 bulan', icon: Landmark, color: '#f59e0b', kpis: ['Status formal masuk daftar nasional', 'PERPRES diterbitkan', 'Insentif pajak aktif', 'Fasilitas KPBU tersedia'], fallback: 'Phase 1 dengan pure private investment + Green Sukuk Daerah; lobbying paralel untuk Phase 2' }
+]
+
+// ===== EXECUTION TRACKS DATA =====
+const executionTracks = [
+  { track: 1, title: 'Phased Delivery', icon: Rocket, color: '#0ea5e9', desc: 'Phase 1 (Rp 2,4T, 30%) terdiri dari Marina inti, Smart Government infra, 1 hotel bintang-5, dan infrastruktur dasar. Phase 2 (Rp 5,6T) baru setelah Phase 1 terbukti demand.', gate: 'Okupansi hotel ≥60%; smart infra adoption ≥40%; PAD digital terbentuk; CBA 80% nagari' },
+  { track: 2, title: 'Aksesibilitas Bandara', icon: Plane, color: '#10b981', desc: 'Resolusi gap aksesibilitas paling kritis. BIM berada 3-4 jam perjalanan darat. Solusi: shuttle premium, upgrade BIM, dan kajian STOLport.', gate: 'Waktu tempuh ≤2,5 jam; STOLport groundbreaking 2027' },
+  { track: 3, title: 'Community Trust Building', icon: Users, color: '#f59e0b', desc: 'Skema co-ownership — koperasi nagari memegang saham SPV Marina. Community Benefit Agreement: revenue share 5-10%, prioritas employment lokal 40%, community development fund 1%.', gate: 'CBA ditandatangani 80% nagari terdampak; zero konflik lahan di pengadilan' },
+  { track: 4, title: 'Capacity Building SDM', icon: GraduationCap, color: '#8b5cf6', desc: 'Kemitraan UNAND, UIN Imam Bonjol, Politeknik Negeri Padang. Program 2-tahun dengan kurikulum smart city. Target: 500 lulusan tersertifikasi 2028.', gate: '500 lulusan tersertifikasi; absorption rate 70%; 5 program studi baru' },
+  { track: 5, title: 'KPBU + BUMD Counterpart', icon: Building2, color: '#f43f5e', desc: 'BUMD sebagai counterpart, bukan Pemda langsung. Revenue sharing 60-40 (investor-pemda). Escrow O&M 5 tahun. Performance bond 10%.', gate: 'BUMD terbentuk; escrow account aktif; IPM diangkat; kontrak EPC fixed-price' }
+]
+
+// ===== BREAKTHROUGH PILOTS DATA =====
+const breakthroughPilots = [
+  { id: 1, title: 'Smart Village Cooperative Model', approach: 'First Principles + Jobs-to-be-Done', hypothesis: 'Smart city yang dimiliki koperasi nagari menghasilkan adoption rate >50% dalam 6 bulan dan revenue stream terbukti dalam 12 bulan.', location: '3 nagari: pesisir, pertanian, perkotaan', budget: '< Rp 5 Miliar', metrics: 'Anggota ≥30% populasi; transaksi ≥Rp 50jt/nagari/bulan; adoption ≥40%', scaleUp: '≥2 dari 3 nagari mencapai metrik → scale-up ke 30 nagari', owner: 'Santri Angon', icon: Handshake, color: '#0ea5e9' },
+  { id: 2, title: 'Cruise-First Strategy', approach: 'Demand Validation + Market Testing', hypothesis: 'Minimal 1 cruise line internasional akan memberikan LOI untuk pilot route 2027 jika site preparation minimal dilakukan.', location: 'Terminal kandidat di Pesisir Selatan', budget: '< Rp 2 Miliar', metrics: 'LOI dari 1 cruise line; site visit Pelindo completed; pre-launch booking ≥30%', scaleUp: 'LOI diterima → cruise terminal jadi prioritas Phase 1', owner: 'Prabu Danling', icon: Ship, color: '#10b981' },
+  { id: 3, title: 'Disaster-Resilient Floating Pavilion', approach: 'Blue Ocean ERRC + Cross-Industry Analogy', hypothesis: 'Floating pavilion modular dapat beroperasi komersial dengan maintenance cost <5%/tahun dan guest satisfaction ≥80%.', location: '1 lokasi terpilih pesisir', budget: '< Rp 3 Miliar', metrics: 'Stabilitas ≥95%; maintenance <5%; feedback tamu ≥4/5; respons tsunami kecil aman', scaleUp: 'Sukses → replikasi 50-100 pavilion sebagai Phase 1 Waterfront', owner: 'Prabu Danling', icon: Waves, color: '#f59e0b' }
+]
+
+// ===== RED LINES DATA =====
+const redLines = [
+  { id: 1, line: 'MoU ditandatangani sebelum 3 gerbang validasi lulus', consequence: 'Pembatalan otomatis MoU' },
+  { id: 2, line: 'Konstruksi permanen dalam radius 500m garis pantai tanpa AMDAL tsunami', consequence: 'Pembatalan otomatis izin mendirikan bangunan' },
+  { id: 3, line: 'Tanah ulayat dijual tanpa persetujuan KAN dan skema co-ownership', consequence: 'Pembatalan otomatis transaksi dan ganti rugi 2x' },
+  { id: 4, line: 'Investasi Phase 2 dimulai sebelum gate review Phase 1 terpenuhi', consequence: 'Pembatalan otomatis kontrak Phase 2' },
+  { id: 5, line: 'Data warga disimpan di cloud asing tanpa Sovereign Data Trust', consequence: 'Pembatalan otomatis kontrak vendor' },
+  { id: 6, line: 'BEBAN UTANG DAERAH meningkat melampaui batas fiskal tanpa escrow O&M', consequence: 'Pembatalan otomatis skema pembiayaan' }
 ]
 
 // ===== COMPONENTS =====
@@ -1922,6 +1973,665 @@ function DigitalGovernanceSection() {
 }
 
 // ---- BRILLIANT FUTURE SUPER IDEAS SECTION ----
+// ---- DE-RISKED MASTERPLAN SECTION ----
+function DeRiskedMasterplanSection() {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const [expandedTarget, setExpandedTarget] = useState<number | null>(null)
+
+  return (
+    <section ref={ref} className="relative py-12 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #0a0f1a 0%, #0d1520 50%, #0a0f1a 100%)' }}>
+      {/* Grid pattern background */}
+      <div className="absolute inset-0 opacity-[0.04]" style={{
+        backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+        backgroundSize: '40px 40px'
+      }} />
+
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+        <motion.div
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          variants={staggerContainer}
+          className="text-center mb-12"
+        >
+          <motion.div variants={scaleIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 mb-6">
+            <ShieldCheck className="w-4 h-4 text-cyan-400" />
+            <span className="text-sm font-semibold text-cyan-300">PGA-167 · DE-RISKED MASTERPLAN</span>
+          </motion.div>
+          <motion.h2 variants={fadeInUp} className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4">
+            Tiga Skenario <span style={{ background: 'linear-gradient(135deg, #10b981, #f59e0b, #f43f5e)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>De-Risked</span>
+          </motion.h2>
+          <motion.p variants={fadeInUp} className="text-base sm:text-lg text-white/60 max-w-3xl mx-auto">
+            Target realistis berdasarkan probabilitas — bukan angka indah tanpa dasar
+          </motion.p>
+        </motion.div>
+
+        {/* Scenario Cards */}
+        <motion.div
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          variants={staggerContainer}
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-12"
+        >
+          {deRiskedMasterplan.scenarios.map((scenario, i) => {
+            const probNum = parseInt(scenario.prob)
+            return (
+              <motion.div
+                key={i}
+                variants={fadeInUp}
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="group relative"
+              >
+                <div
+                  className="relative rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm h-full"
+                  style={{ borderTop: `3px solid ${scenario.color}` }}
+                >
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{ background: `radial-gradient(circle at 50% 0%, ${scenario.color}15, transparent 60%)` }} />
+                  <div className="relative p-4 sm:p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-lg sm:text-xl font-bold text-white">{scenario.name}</h3>
+                      <span className="text-2xl sm:text-3xl font-black" style={{ color: scenario.color }}>{scenario.prob}</span>
+                    </div>
+
+                    {/* Probability Bar */}
+                    <div className="w-full h-2 rounded-full bg-white/10 mb-5 overflow-hidden">
+                      <motion.div
+                        className="h-full rounded-full"
+                        style={{ background: scenario.color }}
+                        initial={{ width: 0 }}
+                        animate={isInView ? { width: `${probNum}%` } : { width: 0 }}
+                        transition={{ duration: 1.5, delay: 0.3 + i * 0.2, ease: 'easeOut' }}
+                      />
+                    </div>
+
+                    <div className="mb-3">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-1">Trigger</p>
+                      <p className="text-sm text-white/70 leading-relaxed">{scenario.trigger}</p>
+                    </div>
+                    <div className="pt-3 border-t border-white/10">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-1">Hasil</p>
+                      <p className="text-sm font-medium" style={{ color: scenario.color }}>{scenario.result}</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )
+          })}
+        </motion.div>
+
+        {/* Comparison Table */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden"
+        >
+          <div className="p-4 sm:p-6 border-b border-white/10">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-1">Target: Original vs De-Risked</h3>
+            <p className="text-sm text-white/50">Klik baris untuk melihat alasan penyesuaian</p>
+          </div>
+          <div className="divide-y divide-white/5">
+            {deRiskedMasterplan.targets.map((target, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ delay: 0.6 + i * 0.1 }}
+                className="cursor-pointer hover:bg-white/5 transition-colors"
+                onClick={() => setExpandedTarget(expandedTarget === i ? null : i)}
+              >
+                <div className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
+                  <div className="sm:w-40 shrink-0">
+                    <span className="text-sm font-semibold text-white/80">{target.metric}</span>
+                  </div>
+                  <div className="sm:w-44 shrink-0">
+                    <span className="text-sm line-through text-red-400/70">{target.original}</span>
+                  </div>
+                  <div className="flex-1">
+                    <span className="text-sm font-semibold text-emerald-400">{target.deRisked}</span>
+                  </div>
+                  <ChevronDown
+                    className={`w-5 h-5 text-white/30 transition-transform shrink-0 ${expandedTarget === i ? 'rotate-180' : ''}`}
+                  />
+                </div>
+                <AnimatePresence>
+                  {expandedTarget === i && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-4 sm:px-5 pb-4 sm:pb-5 pl-4 sm:pl-[calc(2.5rem+10rem+7rem)]">
+                        <div className="flex items-start gap-2 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
+                          <AlertTriangle className="w-4 h-4 text-amber-400 mt-0.5 shrink-0" />
+                          <span className="text-sm text-amber-300/90">{target.reason}</span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
+// ---- VALIDATION GATES SECTION ----
+function ValidationGatesSection() {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const [expandedGate, setExpandedGate] = useState<number | null>(null)
+
+  return (
+    <section ref={ref} className="relative py-12 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #f0f9ff 0%, #ffffff 50%, #f0fdf4 100%)' }}>
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+        <SectionTitle
+          title="Tiga Gerbang Validasi"
+          subtitle="Tidak satu rupiah pun diinvestasikan sebelum validasi independen lulus"
+        />
+
+        <div className="relative">
+          {/* Vertical Timeline Line */}
+          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-sky-200 via-emerald-200 to-amber-200 -translate-x-1/2" />
+
+          <motion.div
+            initial="hidden"
+            animate={isInView ? 'visible' : 'hidden'}
+            variants={staggerContainer}
+            className="space-y-6 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8"
+          >
+            {validationGates.map((gate, i) => {
+              const Icon = gate.icon
+              const isExpanded = expandedGate === i
+              return (
+                <motion.div
+                  key={i}
+                  variants={fadeInUp}
+                  className="relative"
+                >
+                  {/* Timeline dot */}
+                  <div className="hidden lg:flex absolute -left-4 top-8 w-8 h-8 rounded-full items-center justify-center z-10"
+                    style={{ left: '50%', transform: 'translateX(-50%)', background: gate.color, boxShadow: `0 0 20px ${gate.color}40` }}>
+                    <span className="text-white text-xs font-bold">{gate.gate}</span>
+                  </div>
+
+                  <motion.div
+                    className="cursor-pointer group"
+                    whileHover={{ y: -4 }}
+                    onClick={() => setExpandedGate(isExpanded ? null : i)}
+                  >
+                    <div className="relative rounded-2xl border bg-white shadow-lg hover:shadow-xl transition-all duration-300 h-full overflow-hidden"
+                      style={{ borderColor: isExpanded ? gate.color : '#e5e7eb' }}>
+                      {/* Gate Top Bar */}
+                      <div className="h-1.5 w-full" style={{ background: `linear-gradient(90deg, ${gate.color}, ${gate.color}80)` }} />
+
+                      <div className="p-4 sm:p-6">
+                        {/* Gate Number & Icon */}
+                        <div className="flex items-center gap-3 mb-4">
+                          <div className="relative">
+                            <motion.div
+                              className="w-12 h-12 rounded-xl flex items-center justify-center"
+                              style={{ background: `${gate.color}15` }}
+                              animate={isExpanded ? { rotate: [0, -10, 10, 0] } : {}}
+                              transition={{ duration: 0.5 }}
+                            >
+                              <Icon className="w-6 h-6" style={{ color: gate.color }} />
+                            </motion.div>
+                            {/* Lock/Unlock indicator */}
+                            <motion.div
+                              className="absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center"
+                              style={{ background: isExpanded ? '#10b981' : '#94a3b8' }}
+                              animate={isExpanded ? { scale: [1, 1.3, 1] } : {}}
+                              transition={{ duration: 0.4 }}
+                            >
+                              {isExpanded ? (
+                                <CheckCircle2 className="w-3 h-3 text-white" />
+                              ) : (
+                                <Lock className="w-3 h-3 text-white" />
+                              )}
+                            </motion.div>
+                          </div>
+                          <div>
+                            <span className="text-xs font-bold uppercase tracking-wider" style={{ color: gate.color }}>
+                              Gerbang {gate.gate}
+                            </span>
+                            <h3 className="font-bold text-foreground text-sm sm:text-base">{gate.title}</h3>
+                          </div>
+                        </div>
+
+                        <p className="text-xs font-medium text-muted-foreground mb-3">{gate.subtitle}</p>
+
+                        {/* Owner & Deadline */}
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                            <Users className="w-3 h-3" /> {gate.owner}
+                          </span>
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium" style={{ background: `${gate.color}15`, color: gate.color }}>
+                            <Clock className="w-3 h-3" /> {gate.deadline}
+                          </span>
+                        </div>
+
+                        {/* Expandable KPIs */}
+                        <AnimatePresence>
+                          {isExpanded && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.3 }}
+                              className="overflow-hidden"
+                            >
+                              <div className="pt-4 border-t border-border space-y-3">
+                                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">KPI Validasi</p>
+                                {gate.kpis.map((kpi, j) => (
+                                  <motion.div
+                                    key={j}
+                                    initial={{ opacity: 0, x: -10 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: j * 0.1 }}
+                                    className="flex items-start gap-2"
+                                  >
+                                    <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" style={{ color: gate.color }} />
+                                    <span className="text-sm text-foreground/80">{kpi}</span>
+                                  </motion.div>
+                                ))}
+
+                                {/* Fallback Plan */}
+                                <div className="mt-4 p-3 rounded-lg border border-amber-200 bg-amber-50">
+                                  <div className="flex items-center gap-1.5 mb-1">
+                                    <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
+                                    <span className="text-xs font-semibold text-amber-700 uppercase tracking-wider">Fallback Plan</span>
+                                  </div>
+                                  <p className="text-sm text-amber-800/90">{gate.fallback}</p>
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+
+                        {!isExpanded && (
+                          <p className="text-xs text-muted-foreground text-center mt-2">Klik untuk melihat KPI & Fallback →</p>
+                        )}
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              )
+            })}
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ---- EXECUTION TRACKS SECTION ----
+function ExecutionTracksSection() {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const [expandedTrack, setExpandedTrack] = useState<number | null>(null)
+
+  return (
+    <section ref={ref} className="relative py-12 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #0a0f1a 0%, #111827 50%, #0a0f1a 100%)' }}>
+      {/* Subtle grid */}
+      <div className="absolute inset-0 opacity-[0.03]" style={{
+        backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+        backgroundSize: '60px 60px'
+      }} />
+
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+        <motion.div
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          variants={staggerContainer}
+          className="text-center mb-12"
+        >
+          <motion.div variants={scaleIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 mb-6">
+            <Rocket className="w-4 h-4 text-emerald-400" />
+            <span className="text-sm font-semibold text-emerald-300">LIMA JALUR EKSEKUSI PARALEL</span>
+          </motion.div>
+          <motion.h2 variants={fadeInUp} className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4">
+            5 Jalur Berjalan <span style={{ background: 'linear-gradient(135deg, #0ea5e9, #10b981)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Bersamaan</span>
+          </motion.h2>
+          <motion.p variants={fadeInUp} className="text-base sm:text-lg text-white/60 max-w-3xl mx-auto">
+            Eksekusi paralel — setiap jalur punya gate review sendiri untuk memastikan akuntabilitas
+          </motion.p>
+        </motion.div>
+
+        <div className="space-y-4">
+          {executionTracks.map((track, i) => {
+            const Icon = track.icon
+            const isExpanded = expandedTrack === i
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -60 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.2 + i * 0.15 }}
+                className="relative"
+              >
+                {/* Track Line (horizontal) */}
+                <div className="absolute top-0 left-0 bottom-0 w-1 rounded-full"
+                  style={{ background: `linear-gradient(180deg, ${track.color}, ${track.color}40)` }} />
+
+                <div
+                  className="cursor-pointer ml-4 sm:ml-6 group"
+                  onClick={() => setExpandedTrack(isExpanded ? null : i)}
+                >
+                  <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/8 transition-all duration-300 overflow-hidden"
+                    style={{ borderLeft: `3px solid ${track.color}` }}>
+                    <div className="p-4 sm:p-5 flex items-center gap-3 sm:gap-5">
+                      {/* Track Number & Icon */}
+                      <div className="flex items-center gap-3 shrink-0">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center"
+                          style={{ background: `${track.color}20` }}>
+                          <Icon className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: track.color }} />
+                        </div>
+                        <span className="text-xs font-black text-white/30 sm:hidden">T{track.track}</span>
+                      </div>
+
+                      {/* Track Info */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="hidden sm:inline text-xs font-black text-white/30">TRACK {track.track}</span>
+                          <h3 className="font-bold text-white text-sm sm:text-base truncate">{track.title}</h3>
+                        </div>
+                        <p className="text-sm text-white/50 line-clamp-2 hidden sm:block">{track.desc}</p>
+                      </div>
+
+                      {/* Expand Toggle */}
+                      <motion.div
+                        animate={{ rotate: isExpanded ? 180 : 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="shrink-0"
+                      >
+                        <ChevronDown className="w-5 h-5 text-white/30" />
+                      </motion.div>
+                    </div>
+
+                    {/* Mobile description */}
+                    <div className="px-4 sm:px-5 pb-2 sm:hidden">
+                      <p className="text-sm text-white/50">{track.desc}</p>
+                    </div>
+
+                    {/* Expanded Gate Review */}
+                    <AnimatePresence>
+                      {isExpanded && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="overflow-hidden"
+                        >
+                          <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-2 border-t border-white/5">
+                            <div className="flex items-start gap-2 p-3 rounded-lg border" style={{ background: `${track.color}10`, borderColor: `${track.color}30` }}>
+                              <Target className="w-4 h-4 mt-0.5 shrink-0" style={{ color: track.color }} />
+                              <div>
+                                <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: track.color }}>Gate Review Criteria</p>
+                                <p className="text-sm text-white/70">{track.gate}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </div>
+              </motion.div>
+            )
+          })}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ---- BREAKTHROUGH PILOTS SECTION ----
+function BreakthroughPilotsSection() {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const [flippedPilot, setFlippedPilot] = useState<number | null>(null)
+
+  return (
+    <section ref={ref} className="relative py-12 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #f0f9ff 0%, #ffffff 30%, #f0fdf4 70%, #fffbeb 100%)' }}>
+      {/* Subtle wave pattern */}
+      <div className="absolute inset-0 opacity-[0.03]">
+        <svg className="absolute bottom-0 w-full" viewBox="0 0 1200 200" preserveAspectRatio="none" style={{ height: '40%' }}>
+          <path d="M0,100 C200,20 400,180 600,100 C800,20 1000,180 1200,100 L1200,200 L0,200 Z" fill="#0ea5e9" />
+          <path d="M0,140 C200,60 400,200 600,140 C800,60 1000,200 1200,140 L1200,200 L0,200 Z" fill="#10b981" />
+        </svg>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+        <motion.div
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          variants={staggerContainer}
+          className="text-center mb-12"
+        >
+          <motion.div variants={scaleIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 mb-6">
+            <Sparkles className="w-4 h-4 text-emerald-600" />
+            <span className="text-sm font-semibold text-emerald-700">CHEAP TEST BEFORE BIG BET</span>
+          </motion.div>
+          <motion.h2 variants={fadeInUp} className="text-2xl sm:text-3xl md:text-5xl font-bold text-foreground mb-4">
+            Tiga Pilot <span style={{ background: 'linear-gradient(135deg, #0ea5e9, #10b981)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Terobosan</span>
+          </motion.h2>
+          <motion.p variants={fadeInUp} className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto mb-4">
+            Validasi hipotesis sebelum investasi besar — pilot kecil, data nyata, keputusan cerdas
+          </motion.p>
+          <motion.div variants={scaleIn} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border-2 border-amber-300 bg-amber-50 shadow-lg">
+            <Receipt className="w-5 h-5 text-amber-600" />
+            <span className="font-bold text-amber-800">Total &lt; Rp 10 Miliar</span>
+            <span className="text-sm text-amber-600">(0,2% dari Rp 8T)</span>
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          variants={staggerContainer}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+        >
+          {breakthroughPilots.map((pilot, i) => {
+            const Icon = pilot.icon
+            const isFlipped = flippedPilot === i
+            return (
+              <motion.div
+                key={i}
+                variants={fadeInUp}
+                whileHover={{ y: -5 }}
+                className="cursor-pointer group"
+                onClick={() => setFlippedPilot(isFlipped ? null : i)}
+                style={{ perspective: '1000px' }}
+              >
+                <motion.div
+                  className="relative h-full"
+                  animate={{ rotateY: isFlipped ? 180 : 0 }}
+                  transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  style={{ transformStyle: 'preserve-3d' }}
+                >
+                  {/* Front */}
+                  <div className="absolute inset-0 rounded-2xl border bg-white shadow-lg hover:shadow-xl transition-shadow overflow-hidden"
+                    style={{ borderColor: `${pilot.color}40`, backfaceVisibility: 'hidden' }}>
+                    <div className="h-2 w-full" style={{ background: `linear-gradient(90deg, ${pilot.color}, ${pilot.color}80)` }} />
+                    <div className="p-4 sm:p-6">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: `${pilot.color}15` }}>
+                          <Icon className="w-6 h-6" style={{ color: pilot.color }} />
+                        </div>
+                        <div>
+                          <span className="text-xs font-bold text-muted-foreground">PILOT {pilot.id}</span>
+                          <h3 className="font-bold text-foreground text-sm sm:text-base leading-tight">{pilot.title}</h3>
+                        </div>
+                      </div>
+
+                      <div className="space-y-3">
+                        <div>
+                          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Pendekatan</p>
+                          <p className="text-sm text-foreground/80">{pilot.approach}</p>
+                        </div>
+                        <div className="flex items-center gap-2 p-3 rounded-lg" style={{ background: `${pilot.color}08`, border: `1px solid ${pilot.color}20` }}>
+                          <Receipt className="w-4 h-4 shrink-0" style={{ color: pilot.color }} />
+                          <span className="text-sm font-bold" style={{ color: pilot.color }}>{pilot.budget}</span>
+                        </div>
+                      </div>
+
+                      <p className="text-xs text-center text-muted-foreground mt-4">Klik untuk detail →</p>
+                    </div>
+                  </div>
+
+                  {/* Back */}
+                  <div className="absolute inset-0 rounded-2xl border bg-white shadow-lg overflow-hidden"
+                    style={{ borderColor: `${pilot.color}40`, backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
+                    <div className="h-2 w-full" style={{ background: `linear-gradient(90deg, ${pilot.color}, ${pilot.color}80)` }} />
+                    <div className="p-4 sm:p-6 space-y-3">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Icon className="w-5 h-5" style={{ color: pilot.color }} />
+                        <h3 className="font-bold text-foreground text-sm leading-tight">{pilot.title}</h3>
+                      </div>
+
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: pilot.color }}>Hipotesis</p>
+                        <p className="text-sm text-foreground/80 leading-relaxed">{pilot.hypothesis}</p>
+                      </div>
+
+                      <div>
+                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Lokasi</p>
+                        <p className="text-sm text-foreground/80">{pilot.location}</p>
+                      </div>
+
+                      <div>
+                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Metrik Keberhasilan</p>
+                        <p className="text-sm text-foreground/80">{pilot.metrics}</p>
+                      </div>
+
+                      <div className="p-2.5 rounded-lg border border-emerald-200 bg-emerald-50">
+                        <p className="text-xs font-semibold text-emerald-700 mb-0.5">Scale-Up Decision</p>
+                        <p className="text-xs text-emerald-800">{pilot.scaleUp}</p>
+                      </div>
+
+                      <div className="flex items-center gap-1.5 pt-1">
+                        <Users className="w-3.5 h-3.5 text-muted-foreground" />
+                        <span className="text-xs font-medium text-muted-foreground">{pilot.owner}</span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            )
+          })}
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
+// ---- RED LINES SECTION ----
+function RedLinesSection() {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-80px' })
+
+  return (
+    <section ref={ref} className="relative py-12 md:py-32 overflow-hidden" style={{ background: 'linear-gradient(180deg, #1a0a0a 0%, #0a0f1a 50%, #1a0a0a 100%)' }}>
+      {/* Red glow effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full opacity-[0.07]" style={{ background: 'radial-gradient(circle, #f43f5e, transparent)' }} />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full opacity-[0.07]" style={{ background: 'radial-gradient(circle, #ef4444, transparent)' }} />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+        <motion.div
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          variants={staggerContainer}
+          className="text-center mb-12"
+        >
+          <motion.div variants={scaleIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-red-500/30 bg-red-500/10 mb-6">
+            <ShieldAlert className="w-4 h-4 text-red-400" />
+            <span className="text-sm font-semibold text-red-300">ENAM RED LINES — Pembatalan Otomatis MoU</span>
+          </motion.div>
+          <motion.h2 variants={fadeInUp} className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4">
+            6 Garis <span style={{ background: 'linear-gradient(135deg, #f43f5e, #ef4444)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Merah</span>
+          </motion.h2>
+          <motion.p variants={fadeInUp} className="text-base sm:text-lg text-white/60 max-w-3xl mx-auto">
+            Batas yang tidak bisa dilanggar — pelanggaran berarti pembatalan otomatis
+          </motion.p>
+        </motion.div>
+
+        <div className="space-y-4 max-w-4xl mx-auto">
+          {redLines.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: -40 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.2 + i * 0.12 }}
+              className="group"
+            >
+              <div className="relative rounded-xl border-l-4 border-l-red-500 border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-red-500/5 transition-all duration-300 overflow-hidden">
+                {/* Pulsing red border glow */}
+                <motion.div
+                  className="absolute left-0 top-0 bottom-0 w-1"
+                  style={{ background: '#f43f5e' }}
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+                />
+
+                <div className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
+                  {/* Red Line Number */}
+                  <div className="flex items-center gap-3 shrink-0">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-red-500/20">
+                      <span className="text-red-400 font-black text-sm">{item.id}</span>
+                    </div>
+                    <ShieldAlert className="w-5 h-5 text-red-500 sm:hidden" />
+                  </div>
+
+                  {/* Red Line Text */}
+                  <div className="flex-1">
+                    <p className="text-white font-semibold text-sm sm:text-base leading-relaxed">{item.line}</p>
+                  </div>
+
+                  {/* Consequence */}
+                  <div className="flex items-center gap-2 shrink-0">
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-500/15 border border-red-500/30">
+                      <AlertTriangle className="w-3.5 h-3.5 text-red-400" />
+                      <span className="text-xs sm:text-sm font-bold text-red-300">{item.consequence}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Bottom Warning Banner */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ delay: 1.2, duration: 0.6 }}
+          className="mt-10 max-w-4xl mx-auto"
+        >
+          <div className="p-4 sm:p-6 rounded-2xl border-2 border-red-500/30 bg-red-500/5 text-center">
+            <div className="flex items-center justify-center gap-3 mb-2">
+              <ShieldAlert className="w-6 h-6 text-red-400" />
+              <span className="text-lg sm:text-xl font-bold text-red-300">PEMBATALAN OTOMATIS</span>
+            </div>
+            <p className="text-sm sm:text-base text-white/60">
+              Setiap pelanggaran red line mengaktifkan klausul pembatalan otomatis — tanpa pengecualian, tanpa negosiasi ulang
+            </p>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
 function BrilliantFutureSection() {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
@@ -2133,6 +2843,11 @@ export default function Home() {
         <CommandCenterSection />
         <DigitalTwinSection />
         <WorldBenchmarkSection />
+        <DeRiskedMasterplanSection />
+        <ValidationGatesSection />
+        <ExecutionTracksSection />
+        <BreakthroughPilotsSection />
+        <RedLinesSection />
         <BrilliantFutureSection />
         <GapAnalysisSection />
         <RoadmapSection />
